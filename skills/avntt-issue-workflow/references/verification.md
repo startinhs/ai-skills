@@ -35,7 +35,7 @@ If the build is blocked by locked DLLs or a running user app, do not kill the us
 For every bugfix in comment-capable source, add a trace comment near the fixed logic:
 
 ```csharp
-// Issue 1371 | fixbug-issue-1371/{Owner} | c3ae31bc4
+// Issue 1371 | fix/fix-promotionDetail-1371-tinhlm | c3ae31bc4
 // Keep detail audit records under the promotion header history.
 ```
 

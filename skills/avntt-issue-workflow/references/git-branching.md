@@ -40,15 +40,15 @@ fix/fix-{ShortDesc}-{Owner}             ← khi không có mã issue
 ```
 
 **Rules:**
-- `{ShortDesc}` — tên ngắn gọn mô tả nội dung fix, dùng PascalCase hoặc camelCase, không dấu cách. Ví dụ: `CKTM`, `SAPclearLine`, `InvoicePAQty`.
+- `{ShortDesc}` — tên ngắn gọn mô tả nội dung fix, ASCII, không dấu cách; dùng camelCase hoặc lowercase words nối bằng `-`. Ví dụ: `promotionDetail`, `cktm-triple`, `sapClearLine`.
 - `{IssueNo}` — mã số issue (3–4 chữ số). Bỏ qua nếu không có mã issue.
 - `{Owner}` — username của người fix. Mặc định: `tinhlm`.
 
 **Examples:**
 ```text
-fix/fix-CKTM-1471-tinhlm          ← có mã issue 1471
-fix/fix-SAP-clearLineCKTM-tinhlm  ← không có mã issue
-fix/fix-InvoicePAQty-1648-tinhlm
+fix/fix-promotionDetail-1471-tinhlm  ← có mã issue 1471
+fix/fix-cktm-triple-tinhlm           ← không có mã issue
+fix/fix-invoicePAQty-1648-tinhlm
 ```
 
 Resolve `{Owner}` before creating or switching branches:
@@ -67,11 +67,15 @@ git fetch origin fix/fix-{ShortDesc}-{IssueNo}-{Owner}
 git checkout -b fix/fix-{ShortDesc}-{IssueNo}-{Owner} origin/fix/fix-{ShortDesc}-{IssueNo}-{Owner}
 ```
 
+If there is no issue number, omit `-{IssueNo}` in the commands.
+
 If the branch does not exist:
 
 ```powershell
 git checkout -b fix/fix-{ShortDesc}-{IssueNo}-{Owner}
 ```
+
+If there is no issue number, use `fix/fix-{ShortDesc}-{Owner}`.
 
 ## Forbidden
 
@@ -88,5 +92,7 @@ Push only the fix branch:
 ```powershell
 git push -u origin fix/fix-{ShortDesc}-{IssueNo}-{Owner}
 ```
+
+If there is no issue number, push `fix/fix-{ShortDesc}-{Owner}`.
 
 If push is rejected because remote has new commits, stop and inspect. Do not force push unless the user explicitly instructs it and the branch ownership is clear.

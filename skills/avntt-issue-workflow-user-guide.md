@@ -31,9 +31,9 @@ Skill không thay thế việc xác nhận nghiệp vụ. Nếu issue mơ hồ, 
 
 Cần có tối thiểu:
 
-- Repo path, ví dụ: `C:\Users\HQsoft\Desktop\AVNTT\backendavn`
-- Issue source, ví dụ: `Excel/ByFunction/3.UAT-Chương trình khuyến mãi.csv`
-- Branch owner suffix, ví dụ: `toantv`, `duhk`, `tinhlm`
+- Repo path, ví dụ: `C:\HQSOFT\PROJECTS\CUSTOM\Xspire_AVN\backendavn`
+- Issue source, ví dụ: `C:\HQSOFT\PROJECTS\CUSTOM\Xspire_AVN\ai-skills\input\task250626.xlsx`
+- Branch owner suffix, ví dụ: `tinhlm`
 - Worklog/progress nếu đã có:
   - `.codex-worklog/state.md`
   - `.codex-worklog/functions/<function-slug>/progress.md`
@@ -42,10 +42,19 @@ Cần có tối thiểu:
 Branch issue sẽ có format:
 
 ```text
-fixbug-issue-{IssueNo}/{Owner}
+fix/fix-{ShortDesc}-{IssueNo}-{Owner}
+fix/fix-{ShortDesc}-{Owner}
 ```
 
-Nếu chưa biết `{Owner}`, agent sẽ hỏi trước khi tạo/switch branch.
+Ví dụ:
+
+```text
+fix/fix-promotionDetail-1471-tinhlm
+fix/fix-cktm-triple-tinhlm
+```
+
+`{ShortDesc}` là mô tả ngắn không dấu, không dấu cách, có thể dùng camelCase hoặc các từ nối bằng `-`.
+Nếu chưa biết `{Owner}`, agent sẽ mặc định `tinhlm` hoặc hỏi một lần trước khi tạo/switch branch.
 
 ## Prompt khuyến nghị cho người mới
 
@@ -124,7 +133,7 @@ Use $avntt-issue-workflow.
 
 Repo: <repo-path>
 Issue No: <issue-no>
-Branch: fixbug-issue-<issue-no>/<owner-suffix>
+Branch: fix/fix-<short-desc>-<issue-no>-<owner-suffix>
 
 Đây là correction cho issue đã done.
 Đọc lại issue note, commits cũ, CSV/worklog nếu cần.
@@ -140,7 +149,7 @@ Khi prompt đủ thông tin, agent sẽ:
 2. Đọc row của issue trong CSV/XLSX.
 3. Kiểm tra git status, staged files và worktree.
 4. Sync `release/1.0.0-avntt-rc1`.
-5. Tạo/switch branch `fixbug-issue-{IssueNo}/{Owner}`.
+5. Tạo/switch branch `fix/fix-{ShortDesc}-{IssueNo}-{Owner}` hoặc `fix/fix-{ShortDesc}-{Owner}`.
 6. Dùng `superpowers:brainstorming` để phân tích yêu cầu.
 7. Hỏi lại nếu thiếu view, field, button, popup, grid hoặc expected behavior.
 8. Chạy RED/GREEN hoặc static regression check.
@@ -156,14 +165,14 @@ Khi prompt đủ thông tin, agent sẽ:
 Mỗi bugfix trong file có hỗ trợ comment nên có trace comment gần logic đã sửa:
 
 ```csharp
-// Issue 1371 | fixbug-issue-1371/toantv | c3ae31bc4
+// Issue 1371 | fix/fix-promotionDetail-1371-tinhlm | c3ae31bc4
 // Keep detail audit records under the promotion header history.
 ```
 
 Nếu owner khác thì branch trong comment phải đúng owner đó, ví dụ:
 
 ```csharp
-// Issue 1371 | fixbug-issue-1371/duhk | c3ae31bc4
+// Issue 1371 | fix/fix-promotionDetail-1371-tinhlm | c3ae31bc4
 // Keep detail audit records under the promotion header history.
 ```
 
@@ -192,7 +201,7 @@ Nếu cần dùng prompt ngắn, hãy đảm bảo session đã có sẵn repo, 
 Nếu agent hỏi lại `Branch owner suffix`, hãy trả lời bằng tên owner đúng trong branch, ví dụ:
 
 ```text
-duhk
+tinhlm
 ```
 
 Nếu CSV không đọc được tiếng Việt, hãy kiểm tra encoding hoặc export lại CSV UTF-8.

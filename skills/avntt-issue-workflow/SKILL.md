@@ -37,7 +37,8 @@ Read these references as needed:
 
 - Work on exactly one `Issue No` per branch unless the user explicitly requests otherwise.
 - Default base branch is `release/1.0.0-avntt-rc1`.
-- Branch format: `fix/fix-{ShortDesc}-{IssueNo}-{Owner}` (with issue no.) or `fix/fix-{ShortDesc}-{Owner}` (without). Default `{Owner}` = `tinhlm`.
+- Branch format: `fix/fix-{ShortDesc}-{IssueNo}-{Owner}` (with issue no.) or `fix/fix-{ShortDesc}-{Owner}` (without). Examples: `fix/fix-promotionDetail-1471-tinhlm`, `fix/fix-cktm-triple-tinhlm`. Default `{Owner}` = `tinhlm`.
+- `{ShortDesc}` must be short, ASCII, no spaces: use camelCase or lowercase words separated by `-`.
 - Infer `{Owner}` from the user's instruction, `.codex-worklog`, current branch, or existing remote/local branch. If still unknown, default to `tinhlm` or ask once.
 - Never pull, merge, cherry-pick, push, or base new work on `develop`.
 - Do not stage or commit `.codex-worklog/` or `Excel/` unless the user explicitly asks.
@@ -70,7 +71,7 @@ Read these references as needed:
 For every bugfix in a comment-capable source file, add a short trace comment near the corrected logic:
 
 ```csharp
-// Issue 1371 | fixbug-issue-1371/{Owner} | c3ae31bc4
+// Issue 1371 | fix/fix-promotionDetail-1371-tinhlm | c3ae31bc4
 // Keep detail audit records under the promotion header history.
 ```
 

@@ -70,9 +70,9 @@ Branch format mới: `fix/fix-{ShortDesc}-{IssueNo}-{Owner}` hoặc `fix/fix-{Sh
 
 | Tên nhánh | Kết quả |
 |---|---|
-| `fix/fix-CKTM-1471-tinhlm` | Issue number = `1471` → prefix `[Issue: 1471]` |
-| `fix/fix-InvoicePAQty-1648-tinhlm` | Issue number = `1648` → prefix `[Issue: 1648]` |
-| `fix/fix-SAP-clearLineCKTM-tinhlm` | Không match số → không thêm prefix, commit bình thường |
+| `fix/fix-promotionDetail-1471-tinhlm` | Issue number = `1471` → prefix `[Issue: 1471]` |
+| `fix/fix-invoicePAQty-1648-tinhlm` | Issue number = `1648` → prefix `[Issue: 1648]` |
+| `fix/fix-cktm-triple-tinhlm` | Không match số → không thêm prefix, commit bình thường |
 | `main`, `develop`, `release/1.0.0-avntt-rc1` | Không match → commit bình thường |
 
 **Nếu có issue number**, mọi title commit đều có dạng:
@@ -119,7 +119,7 @@ Run: `git diff --staged`
 [Issue: XXXX] <type>(<scope>): <verb> <short description>
 ```
 
-Prefix `[Issue: XXXX]` chỉ có mặt nếu nhánh hiện tại match pattern `issue-\d{2,4}` (xem Step 1d).
+Prefix `[Issue: XXXX]` chỉ có mặt nếu nhánh hiện tại match pattern `-\d{3,4}-[a-z]+$` (xem Step 1d).
 
 - Max 72 chars (bao gồm cả prefix `[Issue: XXXX] `)
 - **type:** `feat` | `fix` | `perf` | `refactor` | `chore` | `docs` | `test` | `style` | `ci`
@@ -187,7 +187,7 @@ Impact:
 
 ## Examples
 
-**fix (with body, branch `fixbug-issue-1525/toantv`):**
+**fix (with body, branch `fix/fix-promotionDetail-1525-tinhlm`):**
 ```
 [Issue: 1525] fix(PromotionProgram): restore grid selection after data reload
 
@@ -205,7 +205,7 @@ The Promotion Program screen now preserves selected rows when data is refreshed.
 Users can continue their work without losing their selection.
 ```
 
-**perf (with body, branch `perf-issue-320/toantv`):**
+**perf (with body, branch `fix/fix-promotionDetailPerf-320-tinhlm`):**
 ```
 [Issue: 320] perf(PromotionProgramDetail): replace O(n) LINQ scan with O(1) dictionary lookup
 
@@ -228,7 +228,7 @@ The Promotion Program screen now opens and responds faster when handling large d
 chore(deps): update package-lock.json after npm install
 ```
 
-**hotfix (branch `fixbug-issue-88/toantv`):**
+**hotfix (branch `fix/fix-orderTotal-88-tinhlm`):**
 ```
 [Issue: 88] fix(OrderModule): fix incorrect total when applying discount code [HOTFIX]
 ```
