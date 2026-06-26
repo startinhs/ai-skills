@@ -18,17 +18,17 @@
 
 ## 2. Root Cause (Đầy đủ)
 
-### 2.1 [ROOT] Mobile offline retry tạo duplicate SalesOrder cùng OrderNumber
+### 2.1 [ROOT] Web user save nhiều lần tạo duplicate SalesOrderTradeDiscount
 
-DB có **3 SalesOrder không bị xóa** với cùng `OrderNumber = 'SO0000008377'`:
+DB query xác nhận **tất cả 3 SalesOrder đều có `OrderSource = 'Web'`** (không phải "SFA" / offline app):
 
-| Id | CreationTime (UTC) | Status | TypeOfScreen | OrderTypeCode | CKTM rows |
-|----|-------------------|--------|--------------|---------------|-----------|
-| `3a220fe9` | 2026-06-25 07:44:18 | Xác nhận | SO | WF_DC | **3 (bị bug)** |
-| `f9a014a0` | 2026-06-25 09:23:54 | Ghi Sổ  | SO | WF_DC | 0 |
-| `689cb902` | 2026-06-25 09:54:20 | Ghi Sổ  | SO | WF_DC | **2 (bị bug)** |
+| Id | CreationTime (UTC) | Status | TypeOfScreen | OrderSource | CKTM rows |
+|----|-------------------|--------|--------------|-------------|-----------|
+| `3a220fe9` | 2026-06-25 07:44:18 | Xác nhận | SO | **Web** | **3 (bị bug)** |
+| `f9a014a0` | 2026-06-25 09:23:54 | Ghi Sổ  | SO | **Web** | 0 |
+| `689cb902` | 2026-06-25 09:54:20 | Ghi Sổ  | SO | **Web** | **2 (bị bug)** |
 
-Cả 3 bản ghi `IsDeleted = false`. **Nguyên nhân**: mobile app gửi cùng một đơn hàng nhiều lần (offline retry / re-sync) và mỗi lần tạo thêm 1 SalesOrder mới thay vì update bản ghi cũ — do thiếu unique constraint hoặc idempotency key trên `OrderNumber`.
+Cả 3 bản ghi `IsDeleted = false`. 3 CKTM rows của SO `3a220fe9` cách nhau ~1 phút (07:45:07 → 07:46:07 → 07:46:31) → user nhấn Save nhiều lần trên Blazor web UI (hoặc network retry khiến request gửi lại). Mỗi lần BulkSave thành công → INSERT thêm 1 `SalesOrderTradeDiscount` row mới vì thiếu guard duplicate theo `BonusLineId`.
 
 ### 2.2 [ROOT] BulkSave không kiểm tra duplicate CKTM theo BonusLineId
 
@@ -174,7 +174,26 @@ WHERE "Id" = 'b25ba342-19b0-465a-b27d-a83aaf4e01c0';
 
 ---
 
-## 6. Vấn đề chưa giải quyết (để theo dõi)
+## 6. Phân tích UI layer (tại sao màn hình hiện 3 dòng)
+
+**File**: [SalesOrder.razor.cs:5024](backendavn/src/HQSOFT.Xspire.Application.Blazor/Pages/OrderManagement/SalesOrder/SalesOrder.razor.cs#L5024)
+
+```csharp
+// LoadDataAsync load CKTM:
+SalesOrderTradeDiscounts = ObjectMapper.Map<List<SalesOrderTradeDiscountDto>, List<SalesOrderTradeDiscountUpdateDto>>(
+    await SalesOrderTradeDiscountAppService.GetDataBySalesOrderId(EditingDocId));
+```
+
+Grid bind:
+```razor
+Data="@SalesOrderTradeDiscounts.Where(p => !p.IsDeleted)"
+```
+
+**Kết luận**: Page query thẳng DB theo `EditingDocId` (SalesOrderId của đơn đang xem), không có dedup. DB có 3 rows → grid hiển thị đúng 3 rows. UI không phải lỗi — lỗi ở tầng data (duplicate rows trong DB) và tầng BulkSave (không chặn duplicate insert).
+
+---
+
+## 7. Vấn đề chưa giải quyết (để theo dõi)
 
 | Vấn đề | Mô tả | Ưu tiên |
 |--------|-------|---------|
@@ -184,6 +203,6 @@ WHERE "Id" = 'b25ba342-19b0-465a-b27d-a83aaf4e01c0';
 
 ---
 
-## 7. Không tự chạy build
+## 8. Không tự chạy build
 
 Build do user chạy thủ công sau review.
