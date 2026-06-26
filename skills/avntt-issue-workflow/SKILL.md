@@ -37,8 +37,8 @@ Read these references as needed:
 
 - Work on exactly one `Issue No` per branch unless the user explicitly requests otherwise.
 - Default base branch is `release/1.0.0-avntt-rc1`.
-- Branch format is `fixbug-issue-{IssueNo}/{Owner}`.
-- Infer `{Owner}` from the user's instruction, `.codex-worklog`, current issue branch, or existing remote/local branch. If still unknown, ask once before creating or switching branches.
+- Branch format: `fix/fix-{ShortDesc}-{IssueNo}-{Owner}` (with issue no.) or `fix/fix-{ShortDesc}-{Owner}` (without). Default `{Owner}` = `tinhlm`.
+- Infer `{Owner}` from the user's instruction, `.codex-worklog`, current branch, or existing remote/local branch. If still unknown, default to `tinhlm` or ask once.
 - Never pull, merge, cherry-pick, push, or base new work on `develop`.
 - Do not stage or commit `.codex-worklog/` or `Excel/` unless the user explicitly asks.
 - Stage intended files explicitly. Never run `git add -A`.
@@ -59,7 +59,7 @@ Read these references as needed:
 8. Implement the smallest scoped change.
 9. Add mandatory trace comments for bugfixes in comment-capable source files.
 10. Run GREEN checks and the required build unless the user explicitly overrides build.
-11. Inspect diff for scope, stage files explicitly, commit using `.copilot/prompt/commit-prompt.md`.
+11. Inspect diff for scope, stage files explicitly, commit using `references/commit-prompt.md`.
 12. If trace comments require the fix commit hash, add/update those comments after the fix commit, rerun verification, and commit the trace update.
 13. Push only the issue branch to origin.
 14. Update local worklog/progress/issue note, but do not commit those files unless requested.

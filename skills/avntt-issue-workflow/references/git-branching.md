@@ -32,20 +32,30 @@ git pull origin release/1.0.0-avntt-rc1
 
 If the current worktree has unrelated dirty files, use a separate worktree or ask before switching. Never discard those changes.
 
-## Issue Branch
-
-Issue branch format:
+## Branch Format
 
 ```text
-fixbug-issue-{IssueNo}/{Owner}
+fix/fix-{ShortDesc}-{IssueNo}-{Owner}   ← khi có mã issue
+fix/fix-{ShortDesc}-{Owner}             ← khi không có mã issue
+```
+
+**Rules:**
+- `{ShortDesc}` — tên ngắn gọn mô tả nội dung fix, dùng PascalCase hoặc camelCase, không dấu cách. Ví dụ: `CKTM`, `SAPclearLine`, `InvoicePAQty`.
+- `{IssueNo}` — mã số issue (3–4 chữ số). Bỏ qua nếu không có mã issue.
+- `{Owner}` — username của người fix. Mặc định: `tinhlm`.
+
+**Examples:**
+```text
+fix/fix-CKTM-1471-tinhlm          ← có mã issue 1471
+fix/fix-SAP-clearLineCKTM-tinhlm  ← không có mã issue
+fix/fix-InvoicePAQty-1648-tinhlm
 ```
 
 Resolve `{Owner}` before creating or switching branches:
 
 - Use the owner explicitly provided by the user.
-- Otherwise infer it from `.codex-worklog`, the current branch, an existing local branch, or an existing remote branch for the same issue.
-- If multiple owners exist for the same issue, list them and ask which one to use.
-- If no owner can be inferred, ask: `Branch owner suffix dùng cho issue này là gì? Ví dụ: toantv, duhk, tinhlm.`
+- Otherwise infer it from `.codex-worklog`, the current branch, an existing local branch, or an existing remote branch for the same fix.
+- If no owner can be inferred, default to `tinhlm` or ask once.
 - After `{Owner}` is resolved, reuse it consistently in branch name, push command, trace comments, and worklog.
 
 If the branch exists locally, switch to it after verifying it is not held by another worktree.
@@ -53,14 +63,14 @@ If the branch exists locally, switch to it after verifying it is not held by ano
 If the branch exists on origin but not locally:
 
 ```powershell
-git fetch origin fixbug-issue-{IssueNo}/{Owner}
-git checkout -b fixbug-issue-{IssueNo}/{Owner} origin/fixbug-issue-{IssueNo}/{Owner}
+git fetch origin fix/fix-{ShortDesc}-{IssueNo}-{Owner}
+git checkout -b fix/fix-{ShortDesc}-{IssueNo}-{Owner} origin/fix/fix-{ShortDesc}-{IssueNo}-{Owner}
 ```
 
 If the branch does not exist:
 
 ```powershell
-git checkout -b fixbug-issue-{IssueNo}/{Owner}
+git checkout -b fix/fix-{ShortDesc}-{IssueNo}-{Owner}
 ```
 
 ## Forbidden
@@ -73,10 +83,10 @@ git checkout -b fixbug-issue-{IssueNo}/{Owner}
 
 ## Push
 
-Push only the issue branch:
+Push only the fix branch:
 
 ```powershell
-git push -u origin fixbug-issue-{IssueNo}/{Owner}
+git push -u origin fix/fix-{ShortDesc}-{IssueNo}-{Owner}
 ```
 
 If push is rejected because remote has new commits, stop and inspect. Do not force push unless the user explicitly instructs it and the branch ownership is clear.
