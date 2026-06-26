@@ -1,0 +1,4 @@
+interface:
+  display_name: "AVNTT Issue Workflow"
+  short_description: "Process AVNTT Excel issues safely"
+  default_prompt: "Use $avntt-issue-workflow to process the next AVNTT issue from Excel/worklog with the required git, verification, and worklog workflow."
