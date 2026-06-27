@@ -46,11 +46,15 @@ BEGIN
     WITH 
    
     product_info AS (
-        SELECT 
+        SELECT
             p."Id" AS product_id,
             COALESCE(p."Code", '') AS "ProductCode",
             COALESCE(p."ProductOrderName", '') AS "ProductShortName",
-            COALESCE(p."ProductOrderName", '') AS "ProductName"
+            COALESCE(p."ProductOrderName", '') AS "ProductName",
+            COALESCE(p."HierarchyL02Code", '') AS "HierarchyL02Code",
+            COALESCE(p."HierarchyL03Code", '') AS "HierarchyL03Code",
+            COALESCE(p."HierarchyL05Code", '') AS "HierarchyL05Code",
+            COALESCE(p."Attribute03", '') AS "Attribute03"
         FROM "Products" p
         WHERE p."Code" NOT LIKE '149%'
             AND p."IsDeleted" = FALSE
@@ -107,13 +111,12 @@ BEGIN
         WHERE so."DocStatus" = '2'
             AND CAST(so."RecordDate" AS DATE) = v_date
             AND so."OrderTypeCode" = 'WF_VS'
-            AND so."OrderSource" = 'SFA'
             AND so."IsDeleted" = FALSE
             AND (v_sales_team_id IS NULL OR so."SalesTeamId" = v_sales_team_id)
             AND (v_depot_id = '00000000-0000-0000-0000-000000000000'::UUID OR so."DepotId" = v_depot_id)
         GROUP BY sop."ProductId", sop."BinCode", sop."UOMCode"
     ),
-    
+
     not_issued_qty AS (
         -- Chưa xuất: Aggregate theo ProductId, BinCode, UOMCode
         SELECT 
@@ -126,7 +129,6 @@ BEGIN
         INNER JOIN "SalesOrderProducts" sop ON so."Id" = sop."SalesOrderId"
         WHERE (so."DocStatus" = '0' OR so."DocStatus" = '1')
             AND so."OrderTypeCode" = 'WF_VS'
-            AND so."OrderSource" = 'SFA'
             AND CAST(so."RecordDate" AS DATE) = v_date
             AND so."IsDeleted" = FALSE
             AND (v_sales_team_id IS NULL OR so."SalesTeamId" = v_sales_team_id)
@@ -173,43 +175,53 @@ BEGIN
         ) combined
     )
 
-    SELECT * FROM (
-        SELECT
-            COALESCE(sb.bin_code, '')::VARCHAR AS "WareHouse",
-            COALESCE(pi."ProductCode", '')::VARCHAR AS "ProductCode",
-            COALESCE(pi."ProductShortName", '')::VARCHAR AS "ProductShortName",
-            COALESCE(pi."ProductName", '')::VARCHAR AS "ProductName",
-            COALESCE(bq."DocumentNumber", '')::VARCHAR AS "DocumentNumber",
-            ap."UOMCode"::VARCHAR AS "UnitSales",
-            ROUND(
-                CASE v_tab_type
-                    WHEN 1 THEN COALESCE(bq.base_qty, 0)
-                    WHEN 2 THEN COALESCE(iq.base_qty, 0)
-                    WHEN 3 THEN COALESCE(niq.base_qty, 0)
-                    WHEN 4 THEN COALESCE(bq.base_qty, 0) - COALESCE(iq.base_qty, 0) - COALESCE(niq.base_qty, 0)
-                    WHEN 5 THEN COALESCE(bq.base_qty, 0) - COALESCE(iq.base_qty, 0)
-                    ELSE 0
-                END::NUMERIC, 2
-            ) AS "Quantity",
-            v_date AS "TransactionDate"
-        FROM all_products ap
-        INNER JOIN sales_bins sb ON sb.bin_code = ap."WarehouseCode"
-        INNER JOIN product_info pi ON pi.product_id = ap."ProductId"
-        LEFT JOIN beginning_qty bq 
-            ON bq."ProductId" = ap."ProductId" 
-           AND bq."WarehouseCode" = ap."WarehouseCode" 
-           AND bq."UOMCode" = ap."UOMCode"
-        LEFT JOIN issued_qty iq 
-            ON iq."ProductId" = ap."ProductId" 
-           AND iq."WarehouseCode" = ap."WarehouseCode" 
-           AND iq."UOMCode" = ap."UOMCode"
-        LEFT JOIN not_issued_qty niq 
-            ON niq."ProductId" = ap."ProductId" 
-           AND niq."WarehouseCode" = ap."WarehouseCode" 
-           AND niq."UOMCode" = ap."UOMCode"
-    ) AS sorted_data
-    ORDER BY 
-        sorted_data."ProductCode";
+    SELECT
+        COALESCE(sb.bin_code, '')::VARCHAR AS "WareHouse",
+        COALESCE(pi."ProductCode", '')::VARCHAR AS "ProductCode",
+        COALESCE(pi."ProductShortName", '')::VARCHAR AS "ProductShortName",
+        COALESCE(pi."ProductName", '')::VARCHAR AS "ProductName",
+        COALESCE(bq."DocumentNumber", '')::VARCHAR AS "DocumentNumber",
+        ap."UOMCode"::VARCHAR AS "UnitSales",
+        ROUND(
+            CASE v_tab_type
+                WHEN 1 THEN COALESCE(bq.base_qty, 0)
+                WHEN 2 THEN COALESCE(iq.base_qty, 0)
+                WHEN 3 THEN COALESCE(niq.base_qty, 0)
+                WHEN 4 THEN COALESCE(bq.base_qty, 0) - COALESCE(iq.base_qty, 0) - COALESCE(niq.base_qty, 0)
+                WHEN 5 THEN COALESCE(bq.base_qty, 0) - COALESCE(iq.base_qty, 0)
+                ELSE 0
+            END::NUMERIC, 2
+        ) AS "Quantity",
+        v_date AS "TransactionDate"
+    FROM all_products ap
+    INNER JOIN sales_bins sb ON sb.bin_code = ap."WarehouseCode"
+    INNER JOIN product_info pi ON pi.product_id = ap."ProductId"
+    LEFT JOIN beginning_qty bq
+        ON bq."ProductId" = ap."ProductId"
+       AND bq."WarehouseCode" = ap."WarehouseCode"
+       AND bq."UOMCode" = ap."UOMCode"
+    LEFT JOIN issued_qty iq
+        ON iq."ProductId" = ap."ProductId"
+       AND iq."WarehouseCode" = ap."WarehouseCode"
+       AND iq."UOMCode" = ap."UOMCode"
+    LEFT JOIN not_issued_qty niq
+        ON niq."ProductId" = ap."ProductId"
+       AND niq."WarehouseCode" = ap."WarehouseCode"
+       AND niq."UOMCode" = ap."UOMCode"
+    ORDER BY
+        sb.bin_code,
+        CASE WHEN pi."HierarchyL02Code" = '' THEN 1 ELSE 0 END,
+        pi."HierarchyL02Code",
+        pi."HierarchyL03Code",
+        CASE
+            WHEN pi."Attribute03" = 'Z002' THEN 0
+            WHEN pi."Attribute03" = 'Z013' THEN 1
+            WHEN pi."Attribute03" = 'Z009' THEN 2
+            ELSE 3
+        END,
+        pi."HierarchyL05Code",
+        pi."ProductCode",
+        ap."UOMCode" ASC;
     
 END;
 $BODY$;
