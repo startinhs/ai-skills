@@ -1,7 +1,0 @@
-Order,Issue No,Issue Type,Priority,Screen/Topic,Sub-Topic,Issue Description (VN),Branch Name,Status
-1,1648,Issue,High,"9.UAT-Bán hàng trên Web (theo xe)","Hóa đơn điện tử","Đơn hàng có CTKM PA > khi xuất hóa đơn thì hóa đơn hiển thị sai số lượng quy đổi. SO0000008170",fixbug-issue-1648/tinhlm,Todo
-2,1649,Issue,High,"9.UAT-Bán hàng trên Web (theo xe)","Hóa đơn điện tử","Xem hóa đơn có trả CKTM > hiển thị số âm ở ô Thuế. SO0000008177",fixbug-issue-1649/tinhlm,Todo
-3,1609,Request,High,"8.UAT-Bán hàng trên App","Màn hình Dashboard","Áp dụng cho KPI trên Web và App - Ẩn một số KPI không cần dùng, áp dụng cho KPI mới của FY26 dùng cho Pilot. IT đã email 17/6/2026",fixbug-issue-1609/tinhlm,Todo
-4,1413,Request,Medium,"9.UAT-Bán hàng trên Web (theo xe)","Đơn hàng bán theo xe - Đơn hàng thay thế","Hiện tại khi chọn đơn hàng thay thế thì chọn mã PSI. Nhưng chọn xong thì hiển thị mã SO. Yêu cầu: field ""Đơn hàng thay thế"" hiển thị mã PSI đã chọn cho đồng nhất, tránh sai sót",fixbug-issue-1413/tinhlm,Todo
-5,1472,Request,Medium,"17.Integration-Master data","Danh mục sản phẩm","Chỗ tick đơn vị bán cho sản phẩm (đơn vị quy đổi) - AVN mong muốn can thiệp ở eSales trong trường hợp urgent (trước lúc đơn hàng convert về SAP). Sản phẩm ở eSales được chỉnh all field một cách độc lập",fixbug-issue-1472/tinhlm,Todo
-6,1562,Request,Medium,"8.UAT-Bán hàng trên App","App - Báo cáo Kho","Thứ tự sắp xếp sản phẩm phải giống trong Báo cáo tồn kho cuối ngày",fixbug-issue-1562/tinhlm,Todo
