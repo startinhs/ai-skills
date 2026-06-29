@@ -1,17 +1,19 @@
 # Worklog State — task250626
 
-Updated: 2026-06-25
+Updated: 2026-06-29
 
 ## Summary
 
-| Order | Issue No | Type    | Priority | Branch                      | Status    | Commit        |
-|-------|----------|---------|----------|-----------------------------|-----------|---------------|
-| 1     | 1648     | Issue   | High     | fixbug-issue-1648/tinhlm    | Done      | 099463dec     |
-| 2     | 1649     | Issue   | High     | fixbug-issue-1649/tinhlm    | Done      | 2df121464     |
-| 3     | 1413     | Request | High     | fixbug-issue-1413/tinhlm    | Done      | d6da4457e     |
-| 4     | 1562     | Request | Medium   | fixbug-issue-1562/tinhlm    | Done      | 175832325     |
-| 5     | 1609     | Request | High     | fixbug-issue-1609/tinhlm    | BLOCKING  | —             |
-| 6     | 1472     | Request | Medium   | fixbug-issue-1472/tinhlm    | BLOCKING  | —             |
+| Order | Issue No | Type    | Priority | Branch                               | Status    | Commit        |
+|-------|----------|---------|----------|--------------------------------------|-----------|---------------|
+| 1     | 1648     | Issue   | High     | fixbug-issue-1648/tinhlm             | Done      | 099463dec     |
+| 2     | 1649     | Issue   | High     | fixbug-issue-1649/tinhlm             | Done      | 2df121464     |
+| 3     | 1413     | Request | High     | fixbug-issue-1413/tinhlm             | Done      | d6da4457e     |
+| 4     | 1562     | Request | Medium   | fixbug-issue-1562/tinhlm             | Done      | 175832325     |
+| 5     | 1609     | Request | High     | fixbug-issue-1609/tinhlm             | BLOCKING  | —             |
+| 6     | 1472     | Request | Medium   | fixbug-issue-1472/tinhlm             | BLOCKING  | —             |
+| 7     | 1616     | Issue   | High     | fix/fix-cktmRefund-1616-1617-tinhlm       | Done        | 04061f210   |
+| 8     | 1617     | Issue   | High     | fix/fix-cktmRefund-1616-1617-tinhlm       | Done        | 04061f210   |
 
 ---
 
@@ -56,8 +58,33 @@ Updated: 2026-06-25
 
 ---
 
+---
+
+## Done (session 2026-06-29)
+
+### Issue 1616 — DC order bị hủy SAP, tiền không hoàn về CT CKTM
+- **Branch:** `fix/fix-cktmRefund-1616-1617-tinhlm`
+- **File:** `modules/hqsoft.sap.dmsintegration/.../CancelSO/EfCoreCancelSORepository.Extended.cs`
+- **Fix commit:** `04061f210` | **Trace commit:** `526f4468f`
+- **Fix:** `ProcessCancelSOAsync` — loop qua `SalesOrderTradeDiscount` (dedup theo BonusLineId) và giảm `BonusLine.AccruedAmount` trước khi xóa records. CT mẫu: T_FS20260501 | Chứng từ: 1200008611.
+- **RED:** base branch comment "bỏ qua phần BonusLine/SalesOrderDiscount" — AccruedAmount không được cập nhật khi SalesOrderDiscount==null.
+- **GREEN:** static scope check — 26 insertions đúng phạm vi. Build chờ user xác nhận.
+- **Plan:** [plan-1616.md](plans/plan-1616.md)
+
+### Issue 1617 — SRO theo xe hoàn về sai CT CKTM
+- **Branch:** `fix/fix-cktmRefund-1616-1617-tinhlm` (cùng branch với 1616)
+- **File:** `modules/hqsoft.xspire.ordermanagement/.../BonusLines/BonusLineAppService.Extended.cs`
+- **Fix commit:** `04061f210` | **Trace commit:** `526f4468f`
+- **Fix:** `RefundTradeDiscountPaymentBySalesOrderIdAsync` — dùng `SalesReturnOrderId` (đơn gốc) thay vì `SalesOrderId` (SRO) để lookup trade discounts đúng CT CKTM.
+- **RED:** base branch `GetDataBySalesOrderId(salesOrderId)` vs BonusDetail lookup dùng `SalesReturnOrderId` — mismatch.
+- **GREEN:** static scope check — 7 insertions đúng phạm vi. Build chờ user xác nhận.
+- **Plan:** [plan-1617.md](plans/plan-1617.md)
+
+---
+
 ## Pending Actions
 
 - **Issue 1562:** Yêu cầu user build → tạo EF migration → inject SQL function mới vào DB.
 - **Issue 1609:** Chờ danh sách KPI codes từ user.
 - **Issue 1472:** Chờ user xác nhận Option A hoặc B.
+- **Issue 1616+1617:** Chờ user build + test. Sau khi build pass, push: `git push -u origin fix/fix-cktmRefund-1616-1617-tinhlm`.
