@@ -16,7 +16,7 @@ Also check whether the repo is in merge/rebase/cherry-pick state.
 
 ## Base Branch
 
-Default base branch:
+Default base branch (backend/.NET repos, e.g. `HQSOFT.Xspire.Application`):
 
 ```text
 release/1.0.0-avntt-rc1
@@ -29,6 +29,18 @@ git fetch origin release/1.0.0-avntt-rc1
 git checkout release/1.0.0-avntt-rc1
 git pull origin release/1.0.0-avntt-rc1
 ```
+
+### Exception — FE repo `hqsoft.xspire.sfa` (Flutter SFA)
+
+This repo cuts fix branches from `develop`, not `release/1.0.0-avntt-rc1`:
+
+```powershell
+git fetch origin develop
+git checkout develop
+git pull origin develop
+```
+
+The `release/1.0.0-avntt-rc1` base and the "never use develop" rule below apply to the backend/.NET repos. For `hqsoft.xspire.sfa` specifically, `develop` is the canonical integration branch and the correct base/push target for fix branches.
 
 If the current worktree has unrelated dirty files, use a separate worktree or ask before switching. Never discard those changes.
 
@@ -79,8 +91,8 @@ If there is no issue number, use `fix/fix-{ShortDesc}-{Owner}`.
 
 ## Forbidden
 
-- Do not use `develop` as a base.
-- Do not pull, merge, or cherry-pick from `develop`.
+- Do not use `develop` as a base — **except in `hqsoft.xspire.sfa`, where `develop` is the required base** (see exception above).
+- Do not pull, merge, or cherry-pick from `develop` — **except in `hqsoft.xspire.sfa`**.
 - Do not push or merge into `develop`.
 - Do not run destructive commands such as `git reset --hard` or `git checkout -- <file>` unless the user explicitly asks.
 - Do not use `git add -A`.
