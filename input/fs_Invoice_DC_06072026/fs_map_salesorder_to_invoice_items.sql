@@ -21,7 +21,6 @@ DECLARE
     replace_zero BOOLEAN := FALSE;
     v_customer_group_code VARCHAR;
     v_exchange_label VARCHAR;
-    v_exchange_raw_name VARCHAR;
 BEGIN
 
     -- Handle NULL reportid (for DevExpress schema discovery)
@@ -98,15 +97,9 @@ BEGIN
         SELECT c."GroupCode" INTO v_customer_group_code FROM "Customers" c WHERE c."Id" = v_customer_id AND c."IsDeleted" = false LIMIT 1;
     END IF;
 
-    -- Parse exchange label from CustomerName if EXCHANGE customer
+    -- EXCHANGE customer: fixed "Đổi hàng" note at invoice bottom, no CustomerName parsing needed
     IF UPPER(COALESCE(v_customer_group_code, '')) = 'EXCHANGE' THEN
-        SELECT COALESCE(TRIM(so."CustomerName"), '') INTO v_exchange_raw_name FROM "SalesOrders" so WHERE so."Id" = v_sales_order_id;
-        v_exchange_raw_name := regexp_replace(v_exchange_raw_name, '^\[.*?\]\w*_\s*', '', 'gi');
-        IF v_exchange_raw_name ~* '^\(đổi\s+hàng[^)]*\)' THEN
-            v_exchange_label := trim((regexp_match(v_exchange_raw_name, '^\(([^)]*)\)', 'i'))[1]);
-        ELSIF v_exchange_raw_name ~* '^đổi\s+hàng[^(]*\([^)]+\)' THEN
-            v_exchange_label := trim((regexp_match(v_exchange_raw_name, '^(đổi\s+hàng[^(]*\([^)]+\))', 'i'))[1]);
-        END IF;
+        v_exchange_label := 'Đổi hàng';
     END IF;
 
     -- TRẢ VỀ CHI TIẾT CÁC SẢN PHẨM TRONG HÓA ĐƠN

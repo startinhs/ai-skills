@@ -63,8 +63,6 @@ DECLARE
     v_order_type_code VARCHAR;
     v_po_number VARCHAR;
     replace_zero BOOLEAN := FALSE;
-    v_customer_group_code VARCHAR;
-    v_exchange_raw_name VARCHAR;
 
     v_total_so NUMERIC := 0;
     v_vat_so NUMERIC := 0;
@@ -288,16 +286,16 @@ BEGIN
     -- Get Customer information (try InvoiceCustomerId first, then CustomerXSId)
     IF v_customer_invoice_id IS NOT NULL AND v_customer_invoice_id != '00000000-0000-0000-0000-000000000000'::UUID THEN
         SELECT
-            c."BusinessType", c."GroupCode"
+            c."BusinessType"
         INTO
-            v_business_type, v_customer_group_code
+            v_business_type
         FROM "Customers" c
         WHERE c."Id" = v_customer_invoice_id AND c."IsDeleted" = false;
     ELSIF v_customer_id IS NOT NULL AND v_customer_id != '00000000-0000-0000-0000-000000000000'::UUID THEN
         SELECT
-            c."BusinessType", c."GroupCode"
+            c."BusinessType"
         INTO
-            v_business_type, v_customer_group_code
+            v_business_type
         FROM "Customers" c
         WHERE c."Id" = v_customer_id AND c."IsDeleted" = false;
     END IF;
@@ -364,19 +362,6 @@ BEGIN
         END IF;
         -- BudgetUnitCode luôn rỗng
         v_budget_unit_code := '';
-    END IF;
-
-    -- EXCHANGE customer: strip "Đổi hàng" prefix, always put result in CustomerName (Tên đơn vị)
-    IF UPPER(COALESCE(v_customer_group_code, '')) = 'EXCHANGE' THEN
-        v_exchange_raw_name := COALESCE(NULLIF(TRIM(v_customer_name), ''), NULLIF(TRIM(v_buyer), ''), '');
-        v_exchange_raw_name := regexp_replace(v_exchange_raw_name, '^\[.*?\]\w*_\s*', '', 'gi');
-        IF v_exchange_raw_name ~* '^\(đổi\s+hàng[^)]*\)' THEN
-            v_exchange_raw_name := trim(regexp_replace(v_exchange_raw_name, '^\([^)]*\)\s*', ''));
-        ELSIF v_exchange_raw_name ~* '^đổi\s+hàng[^(]*\([^)]+\)' THEN
-            v_exchange_raw_name := trim(regexp_replace(v_exchange_raw_name, '^đổi\s+hàng[^(]*\([^)]+\)\s*', '', 'i'));
-        END IF;
-        v_customer_name := v_exchange_raw_name;
-        v_buyer := '';
     END IF;
 
     v_po_number := NULLIF(TRIM(COALESCE(v_po_number, '')), '');
@@ -552,7 +537,7 @@ BEGIN
             v_gross_value10_ed,
             v_vat_amount10_ed
         FROM km_ed_resolved;
-        
+
         -- Totals: lấy từ SO header fields (giống C# mapper: salesOrder.TotalAmountBeforeTax/TotalAmountAfterTax/Taxpayment)
         SELECT 
             so."TotalAmountBeforeTax",
