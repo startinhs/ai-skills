@@ -183,7 +183,7 @@ BEGIN
             op."Idx",
             COALESCE(d."Code", op."ProductCode") AS "ProductCode",
             COALESCE(d."ProductOrderName", op."ProductName") AS "ProductName",
-            op."Unit",
+            COALESCE(e."UOMName", op."Unit") AS "Unit",  -- Unit của thành phần (diễn giải), không dùng Unit của SP cha
             op."Quantity" * COALESCE(e."Quantity",1) AS "Quantity",
             0::numeric AS "UnitPrice",
             NULL::numeric AS "DiscountAmount",  -- C#: PA expanded items → DiscountAmount=null
@@ -218,7 +218,7 @@ BEGIN
             op."Idx",
             COALESCE(d."Code", op."ProductCode") AS "ProductCode",
             COALESCE(d."ProductOrderName", op."ProductName") AS "ProductName",
-            op."Unit",
+            COALESCE(e."UOMName", op."Unit") AS "Unit",  -- Unit của thành phần (diễn giải), không dùng Unit của SP cha
             op."Quantity" * COALESCE(e."Quantity",1) AS "Quantity",
             0::numeric AS "UnitPrice",
             NULL::numeric AS "DiscountAmount",  -- C#: PA expanded items → DiscountAmount=null
@@ -251,7 +251,7 @@ BEGIN
             op."Idx",
             d."Code" AS "ProductCode",
             d."ProductOrderName" AS "ProductName",
-            op."Unit",
+            COALESCE(e."UOMName", op."Unit") AS "Unit",  -- Unit của thành phần (diễn giải), không dùng Unit của SP cha
             op."Quantity" * COALESCE(e."Quantity",1) AS "Quantity",
             0::numeric AS "UnitPrice",
             NULL::numeric AS "DiscountAmount",  -- C#: PA expanded items → DiscountAmount=null
