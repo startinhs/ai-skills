@@ -59,15 +59,15 @@ BEGIN
     LIMIT 1;
 
     RETURN QUERY
-    SELECT x."TaxLabel", x."GrossValue", x."TaxAmount", x."SortOrder"
+    SELECT x."TaxLabel", ABS(x."GrossValue"), ABS(x."TaxAmount"), x."SortOrder"
     FROM (
         VALUES
             ('KCT'::VARCHAR, v_header."GrossValue", 0::NUMERIC, 1),
             ('KKKNT'::VARCHAR, v_header."GrossValue_NonTax", 0::NUMERIC, 2),
-            ('0%'::VARCHAR, v_header."GrossValue0", v_header."VatAmount0", 3),
-            ('5%'::VARCHAR, v_header."GrossValue5", v_header."VatAmount5", 4),
-            ('8%'::VARCHAR, v_header."GrossValue8", v_header."VatAmount8", 5),
-            ('10%'::VARCHAR, v_header."GrossValue10", v_header."VatAmount10", 6)
+            ('0%'::VARCHAR, v_header."GrossValue0", ABS(v_header."VatAmount0"), 3),
+            ('5%'::VARCHAR, v_header."GrossValue5", ABS(v_header."VatAmount5"), 4),
+            ('8%'::VARCHAR, v_header."GrossValue8", ABS(v_header."VatAmount8"), 5),
+            ('10%'::VARCHAR, v_header."GrossValue10", ABS(v_header."VatAmount10"), 6)
     ) AS x("TaxLabel", "GrossValue", "TaxAmount", "SortOrder")
     WHERE (
         x."TaxLabel" = 'KCT'
