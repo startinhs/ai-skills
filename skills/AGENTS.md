@@ -21,6 +21,11 @@ Test: would a senior engineer say this is overcomplicated? If yes, simplify.
 Touch only what you must. Clean up only your own mess.
 Don't "improve" adjacent code, comments, or formatting.
 Don't refactor what isn't broken. Match existing style.
+When a fix spans several files (new field, new sync module, wiring through
+layers), keep each individual file's diff as small as the fix genuinely
+requires — prefer several small, obviously-correct edits over one large
+rewrite. Don't rewrite a comment/doc-string just because you touched the
+function next to it.
 
 ## Rule 4 — Goal-Driven Execution
 
