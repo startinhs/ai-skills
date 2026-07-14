@@ -1,0 +1,16 @@
+[AVN] Kiểm tra xuất file csv để convert về SAP 13/07/2026
+
+
+Dear all,
+
+Hôm nay team không ghi nhận xuất miss file txt/csv sang SAP và không có đơn hàng có chứa ký tự đặc biệt.
+
+Team kiểm tra Job tạo file csv trong ngày thì không có Job báo lỗi time out.
+
+Team kiểm tra không thấy có ghi nhận lỗi Hủy hóa đơn không kết nối được service với VNPT.
+
+Hôm nay team không ghi nhận đơn hàng không cấp phát hóa đơn. Các đơn hàng còn lại có đơn SO0000000186, SO0000000187, SO0000000188, SO0000000189, SO0000000191, SO0000000193, SO0000000194, SO0000000195, SO0000000198 được đẩy qua SAP thiếu kết quả khuyến mãi.
+
+Hệ thống đã xử lý cấp phát hóa đơn xong lúc 19h43.
+
+Thanks and Best Regards

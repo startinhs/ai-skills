@@ -16,23 +16,23 @@ So khớp nhãn từng bug giữa PDF 10/07 và 13/07: **thay đổi DUY NHẤT 
 
 ---
 
-## 1. ⚠️ CẢNH BÁO: fix Bug 29/30 CHƯA COMMIT
+## 1. Trạng thái Bug 29/30 — ĐÃ COMMIT + BUILD, đang test on-device
 
-Kiểm tra `git log`: commit mới nhất là **Bug 12** (`73e808e6`). Code fix **Bug 29 + Bug 30** vẫn nằm trong working tree **CHƯA COMMIT** (13 file M/A).
+Cập nhật: toàn bộ fix đã **commit + build + deploy**, tester đã test.
 
-→ **Không bản build nào chứa fix 29/30.** Tester test trên build hiện tại sẽ thấy **vẫn lỗi**. Đây chính là lý do PDF 13/07 vẫn để 29/30 không nhãn.
+- **Bug 29 (bảng giá lệch) → ✅ PASS on-device** (tester xác nhận).
+- **Bug 30 (thuế/VAT) → đang test.** Cột "Thành tiền" đã đúng (VAT). Phát sinh follow-up: màn **Phiếu bán hàng** đơn đã xuất, cột **"Đơn giá" = 0** (offline không populate `priceIncludesTax`) → **đã fix** (commit `d4444c85`): tính `priceIncludesTax = UnitPriceBeforeTax + TaxAmount/Qty` (khớp BE `SalesOrderManager.Extended.cs:3812`) + fallback về giá trước thuế cho SP 0% VAT. Chờ tester retest.
 
-**Để tester test được fix 29/30, cần đủ chuỗi:**
-1. Commit fix (BE `SalesPriceDeltaDto`+sync đã commit ở `develop` `283c8d596`; FE + engine **chưa commit**).
-2. Build BE + deploy test server (phần `FetchSalesPricesDeltaAsync` gửi `ApplyForDetails`/`ApplyForMoreDetails`).
-3. Build app mobile (đã regen `build_runner`).
-4. Tester **logout/login sync lại full** (module `salesPrices` là delta — sync thường có thể không kéo lại header cũ; xem hướng dẫn build/test đã gửi).
-5. Retest đúng SP báo bug (140002462 / "Bột ngọt Ajinomoto 100R9").
+**Commit liên quan (FE `fix/sfa-offline-tinhlm`):**
+- `f4df6362` feat(price): bug 29 - 30, enhance offline pricing and VAT calculations.
+- `d4444c85` fix(offline): tax-inclusive unit price for issued invoices (follow-up Đơn giá).
+- `ac8afe7e` merge develop vào branch.
 
-**File fix 29/30 chưa commit (FE + engine):**
-- FE: `app_database.dart` (+`.g.dart`), `sales_prices_table.dart`, `sales_prices_pull_handler.dart`, `offline_pricing_service.dart`, `apply_for_ranker.dart` (mới), `offline_vat.dart`, `confirm_order_form.dart` + 3 test.
-- Engine: `hqsoft_promotion_engine/lib/src/pricing/engine/sales_price_engine.dart` + `sales_price_engine_merge_test.dart` (chưa commit).
-- (Lẫn trong staged còn `sfa_master_repository.dart` — thuộc Bug 12, đã commit rồi; cần loại khỏi commit 29/30.)
+**Commit engine (`hqsoft_promotion_engine`):**
+- `0f1b23d` cross-case merge (Phase 2 — tier gần hạn mức / rẻ nhất).
+- `de30fa6` **fix parity case-collapse**: duyệt từng SalesPriceId riêng → merge chọn giá rẻ nhất giữa 2 bảng giá cùng priority (khớp BE `ProcessMultipleCasesForPriority`). Đây là lỗ hổng parity phát hiện qua audit, đã port đủ.
+
+**Parity engine:** đã audit đầy đủ 48 method BE vs Dart — phần lớn byte-identical; lỗ hổng case-collapse duy nhất đã fix. Pull BE mới (12/07) chỉ là perf, không đổi thuật toán → engine Dart hiện khớp BE.
 
 ---
 
@@ -51,11 +51,11 @@ Bug 2, 3, 4, 5, 6, 8, 10, 11(gốc), 12 (**mới**), 13(gốc), 15, 19, 20(gốc
 | 20 | Sửa+xuất đơn offline | DONE gốc + residual: đồng bộ đẩy nhầm bản GỐC (trước sửa) |
 | 22 | KPI Dashboard | Báo cáo chỉ tiêu OK, Dashboard KPI vẫn lệch (Check-in 5/60 vs 7/29) |
 
-### 🔧 Đã fix trong phiên, CHƯA COMMIT/BUILD (tester đang test bản chưa có fix)
-| # | Bug | Trạng thái code |
+### 🆕 Đã fix + commit + build phiên này (tester đang test bản CÓ fix)
+| # | Bug | Trạng thái |
 |---|---|---|
-| 29 | Bảng giá offline lệch online | ✅ Code xong (WHO/WHERE ranking + eligibility). Test unit pass. **Chưa commit.** |
-| 30 | Cột "Thành tiền" thiếu VAT | ✅ Code xong. Test unit pass. **Chưa commit.** |
+| 29 | Bảng giá offline lệch online | ✅ **PASS on-device** (tester xác nhận). WHO/WHERE ranking + eligibility + engine parity. |
+| 30 | Thuế/VAT (Thành tiền + Đơn giá) | 🧪 **Đang test.** "Thành tiền" đã đúng; follow-up "Đơn giá"=0 màn Phiếu bán hàng đã fix (`d4444c85`). Chờ retest. |
 
 ### 📋 Chưa làm / chưa phân tích
 | # | Bug | Ghi chú |
@@ -77,10 +77,10 @@ Bug 17 (Validate SĐT).
 
 ## 3. Việc cần làm ngay (ưu tiên)
 
-1. **Commit fix 29/30** (tách khỏi Bug 12 đã commit) → build → deploy → báo tester sync lại full rồi retest. Hiện tester đang test bản KHÔNG có fix.
+1. ~~Commit fix 29/30~~ ✅ **Xong** (`f4df6362`/`d4444c85`, engine `0f1b23d`/`de30fa6`) — đã build/deploy. Bug 29 PASS; Bug 30 chờ tester retest cột Đơn giá.
 2. **Xác nhận build cho Bug 16** — deploy `2f9e3312a` (BE) + `b52d96b8` (FE) chưa? Nếu rồi mà vẫn FAIL thì mới review lại.
 3. Nhóm residual (11/13/18/20/22): xác nhận đã build/deploy đúng bản chưa trước khi kết luận fix sai.
 
 ---
 
-*Snapshot 2026-07-13, đối chiếu PDF 13/07 + git state. Chỉ khác 10/07 đúng 1 điểm (Bug 12 DONE) + phát hiện fix 29/30 chưa commit.*
+*Snapshot 2026-07-13 (cập nhật lần 2): Bug 29 PASS on-device; Bug 30 đã fix + follow-up "Đơn giá" (`d4444c85`), đang test; engine parity case-collapse đã fix (`de30fa6`). Tất cả đã commit + build, working tree sạch.*
