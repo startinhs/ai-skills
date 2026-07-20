@@ -29,8 +29,8 @@
 | # | Task | Phase | Status | Commit | Ngày | Ghi chú |
 |---|---|---|---|---|---|---|
 | 0 | Setup branch + baseline | — | ⬜ | | | |
-| 1 | Java: streaming band, xoá sleep | P1 | ⬜ | | | |
-| 2 | **GATE G1**: test P1 trên máy thật | P1 | ⬜ | | | Đo: 5/20/50 SKU = __s/__s/__s |
+| 1 | Java: streaming band, xoá sleep | P1 | ✅ | 8f45d911 | 2026-07-20 | Codex implement · Opus audit PASS · chưa chạy Gradle theo build gate |
+| 2 | **GATE G1**: test P1 trên máy thật | P1 | ⏸ chờ gate | | 2026-07-20 | Đo: 5/20/50 SKU = __s/__s/__s |
 | 3 | `PrinterConfig` + `Cp1258Encoder` + tests | P2 | ⬜ | | | |
 | 4 | `EscPos` commands + QR builder + tests | P2 | ⬜ | | | |
 | 5 | Trang probe codepage + debug hook | P2 | ⬜ | | | |
@@ -94,7 +94,7 @@ flutter pub get
 
 **Nguyên lý (đọc kỹ trước khi code):** RFCOMM có credit-based flow control — khi buffer máy in đầy, `OutputStream.write()` tự block. Vì vậy: (a) không cần bất kỳ `Thread.sleep` nào giữa các lần ghi; (b) buffer máy in chỉ cần chứa trọn **một lệnh `GS v 0`** đang parse, nên cắt ảnh thành band nhỏ 256 dòng (~18KB) là an toàn tuyệt đối; (c) lệnh feed + cut đặt **queued cuối stream** — máy in tự thực hiện sau khi in hết raster, không cần chờ để "canh" thời điểm cắt.
 
-- [ ] **Step 1.1:** Trong `printEscImageWithThreshold`, GIỮ NGUYÊN toàn bộ phần decode → scale 576px nearest-neighbor → grayscale + Floyd-Steinberg dither (đến dòng `Log.d(TAG, "Processed: " + width + "x" + height);`, hiện ~java:853). XOÁ toàn bộ phần từ comment `// 3) Calculate strip size...` đến hết `// 6) Restore line spacing, feed and cut` + các sleep (hiện ~java:855–953) và thay bằng:
+- [x] **Step 1.1:** Trong `printEscImageWithThreshold`, GIỮ NGUYÊN toàn bộ phần decode → scale 576px nearest-neighbor → grayscale + Floyd-Steinberg dither (đến dòng `Log.d(TAG, "Processed: " + width + "x" + height);`, hiện ~java:853). XOÁ toàn bộ phần từ comment `// 3) Calculate strip size...` đến hết `// 6) Restore line spacing, feed and cut` + các sleep (hiện ~java:855–953) và thay bằng:
 
 ```java
             // 3) Cắt band nhỏ + stream liên tục (không sleep — RFCOMM flow control tự điều tốc)
@@ -147,7 +147,7 @@ flutter pub get
 
 Phần cleanup bitmap (`processedBitmap.recycle()`…, `return true;`, `catch`) hiện có ở cuối method: **giữ nguyên**.
 
-- [ ] **Step 1.2:** Thêm 3 hằng số vào đầu class (cạnh `private static final String TAG`):
+- [x] **Step 1.2:** Thêm 3 hằng số vào đầu class (cạnh `private static final String TAG`):
 
 ```java
     // P1 streaming: band nhỏ + RFCOMM flow control thay cho strip 80KB + sleep đoán mò
@@ -156,7 +156,7 @@ Phần cleanup bitmap (`processedBitmap.recycle()`…, `return true;`, `catch`) 
     private static final int INTER_BAND_DELAY_MS = 0;  // chỉ đổi nếu Gate G1 phát hiện lỗi in
 ```
 
-- [ ] **Step 1.3:** Thêm 2 helper mới vào class (đặt ngay trên `writeEscCommand`), và **xoá method `writeDataInChunks` cũ** (java:994–1071) — không còn nơi nào gọi:
+- [x] **Step 1.3:** Thêm 2 helper mới vào class (đặt ngay trên `writeEscCommand`), và **xoá method `writeDataInChunks` cũ** (java:994–1071) — không còn nơi nào gọi:
 
 ```java
     /** Vector<Byte> của EscCommand → byte[] */
@@ -196,8 +196,8 @@ cd /mnt/data/working/avntt/hqsoft.xspire.sfa/android
 ./gradlew :app:compileDebugJavaWithJavac --console=plain -q
 ```
 Expected: `BUILD SUCCESSFUL` (lần đầu có thể tải Gradle, chấp nhận chậm). Nếu môi trường không chạy được gradlew → ghi ⛔ vào Tracker + nhờ user chạy, KHÔNG bỏ qua.
-- [ ] **Step 1.5:** Rà lại diff: `git diff --stat` phải CHỈ có 1 file Java. Không còn tham chiếu `writeDataInChunks`: `grep -n writeDataInChunks android/app/src/main/java -r` → không kết quả.
-- [ ] **Step 1.6:** Commit (skill `commit_message_generator`; ví dụ fallback: `fix(printer): stream raster bands with flow control, remove blind sleeps`). Cập nhật Tracker.
+- [x] **Step 1.5:** Rà lại diff: `git diff --stat` phải CHỈ có 1 file Java. Không còn tham chiếu `writeDataInChunks`: `grep -n writeDataInChunks android/app/src/main/java -r` → không kết quả.
+- [x] **Step 1.6:** Commit (skill `commit_message_generator`; ví dụ fallback: `fix(printer): stream raster bands with flow control, remove blind sleeps`). Cập nhật Tracker.
 
 ---
 
