@@ -29,21 +29,32 @@
 | # | Task | Phase | Status | Commit | Ngày | Ghi chú |
 |---|---|---|---|---|---|---|
 | 0 | Setup branch + baseline | — | ⬜ | | | |
-| 1 | Java: streaming band, xoá sleep | P1 | ✅ | 8f45d911 | 2026-07-20 | Codex implement · Opus audit PASS · chưa chạy Gradle theo build gate |
+| 1 | Java: streaming band, xoá sleep | P1 | ✅ | 713a243e | 2026-07-20 | Codex implement · Opus audit PASS · chưa chạy Gradle theo build gate |
 | 2 | **GATE G1**: test P1 trên máy thật | P1 | ⏸ chờ gate | | 2026-07-20 | Đo: 5/20/50 SKU = __s/__s/__s |
-| 3 | `PrinterConfig` + `Cp1258Encoder` + tests | P2 | ⬜ | | | |
-| 4 | `EscPos` commands + QR builder + tests | P2 | ⬜ | | | |
-| 5 | Trang probe codepage + debug hook | P2 | ⬜ | | | |
-| 6 | **GATE G2**: chốt CP1258 / bỏ dấu + QR quét được | P2 | ⬜ | | | ESC t n = __ / strip-mode |
-| 7 | `EscPosReceiptBuilder` + tests | P2 | ⬜ | | | |
-| 8 | Wiring 2 entry point + fallback ảnh | P2 | ⬜ | | | |
-| 9 | **GATE G3**: full test matrix + rollout | P2 | ⬜ | | | |
+| 3 | `PrinterConfig` + `Cp1258Encoder` + tests | P2 | ✅ xong | bd84ac37 | 2026-07-20 | 11 tests PASS · exact lower/upper CP1258 corpus · Opus PASS |
+| 4 | `EscPos` commands + QR builder + tests | P2 | ✅ xong | bd84ac37 | 2026-07-20 | 7 tests PASS · native QR bytes verified · Opus PASS |
+| 5 | Trang probe codepage + debug hook | P2 | ✅ xong | bd84ac37 | 2026-07-20 | `n=41` · operation guard · detailed logs · analyzer delta 0 · Opus PASS |
+| 6 | **GATE G2**: chốt CP1258 / bỏ dấu + QR quét được | P2 | ⏸ chờ gate | | 2026-07-21 | User cho tiếp tục development; giữ `escTCp1258=-1`; physical gate vẫn pending |
+| 7 | `EscPosReceiptBuilder` + tests | P2 | ✅ xong | d044bd0a | 2026-07-21 | Codex TDD · Opus PASS sau fix 100+ SKU · 33/33 ESC/POS tests PASS · analyzer không có error |
+| 8 | Wiring 2 entry point + fallback ảnh | P2 | ✅ xong | d044bd0a | 2026-07-21 | Text-first GPrinter + fallback ảnh · 2/2 caller đã wiring · giữ nguyên TSC · Opus PASS |
+| 9 | **GATE G3**: full test matrix + rollout | P2 | ⏸ chờ gate | | 2026-07-21 | Chờ test vật lý SPP-R310; chưa build release/push |
 
 **Nhật ký vấn đề phát sinh** (agent append, không xoá dòng cũ):
 
 | Ngày | Task | Vấn đề | Cách xử lý |
 |---|---|---|---|
-| | | | |
+| 2026-07-20 | 3 | Plan ghi sai byte CP1258 cho dấu hỏi trên là `0xFE`; giá trị chuẩn là `0xD2` (`0xFE` là ký hiệu đồng `₫`). | Sửa encoder, test và plan dùng `0xD2`; targeted test PASS 8/8. |
+| 2026-07-20 | 5 | Cần xác định code-table ID Windows-1258 theo đúng firmware SPP-R310. | Command Manual chính thức quy định Page 41 / 1258 (Vietnam), nên probe dùng ứng viên `[41]`; vẫn xác minh tại Gate G2. |
+| 2026-07-20 | 5 | `flutter analyze lib/core/utilities/prinf/` trả exit 1 với 33 diagnostic. | Xác nhận đều là baseline: 2 warning + 31 info, 0 error; probe/hook không tạo diagnostic mới. |
+| 2026-07-20 | 3, 5 | Opus audit vòng 1 FAIL: M1 có thể concurrent raw writes; M4 corpus test có assertion quá yếu. | Codex sửa state-level operation guard + exact CP1258 assertions, sau đó Opus re-audit. |
+| 2026-07-20 | 3, 5 | Codex đã xử lý M1/M4. | Một in-flight flag serialize tap/connect/probe; full lower/upper corpus + strip-mode assert exact; `test/escpos/` PASS 18/18; analyzer delta 0; chờ Opus vòng 2. |
+| 2026-07-20 | 3–5 | Opus re-audit vòng 2 PASS; Commit 2 hoàn tất. | Commit `3e2c5326`; Opus tự chạy lại 18/18 tests và `git diff --check`; chuyển Task 6 sang chờ Gate G2. |
+| 2026-07-21 | 1, 3–5 | User reword/rebase hai milestone đã có. | Tracker đồng bộ SHA mới: Commit 1 `713a243e`, Commit 2 `bd84ac37`. |
+| 2026-07-21 | 6–8 | User yêu cầu tiếp tục Commit 3 khi Gate G2 chưa test máy thật. | Chỉ waive gate cho development; giữ `PrinterConfig.escTCp1258=-1` để fallback bỏ dấu, không đánh dấu G2 PASS. |
+| 2026-07-21 | 7 | Opus audit phát hiện prefix item thứ 100 dài 5 cột nhưng builder chỉ reserve 4 cột, có thể tạo dòng 49 cột và fallback ảnh. | Codex tính width theo `max(4, prefix.length)`, thêm test 2 item + 100 item; Opus re-audit PASS, `test/escpos/` PASS 33/33. |
+| 2026-07-21 | 7 | Opus nêu thêm F2–F5 hardening: global config debug helper, CP1258 width, QR URL non-ASCII, money overflow. | Không đổi trong Task 7: F2 trái yêu cầu try/finally; F3 chờ G2; F4 đổi semantics QR; F5 chủ động reject overflow thay vì truncate. Theo dõi tại G2/G3. |
+| 2026-07-21 | 8 | Formatter tạo diff ngoài phạm vi semantic và analyzer scoped báo 21 lint legacy. | Codex khôi phục formatting ở các dòng không liên quan; analyzer không có error, không phát sinh diagnostic mới từ flow vừa thêm; `git diff --check` PASS. |
+| 2026-07-21 | 7–8 | Opus final audit Commit 3 nêu N1–N3 không blocking: fallback ảnh ở Sales Invoice gọi GET lần hai, dialog connect giữ nguyên text trong lúc in, log callback có thể dễ đọc hơn. | Chấp nhận ở Gate G3 để quan sát thực tế; không ảnh hưởng tính đúng, GET là idempotent, callback vẫn đúng một lần. Audit verdict PASS, 0 blocking. |
 
 ---
 
@@ -224,9 +235,9 @@ Agent build debug APK **khi user đồng ý** (`flutter build apk --debug`), g�
 **Interfaces:**
 - Produces: `PrinterConfig.textModeEnabled: bool` (mutable static), `PrinterConfig.escTCp1258: int` (−1 = chưa chốt → builder tự dùng chế độ bỏ dấu), `Cp1258Encoder.encode(String text, {bool stripDiacritics = false}) → List<int>`.
 
-**Kiến thức nền:** Windows-1258 = CP1252 sửa 12 vị trí. Ký tự Việt = *byte gốc* (có sẵn: `â 0xE2, ă 0xE3, ê 0xEA, ô 0xF4, ơ 0xF5, ư 0xFD, đ 0xF0` + hoa `0xC2, 0xC3, 0xCA, 0xD4, 0xD5, 0xDD, 0xD0` + ASCII trần) **+ 1 byte dấu tổ hợp**: sắc `0xEC`, huyền `0xCC`, hỏi `0xFE`, ngã `0xDE`, nặng `0xF2`. Ví dụ `ệ` = `0xEA 0xF2`; `Đ` = `0xD0`.
+**Kiến thức nền:** Windows-1258 = CP1252 sửa 12 vị trí. Ký tự Việt = *byte gốc* (có sẵn: `â 0xE2, ă 0xE3, ê 0xEA, ô 0xF4, ơ 0xF5, ư 0xFD, đ 0xF0` + hoa `0xC2, 0xC3, 0xCA, 0xD4, 0xD5, 0xDD, 0xD0` + ASCII trần) **+ 1 byte dấu tổ hợp**: sắc `0xEC`, huyền `0xCC`, hỏi `0xD2`, ngã `0xDE`, nặng `0xF2`. Ví dụ `ệ` = `0xEA 0xF2`; `Đ` = `0xD0`.
 
-- [ ] **Step 3.1: Viết test trước** — `test/escpos/cp1258_encoder_test.dart`:
+- [x] **Step 3.1: Viết test trước** — `test/escpos/cp1258_encoder_test.dart`:
 
 ```dart
 import 'package:esales_sfa/core/utilities/prinf/escpos/cp1258_encoder.dart';
@@ -241,7 +252,7 @@ void main() {
       expect(Cp1258Encoder.encode('ạ'), [0x61, 0xF2]); // a + nặng
       expect(Cp1258Encoder.encode('ế'), [0xEA, 0xEC]); // ê + sắc
       expect(Cp1258Encoder.encode('ằ'), [0xE3, 0xCC]); // ă + huyền
-      expect(Cp1258Encoder.encode('ở'), [0xF5, 0xFE]); // ơ + hỏi
+      expect(Cp1258Encoder.encode('ở'), [0xF5, 0xD2]); // ơ + hỏi
       expect(Cp1258Encoder.encode('ữ'), [0xFD, 0xDE]); // ư + ngã
     });
     test('chữ hoa', () {
@@ -274,8 +285,8 @@ void main() {
 }
 ```
 
-- [ ] **Step 3.2:** Chạy `flutter test test/escpos/cp1258_encoder_test.dart` → Expected: FAIL (file chưa tồn tại).
-- [ ] **Step 3.3:** Viết `lib/core/utilities/prinf/escpos/printer_config.dart`:
+- [x] **Step 3.2:** Chạy `flutter test test/escpos/cp1258_encoder_test.dart` → Expected: FAIL (file chưa tồn tại).
+- [x] **Step 3.3:** Viết `lib/core/utilities/prinf/escpos/printer_config.dart`:
 
 ```dart
 /// Cấu hình đường in ESC/POS text-mode (P2).
@@ -291,13 +302,13 @@ class PrinterConfig {
 }
 ```
 
-- [ ] **Step 3.4:** Viết `lib/core/utilities/prinf/escpos/cp1258_encoder.dart`:
+- [x] **Step 3.4:** Viết `lib/core/utilities/prinf/escpos/cp1258_encoder.dart`:
 
 ```dart
 /// Encoder UTF-8 → Windows-1258 (Vietnam) cho máy in nhiệt ESC/POS.
 ///
 /// CP1258 biểu diễn chữ Việt bằng: byte ký tự gốc (a ă â e ê i o ô ơ u ư y đ,
-/// hoa/thường) + 1 byte dấu tổ hợp (sắc 0xEC, huyền 0xCC, hỏi 0xFE, ngã 0xDE,
+/// hoa/thường) + 1 byte dấu tổ hợp (sắc 0xEC, huyền 0xCC, hỏi 0xD2, ngã 0xDE,
 /// nặng 0xF2). Máy in phải được chọn codepage 1258 bằng `ESC t n` trước khi in.
 class Cp1258Encoder {
   Cp1258Encoder._();
@@ -326,7 +337,7 @@ class Cp1258Encoder {
   };
 
   /// Byte dấu tổ hợp theo thứ tự: sắc, huyền, hỏi, ngã, nặng.
-  static const List<int> _toneBytes = [0xEC, 0xCC, 0xFE, 0xDE, 0xF2];
+  static const List<int> _toneBytes = [0xEC, 0xCC, 0xD2, 0xDE, 0xF2];
 
   /// byte CP1258 gốc-có-dấu-phụ → byte ASCII trần (dùng cho chế độ bỏ dấu).
   static const Map<int, int> _stripMap = {
@@ -380,8 +391,8 @@ class Cp1258Encoder {
 }
 ```
 
-- [ ] **Step 3.5:** `flutter test test/escpos/cp1258_encoder_test.dart` → Expected: **tất cả PASS**. Nếu fail case nào, sửa encoder (không sửa expected value của test — chúng là spec CP1258).
-- [ ] **Step 3.6:** Commit. Cập nhật Tracker.
+- [x] **Step 3.5:** `flutter test test/escpos/cp1258_encoder_test.dart` → Expected: **tất cả PASS**. Nếu fail case nào, sửa encoder (không sửa expected value của test — chúng là spec CP1258).
+- [x] **Step 3.6:** Commit. Cập nhật Tracker.
 
 ---
 
@@ -394,7 +405,7 @@ class Cp1258Encoder {
 **Interfaces:**
 - Produces: class `EscPos` — `init`, `codepage(int n)`, `alignLeft/alignCenter/alignRight`, `bold(bool)`, `sizeNormal/sizeDouble/sizeDoubleHeight`, `feed(int)`, `lf`, `cut`, `qrCode(String data, {int moduleSize = 6}) → List<int>`.
 
-- [ ] **Step 4.1: Test trước** — `test/escpos/esc_pos_commands_test.dart`:
+- [x] **Step 4.1: Test trước** — `test/escpos/esc_pos_commands_test.dart`:
 
 ```dart
 import 'package:esales_sfa/core/utilities/prinf/escpos/esc_pos_commands.dart';
@@ -445,8 +456,8 @@ int _indexOfStore(List<int> b) {
 }
 ```
 
-- [ ] **Step 4.2:** Chạy test → FAIL (chưa có file).
-- [ ] **Step 4.3:** Viết `lib/core/utilities/prinf/escpos/esc_pos_commands.dart`:
+- [x] **Step 4.2:** Chạy test → FAIL (chưa có file).
+- [x] **Step 4.3:** Viết `lib/core/utilities/prinf/escpos/esc_pos_commands.dart`:
 
 ```dart
 import 'dart:convert';
@@ -493,8 +504,8 @@ class EscPos {
 }
 ```
 
-- [ ] **Step 4.4:** `flutter test test/escpos/esc_pos_commands_test.dart` → PASS.
-- [ ] **Step 4.5:** Commit. Cập nhật Tracker.
+- [x] **Step 4.4:** `flutter test test/escpos/esc_pos_commands_test.dart` → PASS.
+- [x] **Step 4.5:** Commit. Cập nhật Tracker.
 
 ---
 
@@ -508,8 +519,8 @@ class EscPos {
 - Consumes: `EscPos` (Task 4), `Cp1258Encoder` (Task 3), `GPrinterService.write(Uint8List)` (sẵn có, `g_printer_service.dart:119`).
 - Produces: `buildCodepageProbePage(List<int> candidates) → List<int>`.
 
-- [ ] **Step 5.1:** Tra giá trị `ESC t n` của codepage 1258 trong tài liệu Bixolon: mở [trang download SPP-R310](https://www.bixolon.com/download_view.php?idx=14) lấy **Code Pages Manual** (hoặc Command Manual mục `ESC t`) → ghi danh sách n hợp lệ vào Tracker. Nếu không tra được, dùng dải quét `[0..60]` (bao trùm dải Bixolon công bố; ~60 dòng ≈ 20cm giấy, chấp nhận được).
-- [ ] **Step 5.2:** Viết `lib/core/utilities/prinf/escpos/codepage_probe.dart`:
+- [x] **Step 5.1:** Tra giá trị `ESC t n` của codepage 1258 trong tài liệu Bixolon: mở [trang download SPP-R310](https://www.bixolon.com/download_view.php?idx=14) lấy **Code Pages Manual** (hoặc Command Manual mục `ESC t`) → ghi danh sách n hợp lệ vào Tracker. Nếu không tra được, dùng dải quét `[0..60]` (bao trùm dải Bixolon công bố; ~60 dòng ≈ 20cm giấy, chấp nhận được). **Kết quả:** Command Manual SPP-R310 Rev. 1.00 quy định `n=41` = Page 41 / 1258 (Vietnam).
+- [x] **Step 5.2:** Viết `lib/core/utilities/prinf/escpos/codepage_probe.dart`:
 
 ```dart
 import 'dart:convert';
@@ -550,7 +561,7 @@ List<int> buildCodepageProbePage(List<int> candidates) {
 }
 ```
 
-- [ ] **Step 5.3:** Thêm debug hook trong `bt_sheet_bluetooth_device.dart`: ở `_buildItemBluetoothDevice`, bọc `InkWell` hiện có thêm `onLongPress` (chỉ hoạt động khi đã kết nối):
+- [x] **Step 5.3:** Thêm debug hook trong `bt_sheet_bluetooth_device.dart`: ở `_buildItemBluetoothDevice`, bọc `InkWell` hiện có thêm `onLongPress` (chỉ hoạt động khi đã kết nối):
 
 ```dart
         onLongPress: () async {
@@ -561,8 +572,8 @@ List<int> buildCodepageProbePage(List<int> candidates) {
         },
 ```
 kèm import `dart:typed_data`, `package:esales_sfa/core/utilities/prinf/escpos/codepage_probe.dart`. (Hook giữ lại vĩnh viễn — vô hại, chỉ kích hoạt bằng long-press khi đã kết nối; nếu Step 5.1 tra được danh sách n hẹp hơn thì thay `List<int>.generate(61,...)` bằng danh sách đó.)
-- [ ] **Step 5.4:** `flutter analyze lib/core/utilities/prinf/` → không issue MỚI so với baseline Task 0.
-- [ ] **Step 5.5:** Commit. Cập nhật Tracker.
+- [x] **Step 5.4:** `flutter analyze lib/core/utilities/prinf/` → không issue MỚI so với baseline Task 0.
+- [x] **Step 5.5:** Commit. Cập nhật Tracker.
 
 ---
 
@@ -626,7 +637,7 @@ Ghi chú (2) trên hóa đơn: <note2>   (nếu có; wrap)
 feed 4 + cut
 ```
 
-- [ ] **Step 7.1: Test trước** — `test/escpos/esc_pos_receipt_builder_test.dart`:
+- [x] **Step 7.1: Test trước** — `test/escpos/esc_pos_receipt_builder_test.dart`:
 
 ```dart
 import 'package:esales_sfa/core/utilities/prinf/escpos/esc_pos_commands.dart';
@@ -722,8 +733,8 @@ bool _contains(List<int> haystack, List<int> needle) {
 }
 ```
 
-- [ ] **Step 7.2:** Chạy test → FAIL (chưa có builder).
-- [ ] **Step 7.3:** Viết `lib/core/utilities/prinf/escpos/esc_pos_receipt_builder.dart`:
+- [x] **Step 7.2:** Chạy test → FAIL (chưa có builder).
+- [x] **Step 7.3:** Viết `lib/core/utilities/prinf/escpos/esc_pos_receipt_builder.dart`:
 
 ```dart
 import 'dart:typed_data';
@@ -989,8 +1000,8 @@ class EscPosReceiptBuilder {
 ```
 Lưu ý cho agent: bản ảnh dùng `GeneralApp.userInfo?.phoneNumber` làm fallback ĐT (`receipt_service_enhanced.dart:290-299`). KHÔNG import `GeneralApp` vào builder (kéo dependency app vào unit test); thay vào đó Task 8 truyền phone fallback qua `ReceiptData.depotPhone` khi map (2 entry point đều đã map `depotPhone` — kiểm tra `_mapToReceiptData` ở cả 2 nơi; nếu nơi nào để null thì bổ sung `?? GeneralApp.userInfo?.phoneNumber` TẠI CHỖ MAP).
 
-- [ ] **Step 7.4:** `flutter test test/escpos/` → toàn bộ 3 file test PASS.
-- [ ] **Step 7.5:** Commit. Cập nhật Tracker.
+- [x] **Step 7.4:** `flutter test test/escpos/` → toàn bộ 3 file test PASS.
+- [x] **Step 7.5:** Commit. Cập nhật Tracker.
 
 ---
 
@@ -1007,7 +1018,7 @@ Lưu ý cho agent: bản ảnh dùng `GeneralApp.userInfo?.phoneNumber` làm fal
 - Consumes: `EscPosReceiptBuilder.build(ReceiptData)` (Task 7), `PrinterConfig.textModeEnabled` (Task 3), `GPrinterService.writeWithRetry(Uint8List)` (sẵn có).
 - Produces: `typedef OnBuildReceiptDataCallback = Future<ReceiptData?> Function();` xuyên suốt helper → bottom sheet.
 
-- [ ] **Step 8.1:** `printer_selection.dart` — thêm cạnh 2 typedef hiện có:
+- [x] **Step 8.1:** `printer_selection.dart` — thêm cạnh 2 typedef hiện có:
 
 ```dart
 import 'package:esales_sfa/core/utilities/prinf/pdf_receipt/models/receipt_data.dart';
@@ -1016,8 +1027,8 @@ import 'package:esales_sfa/core/utilities/prinf/pdf_receipt/models/receipt_data.
 typedef OnBuildReceiptDataCallback = Future<ReceiptData?> Function();
 ```
 
-- [ ] **Step 8.2:** `buetooth_hepler.dart` — `showDeviceSelector` nhận thêm `OnBuildReceiptDataCallback? onBuildReceiptData` và forward vào `BluetoothNativeDevice.show(...)` (nhánh gprinter). Nhánh TSC (`BluetoothPlusDevice`) KHÔNG nhận param này — giữ nguyên.
-- [ ] **Step 8.3:** `bt_sheet_bluetooth_device.dart`:
+- [x] **Step 8.2:** `buetooth_hepler.dart` — `showDeviceSelector` nhận thêm `OnBuildReceiptDataCallback? onBuildReceiptData` và forward vào `BluetoothNativeDevice.show(...)` (nhánh gprinter). Nhánh TSC (`BluetoothPlusDevice`) KHÔNG nhận param này — giữ nguyên.
+- [x] **Step 8.3:** `bt_sheet_bluetooth_device.dart`:
   - `BluetoothDeviceBottomSheet` + `BluetoothNativeDevice.show` nhận & truyền `onBuildReceiptData`.
   - Thêm method vào `_BluetoothDeviceBottomSheetState`:
 
@@ -1080,7 +1091,7 @@ typedef OnBuildReceiptDataCallback = Future<ReceiptData?> Function();
   }
 ```
   Thay các đoạn in trong `_connectToDevice` (từ `// ✅ Nếu có callback onDeviceConnected...` đến hết nhánh `else if (widget.pdfBase64...)`) và trong `onTap` nhánh `isConnected` bằng `printed = await _doPrint(showLoading: true);`. Giữ nguyên phần connect/timeout/overlay. **Chú ý:** `_doPrint` tự quản progress dialog trong `finally` — bỏ các cặp show/hide dialog cũ tương ứng để không pop 2 lần.
-- [ ] **Step 8.4:** `sales_invoice_form.dart` — tách `_generateReceiptBase64` (:1284) thành 2 tầng và truyền callback mới:
+- [x] **Step 8.4:** `sales_invoice_form.dart` — tách `_generateReceiptBase64` (:1284) thành 2 tầng và truyền callback mới:
 
 ```dart
   /// Fetch invoice + map sang ReceiptData (dùng chung cho text-mode và ảnh)
@@ -1114,9 +1125,9 @@ typedef OnBuildReceiptDataCallback = Future<ReceiptData?> Function();
   }
 ```
 và trong `_printF()` thêm `onBuildReceiptData: _buildReceiptData,` vào lời gọi `showDeviceSelector`.
-- [ ] **Step 8.5:** Receipt preview: trong `receipt_preview_bloc.dart`, state Loaded đang giữ `base64Receipt` — thêm field `final ReceiptData? receiptData;` vào state đó (cập nhật constructor + `props`), gán từ biến `receiptData` có sẵn ở `_mapLoad...` (:63). Trong `receipt_preview_form.dart:389` thêm `onBuildReceiptData: () async => state.receiptData,`.
-- [ ] **Step 8.6:** Kiểm tra: `flutter analyze lib/ | tail -5` (không issue mới) và `flutter test test/escpos/` PASS. Grep xác nhận không còn caller nào của flow in bị bỏ sót: `grep -rn "showDeviceSelector" lib --include="*.dart"` → chỉ 2 form đã sửa.
-- [ ] **Step 8.7:** Commit. Cập nhật Tracker.
+- [x] **Step 8.5:** Receipt preview: trong `receipt_preview_bloc.dart`, state Loaded đang giữ `base64Receipt` — thêm field `final ReceiptData? receiptData;` vào state đó (cập nhật constructor + `props`), gán từ biến `receiptData` có sẵn ở `_mapLoad...` (:63). Trong `receipt_preview_form.dart:389` thêm `onBuildReceiptData: () async => state.receiptData,`.
+- [x] **Step 8.6:** Kiểm tra: `flutter analyze lib/ | tail -5` (không issue mới) và `flutter test test/escpos/` PASS. Grep xác nhận không còn caller nào của flow in bị bỏ sót: `grep -rn "showDeviceSelector" lib --include="*.dart"` → chỉ 2 form đã sửa.
+- [x] **Step 8.7:** Commit. Cập nhật Tracker.
 
 ---
 
