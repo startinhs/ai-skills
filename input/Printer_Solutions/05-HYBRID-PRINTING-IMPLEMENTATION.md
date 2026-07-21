@@ -10,6 +10,8 @@
 Tài liệu này là **source-of-truth cho đường in production P2 Hybrid**. Tài liệu
 `03-VIETNAMESE-TEXT-REMEDIATION-PLAN.md` tiếp tục lưu phân tích và kết quả loại CP1258 trên máy thật;
 `04-BIXOLON-UPOS-INTEGRATION-ANALYSIS.md` là hướng nghiên cứu UPOS, không phải đường production hiện tại.
+Kế hoạch đưa bố cục Hybrid về tương đương Image `develop` nằm ở
+[`06-HYBRID-LAYOUT-PARITY-PLAN.md`](./06-HYBRID-LAYOUT-PARITY-PLAN.md).
 
 ---
 
