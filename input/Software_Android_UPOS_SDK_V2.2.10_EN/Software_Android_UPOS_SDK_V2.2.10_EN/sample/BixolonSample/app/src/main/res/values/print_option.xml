@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="Alignment">
+        <item>Left Alignment</item>
+        <item>Center Alignment</item>
+        <item>Right Alignment</item>
+    </string-array>
+
+    <string-array name="Dither">
+        <item>NONE</item>
+        <item>Floyd Steinberg</item>
+    </string-array>
+
+    <string-array name="Compress">
+        <item>NONE</item>
+        <item>RLE</item>
+        <item>LZMA</item>
+    </string-array>
+
+    <string-array name="textFont">
+        <item>Font A</item>
+        <item>Font B</item>
+        <item>Font C</item>
+        <!--<item>Font D</item>-->
+    </string-array>
+
+    <string-array name="textSize">
+        <item>Text Size 1</item>
+        <item>Text Size 2</item>
+        <item>Text Size 3</item>
+        <item>Text Size 4</item>
+        <item>Text Size 5</item>
+        <item>Text Size 6</item>
+        <item>Text Size 7</item>
+        <item>Text Size 8</item>
+    </string-array>
+
+    <string-array name="directIO">
+        <item>Firmware Version</item>
+        <item>Printer Model</item>
+        <item>Manufacturer</item>
+        <item>Code Page</item>
+        <item>Serial Number</item>
+        <item>Part Number</item>
+        <item>Batter Status</item>
+        <item>Batter Capacity</item>
+        <item>TPH Temperature</item>
+    </string-array>
+</resources>

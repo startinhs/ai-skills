@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">BixolonSample</string>
+    <string name="Text">Text</string>
+    <string name="Image">Image</string>
+    <string name="Barcode">Barcode</string>
+    <string name="PageMode">Page Mode</string>
+    <string name="DirectIO">Direct I/O</string>
+    <string name="MSR">MSR</string>
+    <string name="SCR">SCR</string>
+    <string name="CashDrawer">Cash Drawer</string>
+    <string name="ETC">Etc.</string>
+    <string name="USBPeripheral">USB Peripheral</string>
+    <string name="notice">Notice</string>
+    <string name="grant_permission">You must grant permission to use the app.</string>
+    <string name="exit">Exit</string>
+    <string name="set_permission">Set permissions</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="get_device">Get Device</string>
+    <string name="add_device">Add Device</string>
+    <string name="del_device">Delete Device</string>
+    <string name="reinit_device">Re-init Device</string>
+    <string name="dev_vid">VID : </string>
+    <string name="dev_pid">PID : </string>
+    <string-array name="custom_dev_type">
+        <item>POS printer</item>
+        <item>Label printer</item>
+        <item>MSR</item>
+        <item>Barcode Scanner</item>
+        <item>RFID</item>
+        <item>Dallaskey</item>
+        <item>NFC</item>
+        <item>BCD Display</item>
+        <item>USB to Serial</item>
+        <item>Scale</item>
+    </string-array>
+    <string-array name="baudrate">
+        <item>2400 bps</item>
+        <item>4800 bps</item>
+        <item>9600 bps</item>
+        <item>19200 bps</item>
+        <item>38400 bps</item>
+        <item>57600 bps</item>
+        <item>115200 bps</item>
+        <item>230400 bps</item>
+    </string-array>
+    <string-array name="databits">
+        <item>7 bits</item>
+        <item>8 bits</item>
+    </string-array>
+    <string-array name="stopbits">
+        <item>1 bits</item>
+        <item>2 bits</item>
+    </string-array>
+    <string-array name="parity">
+        <item>None</item>
+        <item>Even</item>
+        <item>Odd</item>
+    </string-array>
+    <string-array name="flowcontrol">
+        <item>None</item>
+        <item>H/W</item>
+    </string-array>
+</resources>

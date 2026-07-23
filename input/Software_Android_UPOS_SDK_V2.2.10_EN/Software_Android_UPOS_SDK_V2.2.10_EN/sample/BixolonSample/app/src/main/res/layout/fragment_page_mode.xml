@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/textViewDirection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Direction : "
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupDirection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+
+            <RadioButton
+                android:id="@+id/radioL2R"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Left to Right" />
+
+            <RadioButton
+                android:id="@+id/radioB2T"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bottom to Top" />
+
+            <RadioButton
+                android:id="@+id/radioR2L"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Right to Left" />
+
+            <RadioButton
+                android:id="@+id/radioT2B"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top to Bottom" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkBoxLabelMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:layout_below="@+id/LinearLayout1"
+        android:layout_marginTop="15dp"
+        android:text="Label Mode" />
+
+    <Button
+        android:id="@+id/buttonSamplePrint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkBoxLabelMode"
+        android:layout_marginTop="15dp"
+        android:text="Page Mode Sample" />
+
+    <Button
+        android:id="@+id/buttonBoxPrint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonSamplePrint"
+        android:layout_marginTop="15dp"
+        android:text="Box/Line Sample(Mobile)" />
+
+    <TextView
+        android:id="@+id/textViewDeviceMessages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/buttonBoxPrint" />
+</RelativeLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="barcodeSymbology">
+        <item>UPC-A</item>
+        <item>UPC-E</item>
+        <item>EAN8</item>
+        <item>EAN13</item>
+        <item>ITF</item>
+        <item>Codabar</item>
+        <item>Code39</item>
+        <item>Code93</item>
+        <item>Code128</item>
+        <item>PDF417</item>
+        <item>MAXICODE</item>
+        <item>DATAMATRIX</item>
+        <item>QRCODE</item>
+        <item>EAN128</item>
+    </string-array>
+
+    <string-array name="barcodeHRI">
+        <item>None</item>
+        <item>Above</item>
+        <item>Below</item>
+    </string-array>
+
+</resources>

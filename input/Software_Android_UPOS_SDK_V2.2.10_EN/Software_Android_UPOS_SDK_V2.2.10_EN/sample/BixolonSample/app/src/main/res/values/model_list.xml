@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="modelList">
+        <item>SPP-R210</item>
+        <item>SPP-R215</item>
+        <item>SPP-R220</item>
+        <item>SPP-R230</item>
+        <item>SPP-R200II</item>
+        <item>SPP-R200III</item>
+        <item>SPP-C200</item>
+        <item>SPP-R300</item>
+        <item>SPP-R310</item>
+        <item>SPP-R318</item>
+        <item>SPP-C300</item>
+        <item>SPP-R400</item>
+        <item>SPP-R410</item>
+        <item>SPP-R418</item>
+        <item>SPP-100II</item>
+        <item>SPP-300</item>
+        <item>SRP-350III</item>
+        <item>SRP-352III</item>
+        <item>SRP-350V</item>
+        <item>SRP-352V</item>
+        <item>SRP-350plusIII</item>
+        <item>SRP-352plusIII</item>
+        <item>SRP-350plusV</item>
+        <item>SRP-352plusV</item>
+        <item>SRP-380</item>
+        <item>SRP-382</item>
+        <item>SRP-383</item>
+        <item>SRP-380plus</item>
+        <item>SRP-382plus</item>
+        <item>SRP-340II</item>
+        <item>SRP-342II</item>
+        <item>SRP-Q200</item>
+        <item>SRP-Q300</item>
+        <item>SRP-Q302</item>
+        <item>SRP-Q300II</item>
+        <item>SRP-QE300</item>
+        <item>SRP-QE302</item>
+        <item>SRP-E300</item>
+        <item>SRP-E302</item>
+        <item>SRP-B300</item>
+        <item>SRP-B300II</item>
+        <item>SRP-330II</item>
+        <item>SRP-332II</item>
+        <item>SRP-330III</item>
+        <item>SRP-332III</item>
+        <item>SRP-S200</item>
+        <item>SRP-S300</item>
+        <item>SRP-S320</item>
+        <item>SRP-S300II</item>
+        <item>SRP-S3000</item>
+        <item>SRP-G300</item>
+        <item>SRP-F310</item>
+        <item>SRP-F312</item>
+        <item>SRP-F310II</item>
+        <item>SRP-F312II</item>
+        <item>SRP-F313II</item>
+        <item>SRP-275III</item>
+        <item>BK3-2</item>
+        <item>BK3-3</item>
+        <item>BK5-3</item>
+        <item>BK5-4</item>
+        <item>SMB6350</item>
+        <item>SLP X-Series</item>
+        <item>SLP-DX420</item>
+        <item>SPP-L410II</item>
+        <item>XM7-40</item>
+        <item>SRP-350IIOBE</item>
+        <item>FEC-90IIT</item>
+        <item>FEC-90IIIT</item>
+        <item>FEC-92IIT</item>
+        <item>FEC-92IIIT</item>
+    </string-array>
+
+</resources>

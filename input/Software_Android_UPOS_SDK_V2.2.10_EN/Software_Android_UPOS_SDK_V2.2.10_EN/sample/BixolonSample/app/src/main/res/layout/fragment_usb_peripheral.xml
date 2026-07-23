@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/buttonSearchDevices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Search Devices" />
+
+    <Button
+        android:id="@+id/buttonSendData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonSearchDevices"
+        android:layout_marginTop="5dp"
+        android:text="Send Data" />
+
+    <Button
+        android:id="@+id/buttonSetSerialSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonSendData"
+        android:layout_marginTop="5dp"
+        android:text="Set Serial Settings Data" />
+
+    <Button
+        android:id="@+id/buttonGetSerialSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonSetSerialSettings"
+        android:layout_marginTop="5dp"
+        android:text="Get Serial Settings Data" />
+
+    <Button
+        android:id="@+id/buttonGetVidPid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonGetSerialSettings"
+        android:layout_marginTop="5dp"
+        android:text="Get Vid Pid" />
+
+    <Button
+        android:id="@+id/buttonGetSerialNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonGetVidPid"
+        android:layout_marginTop="5dp"
+        android:text="Get Serial Number" />
+
+    <Button
+        android:id="@+id/buttonGetCustomUsbList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonGetSerialNumber"
+        android:layout_marginTop="5dp"
+        android:text="Get Custom Usb List" />
+
+    <Button
+        android:id="@+id/buttonAddCustomUsbDevice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonGetCustomUsbList"
+        android:layout_marginTop="5dp"
+        android:text="Add Custom Usb Device" />
+
+    <Button
+        android:id="@+id/buttonDelCustomUsbDevice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonAddCustomUsbDevice"
+        android:layout_marginTop="5dp"
+        android:text="Del Custom Usb Device" />
+
+    <Button
+        android:id="@+id/buttonResetCustomUsbDevice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonDelCustomUsbDevice"
+        android:layout_marginTop="5dp"
+        android:text="Reset Custom Usb Device" />
+
+
+    <TextView
+        android:id="@+id/textViewDeviceMessages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/buttonResetCustomUsbDevice" />
+
+</RelativeLayout>

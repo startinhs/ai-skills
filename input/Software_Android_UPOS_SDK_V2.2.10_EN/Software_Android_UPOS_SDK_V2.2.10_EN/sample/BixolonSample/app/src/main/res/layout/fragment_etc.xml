@@ -1,0 +1,132 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutEtc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonCutPaper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Cut Paper" />
+
+            <Button
+                android:id="@+id/buttonFormFeed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Form Feed" />
+
+            <Button
+                android:id="@+id/buttonTransactionPrint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Transaction Print" />
+
+            <Button
+                android:id="@+id/buttonReceiptSample"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Receipt Sample" />
+
+            <Button
+                android:id="@+id/buttonPrintNVImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="NV Download/Print" />
+
+            <Button
+                android:id="@+id/buttonCheckHealth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Check Health" />
+
+            <Button
+                android:id="@+id/buttonInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Info" />
+
+            <Button
+                android:id="@+id/buttonFarsiSample"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Farsi Print" />
+
+            <Button
+                android:id="@+id/buttonArabicSample"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Arabic Print" />
+
+            <Button
+                android:id="@+id/buttonLocalCardInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Local Card Info" />
+
+            <Button
+                android:id="@+id/buttonUpdateFirmware"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Update Firmware" />
+
+            <Button
+                android:id="@+id/buttonEjectPaper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Eject Paper" />
+
+            <Button
+                android:id="@+id/buttonPresenterStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Presenter Status" />
+
+            <Button
+                android:id="@+id/buttonRetractPaper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Retract Paper" />
+
+            <Button
+                android:id="@+id/buttonEjectAndRetractPaper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Eject and Retract Paper" />
+
+            <Button
+                android:id="@+id/buttonDisplayTest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="BCD-3000 TEST" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,128 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textViewSCSlot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SCSlot : "
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupSlotType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+
+            <RadioButton
+                android:id="@+id/radioIC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="IC Card" />
+
+            <RadioButton
+                android:id="@+id/radioSAM1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SAM1" />
+
+            <RadioButton
+                android:id="@+id/radioSAM2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SAM2" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textViewSCMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mode : "
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupSCMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+
+            <RadioButton
+                android:id="@+id/radioEMV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="APDU mode(EMV standard)" />
+
+            <RadioButton
+                android:id="@+id/radioISO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TPDU mode(ISO standard)" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonSCROpen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LinearLayout1"
+        android:layout_marginTop="1dp"
+        android:text="SCR Open" />
+
+    <Button
+        android:id="@+id/buttonSCRPowerUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonSCROpen"
+        android:layout_marginTop="1dp"
+        android:text="SCR Power Up" />
+
+    <Button
+        android:id="@+id/buttonSCRRead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonSCRPowerUp"
+        android:layout_marginTop="1dp"
+        android:text="SCR Read" />
+
+    <Button
+        android:id="@+id/buttonSCRPowerDown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonSCRRead"
+        android:layout_marginTop="1dp"
+        android:text="SCR Power Down" />
+
+    <Button
+        android:id="@+id/buttonCheckHealthNInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/buttonSCRPowerDown"
+        android:text="Check Health / Info" />
+
+    <Button
+        android:id="@+id/buttonSCRClose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonCheckHealthNInfo"
+        android:layout_marginTop="1dp"
+        android:text="SCR Close" />
+
+</RelativeLayout>
