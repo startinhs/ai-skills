@@ -1,0 +1,120 @@
+﻿Header (SalesInvoiceHeaderCSV_*),,,,,,,Line item (SalesInvoiceDetailCSV_*),,,,
+STT,3rd system,Mapping,SAP system,Examples,,,STT,3rd system,Mapping,SAP system,Examples
+1,CompanyCode,1:1,ZR_EMOB_COMP_CODE,AVN,,,1,CompanyCode,1:1,ZR_EMOB_COMP_CODE,AVN
+2,CustomerCode,1:1,ZR_EMOB_CUS_CODE,NPPAVN,,,2,CustomerCode,1:1,ZR_EMOB_CUS_CODE,NPPAVN
+3,DocumentCode,1:1,ZR_EMOB_SI_DOC,PSI0013863761,,,3,DocumentCode,1:1,ZR_EMOB_SO_NUM,PSI0013863761
+4,DocumentType,1:1,ZR_DOC_TYPE,"SalesInvoice
+SalesReturnReceipt",,,4,SalesInvoiceDetailLineID,1:1,ZR_EMOB_SI_LINE_ID,1
+5,SourceDocumentCode,1:1,ZR_EMOB_SO_NUM,eSO0000713101-4,,,5,DocumentType,1:1,ZR_EMOB_SI_DOC,SalesInvoice
+6,OrderType,1:1,ZR_ORDER_TYPE,0,,,6,SourceDocumentCode,1:1,ZR_DOC_TYPE,eSO0000713101-4
+7,RefCode,1:1,ZR_REF_NO,145419.1C25TDN,,,7,OrderType,1:1,ZR_ORDER_TYPE,0
+8,SecondaryCustomerCode,1:1,ZR_CUS_CODE,1420007329,,,8,SecondaryCustomerCode,1:1,ZR_CUS_CODE,1420007329
+9,SecondaryCustomerName,1:1,ZR_CUS_NAME,CÔNG TY AJINOMOTO VIỆT NAM (BỘ PHẬN LGA),,,9,SalesRouteCode,1:1,ZR_SALES_TEAM_ID,1420000556
+10,PaymentTerm,1:1,ZR_PAY_TERM,4C01,,,10,PostingDate,1:1,ZR_POST_DATE,20251030
+11,PricePaymentTerm,1:1,ZR_PRICE_PAY_TERM,0,,,11,PostingTime,1:1,ZR_POST_TIME,133549
+12,SecondaryCustomerType,1:1,ZR_CUS_TYPE,,,,12,OrderDate,1:1,ZR_ORDER_DATE,20251030
+13,SecondaryCustomerClass,1:1,ZR_CUS_CLASS,,,,13,OrderTime,1:1,ZR_ORDER_TIME,133549
+14,CustomerSegment,1:1,ZR_CUS_SEGM,37,,,14,ProductName,1:1,ZR_PRODUCT_NAME,BL-16G-MAT-BOX 10 STICK-(12.22)
+15,ParentSecondaryCustomerCode,1:1,ZR_CUS_PARENT_CODE,1420007329,,,15,UnitPrice,1:1,ZR_UNIT_PRICE,32083
+16,Attribute1,1:1,ZR_ATTRIBUTE_1,,,,16,SecondarySalesPricePlanCode,1:1,ZR_SALES_PRICE_PLAN_CODE,BG_OT_000253
+17,Attribute2,1:1,ZR_ATTRIBUTE_2,,,,17,DiscountAmountOnPrice,1:1,ZR_DIS_AMT_PRICE,0
+18,Attribute3,1:1,ZR_ATTRIBUTE_3,,,,18,PriceIncludingDiscount,1:1,ZR_PRICE_INCL_DIS,32083
+19,Attribute4,1:1,ZR_ATTRIBUTE_4,,,,19,Quantity,1:1,ZR_QUAN,55
+20,Attribute5,1:1,ZR_ATTRIBUTE_5,,,,20,UOMCode,1:1,ZR_UOM_CODE,BOX
+21,Attribute6,1:1,ZR_ATTRIBUTE_6,,,,21,LocationCode,1:1,ZR_SLOC_CODE,18008
+22,SecondaryCustomerGroup,1:1,ZR_CUS_GROUP,,,,22,BinCode,1:1,ZR_BIN_CODE,20522
+23,Address,1:1,ZR_ADDR,"Khu Công nghiệp Biên Hòa I, phường Trấn Biên, tỉnh Đồng Nai, Việt Nam",,,23,Amount,1:1,ZR_AMOUNT,1764565
+24,ShipAddress,1:1,ZR_SHIP_ADDR,,,,24,InvoiceDiscount,1:1,ZR_INV_DIS,0
+25,Phone,1:1,ZR_PHONE,,,,25,TaxPercent,1:1,ZR_TAX_PERCENT,8
+26,ShippingPhone,1:1,ZR_SHIPPING_PHONE,,,,26,PriceIncludingTax,1:1,ZR_PRICE_INCL_TAX,34650
+27,ShipToContact,1:1,ZR_SHIP_TO_CONTACT,,,,27,SubTotalAmount,1:1,ZR_SUB_TOTAL,1764565
+28,BillToSecondaryCustomerCode,1:1,ZR_BILL_TO_CUS,1420007329,,,28,TaxAmount,1:1,ZR_TAX_AMT,141166
+29,VATRegistrationID,1:1,ZR_CUS_VAT,3600244645,,,29,TotalAmount,1:1,ZR_TOTAL_AMT,1905731
+30,SalesRouteCode,1:1,ZR_SALES_TEAM_ID,1420000556,,,30,NetUnitPrice,1:1,ZR_NET_PRICE,0
+31,SalesRouteName,1:1,ZR_SALES_TEAM_NAME,GA-LONG THÀNH,,,31,NetUnitPriceWithTax,1:1,ZR_NET_PRICE_TAX,0
+32,SalesTeamCode,1:1,ZR_CHANNEL,OT,,,32,FreeItemType,1:1,ZR_FREE_ITEM,SalesItem
+33,EmployeeCode,1:1,ZR_SALES_PERS_ID,1420001100,,,33,BaseUOMCode,1:1,ZR_BASE_UOM_CODE,KG
+34,EmployeeName,1:1,ZR_SALES_PERS_NAME,NVBH GA-LONG THÀNH,,,34,UOMQuantity,1:1,ZR_UOM_QUAN,0.16
+35,OrderDate,1:1,ZR_ORDER_DATE,20251030,,,35,BaseQuantity,1:1,ZR_QUAN_BASE,8.8
+36,OrderTime,1:1,ZR_ORDER_TIME,133549,,,36,CreatedDate,1:1,ZR_CREATE_DATE,20251030
+37,PostingDate,1:1,ZR_POST_DATE,20251030,,,37,CreatedTime,1:1,ZR_CREATE_TIME,134645
+38,PostingTime,1:1,ZR_POST_TIME,133549,,,38,LastUpdatedDate,1:1,ZR_LAST_UPDATE_DATE,20251030
+39,LocationCode,1:1,ZR_SLOC_CODE,18008,,,39,LastUpdatedTime,1:1,ZR_LAST_UPDATE_TIME,134645
+40,SalesRegionL1,1:1,ZR_SALES_REGION_L1,3,,,40,ReturnType,1:1,ZR_RETURN_TYPE,
+41,SalesRegionL2,1:1,ZR_SALES_REGION_L2,33,,,41,ProductCode,1:1,ZR_PRODUCT_CODE,140002792
+42,SalesRegionL3,1:1,ZR_SALES_REGION_L3,19,,,42,ProductName2,1:1,ZR_PRODUCT_NAME_2,Trà matcha sữa Blendy 16g10B4
+43,SalesRegionL4,1:1,ZR_SALES_REGION_L4,DNI1009,,,43,UOMName,1:1,ZR_UOM_NAME,
+44,SubTotalAmount,1:1,ZR_SUB_TOTAL,3502045,,,44,ReasonCode,1:1,ZR_REASON_ID,
+45,TotalAmount,1:1,ZR_TOTAL_AMT,3782209,,,45,ReasonDescription,1:1,ZR_REASON_DESC,
+46,Remark,1:1,ZR_REMARK,Hàng tặng theo đề nghị số 09775-ePRO-LTA-2025,,,46,LocationName,1:1,ZR_SLOC_NAME,GA-LONG THÀNH
+47,SalesReturnOrder,1:1,ZR_SALES_RETURN,,,,47,BinName,1:1,ZR_BIN_NAME,GA LONG THÀNH
+48,OffRoute,1:1,ZR_OFF_ROUTE,TRUE,,,48,CategoryLv1,1:1,ZR_CATE_1,4
+49,DeliveryDate,1:1,ZR_DELI_DATE,20251030,,,49,CategoryLv2,1:1,ZR_CATE_2,403
+50,DeliveryTime,1:1,ZR_DELI_TIME,0,,,50,CategoryLv3,1:1,ZR_CATE_3,
+51,IsReceipt,1:1,ZR_IS_RECEIPT,FALSE,,,51,ProductHierachyLv1,1:1,ZR_HIERACHY_1,4
+52,DueDate,1:1,ZR_DUE_DATE,,,,52,ProductHierachyLv2,1:1,ZR_HIERACHY_2,403
+53,CreatedDate,1:1,ZR_CREATE_DATE,20251030,,,53,ProductHierachyLv3,1:1,ZR_HIERACHY_3,40302
+54,CreatedTime,1:1,ZR_CREATE_TIME,134645,,,54,ProductHierachyLv4,1:1,ZR_HIERACHY_4,132
+55,LastUpdatedDate,1:1,ZR_LAST_UPDATE_DATE,20251030,,,55,BOM,1:1,ZR_BOM,FALSE
+56,LastUpdatedTime,1:1,ZR_LAST_UPDATE_TIME,134645,,,,,,,
+57,ReturnType,1:1,ZR_RETURN_TYPE,,,,,,,,
+58,SalesTeamName,1:1,ZR_CHANNEL_NAME,Other,,,,,,,
+59,ExternalDocumentCode,1:1,ZR_EXT_CODE,,,,,,,,
+60,LocationName,1:1,ZR_SLOC_NAME,GA-LONG THÀNH,,,,,,,
+61,BillToSecondaryCustomerName,1:1,ZR_BILL_TO_CUS_NAME,CÔNG TY AJINOMOTO VIỆT NAM,,,,,,,
+62,Attribute7,1:1,ZR_ATTRIBUTE_7,Gift,,,,,,,
+63,GrossTotalAmount,1:1,ZR_GROSS_AMT,3502045,,,,,,,
+64,StockOutCode,1:1,ZR_STOCK_OUT_CODE,,,,,,,,
+65,Method,1:1,ZR_PAY_METH,TM,,,,,,,
+66,TaxAuthority,1:1,ZR_TAX_AUTH,3600244645,,,,,,,
+67,BranchName,1:1,ZR_BRANCH_NAME,CÔNG TY AJINOMOTO VIỆT NAM,,,,,,,
+68,BranchAddress,1:1,ZR_BRANCH_ADDR,"Khu Công nghiệp Biên Hòa I, Phường An Bình, Thành phố Biên Hòa, Tỉnh Đồng Nai, Việt Nam",,,,,,,
+69,Link,1:1,ZR_LINK,,,,,,,,
+70,BookInformation,1:1,ZR_BOOK_INFO,C25TDN+1/001,,,,,,,
+71,TypeOfInvoice,1:1,ZR_TYPE_INV,E,,,,,,,
+72,BusinessType,1:1,ZR_BIZ_TYPE,Company,,,,,,,
+73,SecondaryCustomerNameInvoice,1:1,ZR_CUS_NAME_INV,CÔNG TY AJINOMOTO VIỆT NAM,,,,,,,
+74,InvoiceChange,1:1,ZR_INV_CHANGE,,,,,,,,
+75,Type,1:1,ZR_TYPE,ZGF2,,,,,,,
+76,IdentityCardNumber,1:1,ZR_SDDCN,,,,,,,,
+77,BudgetUnitCode,1:1,ZR_MSDVCQHVNS,,,,,,,,
+78,NoteDiscount,1:1,ZR_NOTEDISCOUNT,,,,,,,,
+79,Note1,1:1,ZR_NOTE1,,,,,,,,
+80,Note2,1:1,ZR_NOTE2,,,,,,,,
+,,,,,,,,,,,
+,,,,,,,,,,,
+Promotion (PostedPromotionResultCSV_*),,,,,,,,,,,
+STT,3rd system,Mapping,SAP system,Examples,,,,,,,
+1,CompanyCode,1:1,ZR_EMOB_COMP_CODE,AVN,,,,,,,
+2,CustomerCode,1:1,ZR_EMOB_CUS_CODE,NPPAVN,,,,,,,
+3,DocumentCode,1:1,ZR_EMOB_SO_NUM,eSO0000694501,,,,,,,
+4,PromotionResultLineID,1:1,ZR_PROMO_RESULT_ID,1,,,,,,,
+5,DocumentType,1:1,ZR_EMOB_SI_DOC,SalesInvoice,,,,,,,
+6,SourceDocumentCode,1:1,ZR_EMOB_SO_NUM,eSO0000694501,,,,,,,
+7,SalesOrderDetailLineID,1:1,ZR_EMOB_SO_LINE_ID,1,,,,,,,
+8,SalesRouteCode,1:1,ZR_SALES_TEAM_ID,1420000123,,,,,,,
+9,PromotionMasterCode,1:1,ZR_PROMO_MASTER_CODE,T_SFA_TEST PROMO3,,,,,,,
+10,PromotionCode,1:1,ZR_PROMO_CODE,1,,,,,,,
+11,PromotionDescription,1:1,ZR_PROMO_DESC,,,,,,,,
+12,PromotionDetailLineID,1:1,ZR_PROMO_DETAIL_ID,1,,,,,,,
+13,PromotionType,1:1,ZR_PROMO_KIND,Line,,,,,,,
+14,AutoPromotion,1:1,ZR_AUTO_PROMO,TRUE,,,,,,,
+15,PromotionBy,1:1,ZR_PROMO_BY,Amount,,,,,,,
+16,ProductCode,1:1,ZR_PRODUCT_CODE,140002754,,,,,,,
+17,DiscountAmountOnPrice,1:1,ZR_DIS_AMT_PRICE,47870,,,,,,,
+18,ProductUOMCode,1:1,ZR_PROD_UOM,,,,,,,,
+19,UOMQuantity,1:1,ZR_UOM_QUAN,0,,,,,,,
+20,QuantityBaseUOM,1:1,ZR_QUAN_BASE_UOM,0,,,,,,,
+21,QuantityBase,1:1,ZR_QUAN_BASE,0,,,,,,,
+22,AllocatedPromotionAmount,1:1,ZR_ALLOC_PROMO_AMT,47870,,,,,,,
+23,TotalPromotionAmount,1:1,ZR_TOTAL_PROMO_AMT,47870,,,,,,,
+24,BudgetCode,1:1,ZR_BUDGET_CODE,,,,,,,,
+25,CreatedDate,1:1,ZR_CREATE_DATE,20250821,,,,,,,
+26,CreatedTime,1:1,ZR_CREATE_TIME,230024,,,,,,,
+27,LastUpdatedDate,1:1,ZR_LAST_UPDATE_DATE,20250821,,,,,,,
+28,LastUpdatedTime,1:1,ZR_LAST_UPDATE_TIME,230024,,,,,,,
+29,ProductName,1:1,ZR_PRODUCT_NAME,AQ-150G-WET CRISPY FLOUR-(07.22),,,,,,,
+30,ProductName2,1:1,ZR_PRODUCT_NAME_2,Bột Chiên Giòn Aji-Quick 150g6,,,,,,,
+31,BudgetDescription,1:1,ZR_BUDGET_DESC,,,,,,,,
+32,Budget,1:1,ZR_BUDGET,,,,,,,,
+33,InvNoItemForPromotion,1:1,ZR_INV_FOR_PROMOTION,,,,,,,,

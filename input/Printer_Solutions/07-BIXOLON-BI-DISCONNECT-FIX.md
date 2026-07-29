@@ -165,16 +165,36 @@ khắc phục mất link hoặc nghẽn buffer giữa lúc in.
 |---|---:|---:|---:|---|
 | V1/original | 1024 B | 50 ms | Không có settle định kỳ | Nhanh nhưng burst lớn, BI có thể ngắt/truncated |
 | V2/conservative | 512 B | 50 ms | 400 ms mỗi 8 KB | Ổn định hơn nhưng cả BI và SPP in chậm |
-| **V3/current** | **512 B** | **25 ms** | **200 ms mỗi 8 KB** | **Đã kiểm tra BI và SPP in ổn, tốc độ được cải thiện** |
-| V4/rejected | 512 B | 15 ms | 200 ms mỗi 16 KB | BI mất link sau 144148 byte ở khoảng 13,2 giây |
+| **V3/SAFE** | **512 B** | **25 ms** | **200 ms mỗi 8 KB** | **Đã kiểm tra BI và SPP in ổn — profile an toàn mặc định** |
+| **V4/FAST** | **512 B** | **15 ms** | **200 ms mỗi 16 KB** | Chỉ dùng cho SPP; BI mất link sau 144148 byte ở ~13,2 giây |
 
-Profile hiện hành:
+## 5.1. Ma trận pacing động theo thiết bị
 
-```text
-p2-hybrid-v3-512/25-settle8k/200
-```
+Thay vì một profile toàn cục, app chọn profile theo thiết bị (chỉ ảnh hưởng tốc độ,
+KHÔNG ảnh hưởng kết quả in — kết quả vẫn chỉ dựa trên tín hiệu transport):
 
-Không tăng lại v4 nếu chưa có flow-control/status ACK đáng tin cậy.
+- Native có 2 profile: **SAFE** `p2-hybrid-v3-512/25-settle8k/200` và **FAST**
+  `p2-hybrid-v4-512/15-settle16k/200`. MethodChannel chỉ truyền enum `safe`/`fast`;
+  giá trị lạ/rỗng ⇒ SAFE. Id profile dựng từ chính hằng số của nó nên log không bao giờ cũ.
+- Quy tắc chọn ở Flutter theo tên Bluetooth quảng bá (không phân biệt hoa/thường), kèm
+  `profileSource` trong log:
+  - tên bắt đầu `BI-` → SAFE, `profileSource=device-rule`
+  - tên bắt đầu `SPP-` → FAST, `profileSource=device-rule`
+  - không rõ / trống / tên khác → **FAST** (thường là máy mới hơn), `profileSource=fast-default`;
+    Flutter truyền `'fast'` tường minh
+  - **learned-fallback** (đè các quy tắc trên): sau khi FAST trả `partial`/`unconfirmed`
+    cho một địa chỉ, địa chỉ đó được nhớ trong bộ nhớ phiên và ép SAFE ở lần in sau →
+    `profileSource=learned-fallback`. Không in lại phiếu hiện tại (không replay).
+- Cả log thành công (`print-complete-hybrid`, `print-complete-image`) và log thất bại
+  (`print-hybrid-*`) đều ghi `profileSource` cùng `pacingProfile` do native trả về.
+
+**Fail-safe native:** giá trị enum `pacing` thiếu/lạ ở MethodChannel vẫn resolve về SAFE
+(`resolvePacing`), độc lập với mặc định FAST ở Flutter.
+
+**V4 đã fail trên BI nhưng được dùng cho SPP và máy không rõ:** ma trận chọn FAST cho
+`SPP-` và mọi tên khác/không rõ, chỉ ép SAFE cho `BI-`. Nếu một thiết bị FAST (kể cả máy
+không rõ hóa ra là dòng BI) regress, learned fallback tự hạ về SAFE cho các lần in sau
+trong phiên.
 
 ## 6. Chính sách cho phiếu dài và fallback
 
@@ -218,7 +238,10 @@ lib/core/utilities/language_master/
 
 Kiểm tra trên cả BI firmware/stack 1.2.6 và SPP Bluetooth 4.x:
 
-1. Profile log là `p2-hybrid-v3-512/25-settle8k/200`.
+1. Profile log đúng theo ma trận: SPP/không rõ → `p2-hybrid-v4-512/15-settle16k/200`
+   (`profileSource=device-rule` cho SPP, `fast-default` cho máy không rõ); BI →
+   `p2-hybrid-v3-512/25-settle8k/200` (`profileSource=device-rule`); sau khi FAST fail →
+   `learned-fallback` (SAFE).
 2. Phiếu ngắn, phiếu 100 sản phẩm và phiếu khoảng 144 KB đều có đủ footer.
 3. Chỉ cắt một lần tại cuối phiếu.
 4. Không có `disconnect` hoặc `BluetoothSocket.close()` ngay sau success.
