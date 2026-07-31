@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "avntt-test": {
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "D:\\PROJECTS\\Xspire_AVN\\ai-skills\\start-avntt-test-mcp.ps1"
+      ]
+    }
+  }
+}
