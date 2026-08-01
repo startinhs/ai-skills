@@ -9,6 +9,16 @@
         "-File",
         "D:\\PROJECTS\\Xspire_AVN\\ai-skills\\start-avntt-test-mcp.ps1"
       ]
+    },
+    "gitlab": {
+      "command": "uvx",
+      "args": [
+        "mcp-gitlab"
+      ],
+      "env": {
+        "GITLAB_URL": "https://gitlab.hqsoft.vn",
+        "GITLAB_TOKEN": "${GITLAB_TOKEN}"
+      }
     }
   }
 }
