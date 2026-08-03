@@ -1,3 +1,7 @@
+param(
+    [string]$TargetDatabase
+)
+
 $ErrorActionPreference = "Stop"
 
 $appSettingsPath = "D:\PROJECTS\Xspire_AVN\backendavn\src\HQSOFT.Xspire.Application.HttpApi.Host\appsettings.json"
@@ -26,6 +30,10 @@ $dbPort = Get-ConnectionValue @("port")
 $dbName = Get-ConnectionValue @("database", "initial catalog")
 $dbUser = Get-ConnectionValue @("user id", "username", "uid")
 $dbPassword = Get-ConnectionValue @("password", "pwd")
+
+if (-not [string]::IsNullOrWhiteSpace($TargetDatabase)) {
+    $dbName = $TargetDatabase
+}
 
 # postgres-mcp-server 1.0.1 does not URL-decode credentials. The configured
 # password contains "@", which urllib safely treats as part of user-info when
