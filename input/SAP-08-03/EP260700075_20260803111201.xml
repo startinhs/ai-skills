@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:esal="esales2hana">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <esal:MT_RQ_PROMO_MASTER_S>
+  <LIST_HEADER>
+    <PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EP260700075</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Chương trình Gyoza & Aji-Xốt®_ Lễ Hội Nhật Bản Aeon - Tháng 7,2026</Description>
+      <StartDate>20260722</StartDate>
+      <EndDate>20260729</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>ELITEZ_16/07/2026</InternalNo>
+      <RegistrationNo></RegistrationNo>
+      <ProposalNo>08636-ePRO-CC-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_TT_E0023226</ApplyForCode>
+      <BudgetAmount>33431330</BudgetAmount>
+      <ReferencePromotionCode></ReferencePromotionCode>
+      <CreatedBy>ITADMIN_007</CreatedBy>
+      <CreatedDate>20260722</CreatedDate>
+      <CreatedTime>184446</CreatedTime>
+      <LastUpdatedBy>ITADMIN_007</LastUpdatedBy>
+      <LastUpdatedDate>20260803</LastUpdatedDate>
+      <LastUpdatedTime>111201</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>
+  </LIST_HEADER>
+  <LIST_LINE>
+    <PROMO_LINE>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0001</PromotionCode>
+      <PromotionMasterCode>EP260700075</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>false</AutoPromotion>
+      <PromotionType>Sample</PromotionType>
+      <Description>Tặng 1 chai SSP giảm muối 240ml cho người tiêu dùng khi mua 2 gói Gyoza 114g và/hoặc  Gyoza  104g thông qua CÔNG TY TNHH ELITEZ VIỆT NAM để thực hiện Chương trình khuyến mại theo TBNB số: ELITEZ_16/07/2026 [Số lượng không vượt quá 1,218 chai]</Description>
+      <SalesBy>Q</SalesBy>
+      <PromotionByQuantity>true</PromotionByQuantity>
+      <PromotionByAmount>false</PromotionByAmount>
+      <PromotionByDiscount>false</PromotionByDiscount>
+      <ApplyForCode>AF_TT_E0023226</ApplyForCode>
+      <StartDate>20260722</StartDate>
+      <EndDate>20260729</EndDate>
+      <MultiHigh>false</MultiHigh>
+      <Status>A</Status>
+      <LimitedOrders>0</LimitedOrders>
+      <LimitCode></LimitCode>
+      <PromotionOnPrice></PromotionOnPrice>
+      <VolumnDiscount></VolumnDiscount>
+      <PromotionOnUOM></PromotionOnUOM>
+      <RegistrationNo></RegistrationNo>
+      <CreatedBy>ITADMIN_007</CreatedBy>
+      <CreatedDate>20260722</CreatedDate>
+      <CreatedTime>184446</CreatedTime>
+      <LastUpdatedBy>ITADMIN_007</LastUpdatedBy>
+      <LastUpdatedDate>20260803</LastUpdatedDate>
+      <LastUpdatedTime>111201</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_LINE>
+    <PROMO_LINE>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0002</PromotionCode>
+      <PromotionMasterCode>EP260700075</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>false</AutoPromotion>
+      <PromotionType>Sample</PromotionType>
+      <Description>Tặng 1 gói AV230g cho người tiêu dùng khi mua 1 chai Aji-Xốt 235g hoặc 1 chai Xốt Phô mai cay  Aji-Xốt 235g thông qua CÔNG TY TNHH ELITEZ VIỆT NAM để thực hiện Chương trình khuyến mại theo TBNB số: ELITEZ_16/07/2026 [Số lượng không vượt quá 759 gói]</Description>
+      <SalesBy>Q</SalesBy>
+      <PromotionByQuantity>true</PromotionByQuantity>
+      <PromotionByAmount>false</PromotionByAmount>
+      <PromotionByDiscount>false</PromotionByDiscount>
+      <ApplyForCode>AF_TT_E0023226</ApplyForCode>
+      <StartDate>20260722</StartDate>
+      <EndDate>20260729</EndDate>
+      <MultiHigh>false</MultiHigh>
+      <Status>A</Status>
+      <LimitedOrders>0</LimitedOrders>
+      <LimitCode></LimitCode>
+      <PromotionOnPrice></PromotionOnPrice>
+      <VolumnDiscount></VolumnDiscount>
+      <PromotionOnUOM></PromotionOnUOM>
+      <RegistrationNo></RegistrationNo>
+      <CreatedBy>ITADMIN_007</CreatedBy>
+      <CreatedDate>20260722</CreatedDate>
+      <CreatedTime>184446</CreatedTime>
+      <LastUpdatedBy>ITADMIN_007</LastUpdatedBy>
+      <LastUpdatedDate>20260803</LastUpdatedDate>
+      <LastUpdatedTime>111201</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_LINE>
+    <PROMO_LINE>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0003</PromotionCode>
+      <PromotionMasterCode>EP260700075</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>false</AutoPromotion>
+      <PromotionType>Sample</PromotionType>
+      <Description>Tặng 1 DĨA HỒ LÔ (ĐÀO) cho người tiêu dùng khi mua 1 chai Aji-Xốt 235g hoặc 1 chai Xốt Phô mai cay Aji-Xốt 235g thông qua CÔNG TY TNHH ELITEZ VIỆT NAM để thực hiện Chương trình khuyến mại theo TBNB số: ELITEZ_16/07/2026 [Số lượng không vượt quá 380 cái]</Description>
+      <SalesBy>Q</SalesBy>
+      <PromotionByQuantity>true</PromotionByQuantity>
+      <PromotionByAmount>false</PromotionByAmount>
+      <PromotionByDiscount>false</PromotionByDiscount>
+      <ApplyForCode>AF_TT_E0023226</ApplyForCode>
+      <StartDate>20260722</StartDate>
+      <EndDate>20260729</EndDate>
+      <MultiHigh>false</MultiHigh>
+      <Status>A</Status>
+      <LimitedOrders>0</LimitedOrders>
+      <LimitCode></LimitCode>
+      <PromotionOnPrice></PromotionOnPrice>
+      <VolumnDiscount></VolumnDiscount>
+      <PromotionOnUOM></PromotionOnUOM>
+      <RegistrationNo></RegistrationNo>
+      <CreatedBy>ITADMIN_007</CreatedBy>
+      <CreatedDate>20260722</CreatedDate>
+      <CreatedTime>184446</CreatedTime>
+      <LastUpdatedBy>ITADMIN_007</LastUpdatedBy>
+      <LastUpdatedDate>20260803</LastUpdatedDate>
+      <LastUpdatedTime>111201</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_LINE>
+    <PROMO_LINE>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0004</PromotionCode>
+      <PromotionMasterCode>EP260700075</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>false</AutoPromotion>
+      <PromotionType>Sample</PromotionType>
+      <Description>Tặng 1 DĨA HỒ LÔ (HOA) cho người tiêu dùng khi mua 1 chai Aji-Xốt 235g hoặc 1 chai Xốt Phô mai cay Aji-Xốt 235g thông qua CÔNG TY TNHH ELITEZ VIỆT NAM để thực hiện Chương trình khuyến mại theo TBNB số: ELITEZ_16/07/2026 [Số lượng không vượt quá 380 cái]</Description>
+      <SalesBy>Q</SalesBy>
+      <PromotionByQuantity>true</PromotionByQuantity>
+      <PromotionByAmount>false</PromotionByAmount>
+      <PromotionByDiscount>false</PromotionByDiscount>
+      <ApplyForCode>AF_TT_E0023226</ApplyForCode>
+      <StartDate>20260722</StartDate>
+      <EndDate>20260729</EndDate>
+      <MultiHigh>false</MultiHigh>
+      <Status>A</Status>
+      <LimitedOrders>0</LimitedOrders>
+      <LimitCode></LimitCode>
+      <PromotionOnPrice></PromotionOnPrice>
+      <VolumnDiscount></VolumnDiscount>
+      <PromotionOnUOM></PromotionOnUOM>
+      <RegistrationNo></RegistrationNo>
+      <CreatedBy>ITADMIN_007</CreatedBy>
+      <CreatedDate>20260722</CreatedDate>
+      <CreatedTime>184446</CreatedTime>
+      <LastUpdatedBy>ITADMIN_007</LastUpdatedBy>
+      <LastUpdatedDate>20260803</LastUpdatedDate>
+      <LastUpdatedTime>111201</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_LINE>
+    <PROMO_LINE>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0005</PromotionCode>
+      <PromotionMasterCode>EP260700075</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>false</AutoPromotion>
+      <PromotionType>Sample</PromotionType>
+      <Description>Mời khách hàng dùng mẫu thử được chế biến từ sản phẩm Xốt mè rang Aji-Xốt 515g theo TBNB số:  ELITEZ_16/07/2026 [Số lượng không vượt 86 chai]</Description>
+      <SalesBy>Q</SalesBy>
+      <PromotionByQuantity>true</PromotionByQuantity>
+      <PromotionByAmount>false</PromotionByAmount>
+      <PromotionByDiscount>false</PromotionByDiscount>
+      <ApplyForCode>AF_TT_E0023226</ApplyForCode>
+      <StartDate>20260722</StartDate>
+      <EndDate>20260729</EndDate>
+      <MultiHigh>false</MultiHigh>
+      <Status>A</Status>
+      <LimitedOrders>0</LimitedOrders>
+      <LimitCode></LimitCode>
+      <PromotionOnPrice></PromotionOnPrice>
+      <VolumnDiscount></VolumnDiscount>
+      <PromotionOnUOM></PromotionOnUOM>
+      <RegistrationNo></RegistrationNo>
+      <CreatedBy>ITADMIN_007</CreatedBy>
+      <CreatedDate>20260722</CreatedDate>
+      <CreatedTime>184446</CreatedTime>
+      <LastUpdatedBy>ITADMIN_007</LastUpdatedBy>
+      <LastUpdatedDate>20260803</LastUpdatedDate>
+      <LastUpdatedTime>111201</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_LINE>
+    <PROMO_LINE>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0006</PromotionCode>
+      <PromotionMasterCode>EP260700075</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>false</AutoPromotion>
+      <PromotionType>Sample</PromotionType>
+      <Description>Mời khách hàng dùng mẫu thử được chế biến từ sản phẩm Xốt Phô mai cay  Aji-Xốt 235g theo TBNB số:  ELITEZ_16/07/2026 [Số lượng không vượt 108 chai]</Description>
+      <SalesBy>Q</SalesBy>
+      <PromotionByQuantity>true</PromotionByQuantity>
+      <PromotionByAmount>false</PromotionByAmount>
+      <PromotionByDiscount>false</PromotionByDiscount>
+      <ApplyForCode>AF_TT_E0023226</ApplyForCode>
+      <StartDate>20260722</StartDate>
+      <EndDate>20260729</EndDate>
+      <MultiHigh>false</MultiHigh>
+      <Status>A</Status>
+      <LimitedOrders>0</LimitedOrders>
+      <LimitCode></LimitCode>
+      <PromotionOnPrice></PromotionOnPrice>
+      <VolumnDiscount></VolumnDiscount>
+      <PromotionOnUOM></PromotionOnUOM>
+      <RegistrationNo></RegistrationNo>
+      <CreatedBy>ITADMIN_007</CreatedBy>
+      <CreatedDate>20260722</CreatedDate>
+      <CreatedTime>184446</CreatedTime>
+      <LastUpdatedBy>ITADMIN_007</LastUpdatedBy>
+      <LastUpdatedDate>20260803</LastUpdatedDate>
+      <LastUpdatedTime>111201</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_LINE>
+  </LIST_LINE>
+  <LIST_BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0001</PromotionCode>
+      <PromotionMasterCode>EP260700075</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>1</AllocationCode>
+      <BrandCode>402116</BrandCode>
+      <BrandName>Gyoza JP Dumpling</BrandName>
+      <SectionCode>42196</SectionCode>
+      <SectionName>Modern Trade Sales Planning </SectionName>
+      <ExpenseCode>6418141040</ExpenseCode>
+      <ExpenseName>SUPPORT TO CUSTOMER</ExpenseName>
+      <AllocationPercent>100</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>ITADMIN_007</CreatedBy>
+      <CreatedDate>20260722</CreatedDate>
+      <CreatedTime>184447</CreatedTime>
+      <LastUpdatedBy>ITADMIN_007</LastUpdatedBy>
+      <LastUpdatedDate>20260803</LastUpdatedDate>
+      <LastUpdatedTime>111201</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0002</PromotionCode>
+      <PromotionMasterCode>EP260700075</PromotionMasterCode>
+      <PromotionDetailLineID>2</PromotionDetailLineID>
+      <AllocationCode>2</AllocationCode>
+      <BrandCode>402400</BrandCode>
+      <BrandName>Sesame Dressing</BrandName>
+      <SectionCode>42196</SectionCode>
+      <SectionName>Modern Trade Sales Planning </SectionName>
+      <ExpenseCode>6418141040</ExpenseCode>
+      <ExpenseName>SUPPORT TO CUSTOMER</ExpenseName>
+      <AllocationPercent>100</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>ITADMIN_007</CreatedBy>
+      <CreatedDate>20260722</CreatedDate>
+      <CreatedTime>184447</CreatedTime>
+      <LastUpdatedBy>ITADMIN_007</LastUpdatedBy>
+      <LastUpdatedDate>20260803</LastUpdatedDate>
+      <LastUpdatedTime>111201</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0003</PromotionCode>
+      <PromotionMasterCode>EP260700075</PromotionMasterCode>
+      <PromotionDetailLineID>3</PromotionDetailLineID>
+      <AllocationCode>3</AllocationCode>
+      <BrandCode>402400</BrandCode>
+      <BrandName>Sesame Dressing</BrandName>
+      <SectionCode>42196</SectionCode>
+      <SectionName>Modern Trade Sales Planning </SectionName>
+      <ExpenseCode>6418141040</ExpenseCode>
+      <ExpenseName>SUPPORT TO CUSTOMER</ExpenseName>
+      <AllocationPercent>100</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>ITADMIN_007</CreatedBy>
+      <CreatedDate>20260722</CreatedDate>
+      <CreatedTime>184447</CreatedTime>
+      <LastUpdatedBy>ITADMIN_007</LastUpdatedBy>
+      <LastUpdatedDate>20260803</LastUpdatedDate>
+      <LastUpdatedTime>111201</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0004</PromotionCode>
+      <PromotionMasterCode>EP260700075</PromotionMasterCode>
+      <PromotionDetailLineID>4</PromotionDetailLineID>
+      <AllocationCode>4</AllocationCode>
+      <BrandCode>402400</BrandCode>
+      <BrandName>Sesame Dressing</BrandName>
+      <SectionCode>42196</SectionCode>
+      <SectionName>Modern Trade Sales Planning </SectionName>
+      <ExpenseCode>6418141040</ExpenseCode>
+      <ExpenseName>SUPPORT TO CUSTOMER</ExpenseName>
+      <AllocationPercent>100</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>ITADMIN_007</CreatedBy>
+      <CreatedDate>20260722</CreatedDate>
+      <CreatedTime>184447</CreatedTime>
+      <LastUpdatedBy>ITADMIN_007</LastUpdatedBy>
+      <LastUpdatedDate>20260803</LastUpdatedDate>
+      <LastUpdatedTime>111201</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0005</PromotionCode>
+      <PromotionMasterCode>EP260700075</PromotionMasterCode>
+      <PromotionDetailLineID>5</PromotionDetailLineID>
+      <AllocationCode>5</AllocationCode>
+      <BrandCode>402400</BrandCode>
+      <BrandName>Sesame Dressing</BrandName>
+      <SectionCode>42196</SectionCode>
+      <SectionName>Modern Trade Sales Planning </SectionName>
+      <ExpenseCode>6418141180</ExpenseCode>
+      <ExpenseName>MARKETING RESEARCH 1</ExpenseName>
+      <AllocationPercent>100</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>ITADMIN_007</CreatedBy>
+      <CreatedDate>20260722</CreatedDate>
+      <CreatedTime>184447</CreatedTime>
+      <LastUpdatedBy>ITADMIN_007</LastUpdatedBy>
+      <LastUpdatedDate>20260803</LastUpdatedDate>
+      <LastUpdatedTime>111201</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0006</PromotionCode>
+      <PromotionMasterCode>EP260700075</PromotionMasterCode>
+      <PromotionDetailLineID>6</PromotionDetailLineID>
+      <AllocationCode>6</AllocationCode>
+      <BrandCode>402400</BrandCode>
+      <BrandName>Sesame Dressing</BrandName>
+      <SectionCode>42196</SectionCode>
+      <SectionName>Modern Trade Sales Planning </SectionName>
+      <ExpenseCode>6418141180</ExpenseCode>
+      <ExpenseName>MARKETING RESEARCH 1</ExpenseName>
+      <AllocationPercent>100</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>ITADMIN_007</CreatedBy>
+      <CreatedDate>20260722</CreatedDate>
+      <CreatedTime>184447</CreatedTime>
+      <LastUpdatedBy>ITADMIN_007</LastUpdatedBy>
+      <LastUpdatedDate>20260803</LastUpdatedDate>
+      <LastUpdatedTime>111201</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </BUDGET_ALLOC>
+  </LIST_BUDGET_ALLOC>
+        </esal:MT_RQ_PROMO_MASTER_S>
+    </soapenv:Body>
+</soapenv:Envelope>
