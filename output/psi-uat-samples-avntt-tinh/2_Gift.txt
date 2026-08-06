@@ -1,0 +1,2 @@
+OrderNumber|LineID|ProductCode|OrderType|FreeItemType|NetUnitPrice|NetUnitPriceWithTax|LastUpdatedDate|LastUpdatedTime|UOMName|CategoryLv2_AW|CategoryLv3_AX|ProductHierarchyLv1_AY|ProductHierarchyLv2_AZ|ProductHierarchyLv3_BA|ProductHierarchyLv4_BB
+SO0000001323|1|140003301|0|SalesItem|32315|34900|20260805|221153||0602||06|0602|060201|039

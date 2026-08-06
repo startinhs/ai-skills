@@ -1,0 +1,14 @@
+File|RowCount
+1_sample.txt|1
+2_sample.txt|5
+3_sample.txt|5
+1_vang_lai_exchange.txt|1
+1_thay_the.txt|1
+1_Gift.txt|1
+2_Gift.txt|1
+1_mua_hang_tang_hang.txt|1
+2_mua_hang_tang_hang.txt|4
+3_mua_hang_tang_hang.txt|2
+1_SRO-4C01.txt|1
+2_SRO-4C01.txt|4
+3_SRO-4C01.txt|2

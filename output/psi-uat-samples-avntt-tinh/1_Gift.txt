@@ -1,0 +1,2 @@
+CompanyCode|CustomerCode|DocumentCode|OrderType|CustomerSegment|ParentSecondaryCustomerCode|Attribute1|Attribute2|Attribute3|Attribute4|Attribute5|Attribute6|SecondaryCustomerGroup|Address|Phone|VATRegistrationID|OffRoute|BillToSecondaryCustomerName|Attribute7|BookInformation|TypeOfInvoice|InvoiceChange|IdentificationNumber|Type
+AVN|NPPAVN|SPI10000000635|0||1420007329||||||||Khu Công nghiệp Biên Hòa I, phường Trấn Biên, Thành phố Đồng Nai, Việt Nam ||3600244645|FALSE||GIFT|||||ZGF2

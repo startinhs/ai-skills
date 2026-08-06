@@ -1,0 +1,2 @@
+CompanyCode|CustomerCode|DocumentCode|OrderType|CustomerSegment|ParentSecondaryCustomerCode|Attribute1|Attribute2|Attribute3|Attribute4|Attribute5|Attribute6|SecondaryCustomerGroup|Address|Phone|VATRegistrationID|OffRoute|BillToSecondaryCustomerName|Attribute7|BookInformation|TypeOfInvoice|InvoiceChange|IdentificationNumber|Type
+AVN|NPPAVN|SPI10000000639|0||||||||ONETIMESECONDARYCUSTOMER||VN   |||FALSE||EXCHANGE|||||ZOR2

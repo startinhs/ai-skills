@@ -1,0 +1,2 @@
+CompanyCode|CustomerCode|DocumentCode|OrderType|CustomerSegment|ParentSecondaryCustomerCode|Attribute1|Attribute2|Attribute3|Attribute4|Attribute5|Attribute6|SecondaryCustomerGroup|Address|Phone|VATRegistrationID|OffRoute|BillToSecondaryCustomerName|Attribute7|BookInformation|TypeOfInvoice|InvoiceChange|IdentificationNumber|Type
+AVN|NPPAVN||0|||51|||||||A181+A183 CHỢ AN SƯƠNG, KHU PHỐ 4, P ĐÔNG HƯNG THUẬN, TP HỒ CHÍ MINH, VIỆT NAM  |0937127560|8205673145|FALSE||CUSTOMER||||046158003228|ZFC2

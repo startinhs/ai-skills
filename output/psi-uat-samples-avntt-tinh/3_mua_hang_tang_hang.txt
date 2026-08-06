@@ -1,0 +1,3 @@
+OrderNumber|PromotionResultLineID|PromotionCode|PromotionDescription|PromotionDetailLineID_L|PromotionType|PromotionBy|LastUpdatedDate|LastUpdatedTime|InvNoItemForPromotion
+SO0000001341|1|EP260600244|Mua 5 tuýp Aji-mayo 260gT8…n  tặng 1 gói AJI-NO-MOTO 230gL1…n|1|Group|Quantity|20260806|111008|2
+SO0000001341|2|EP260600155|Mua 10 gói  Lẩu Nấm Aji-Quick 44g or/and  Lẩu Thái Aji-Quick 50g tặng 1 gói Lẩu Nấm Aji-Quick 44g hoặc Lẩu Thái Aji-Quick 50g|1|Group|Quantity|20260806|111008|1

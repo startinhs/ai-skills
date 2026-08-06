@@ -1,0 +1,6 @@
+OrderNumber|PromotionResultLineID|PromotionCode|PromotionDescription|PromotionDetailLineID_L|PromotionType|PromotionBy|LastUpdatedDate|LastUpdatedTime|InvNoItemForPromotion
+SO0000001335|1|EP260400051||0|Sample|Sample|20260806|091857|0
+SO0000001335|2|EP260600024||0|Sample|Sample|20260806|091857|0
+SO0000001335|3|EP260600024||0|Sample|Sample|20260806|091857|0
+SO0000001335|4|EP260600024||0|Sample|Sample|20260806|091857|0
+SO0000001335|5|EP260600024||0|Sample|Sample|20260806|091857|0

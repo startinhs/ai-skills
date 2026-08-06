@@ -1,0 +1,2 @@
+CompanyCode|CustomerCode|DocumentCode|OrderType|CustomerSegment|ParentSecondaryCustomerCode|Attribute1|Attribute2|Attribute3|Attribute4|Attribute5|Attribute6|SecondaryCustomerGroup|Address|Phone|VATRegistrationID|OffRoute|BillToSecondaryCustomerName|Attribute7|BookInformation|TypeOfInvoice|InvoiceChange|IdentificationNumber|Type
+AVN|NPPAVN||0|||51|||||||CHỢ PHẠM VĂN HAI B/87-88, PHƯỜNG TÂN SƠN HÒA, TP HỒ CHÍ MINH   ||0300743831|FALSE||CUSTOMER|||||ZOR2
