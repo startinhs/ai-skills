@@ -138,11 +138,12 @@ function detailSql(orderId) {
       WHEN right(COALESCE(p."ProductHierachyLv1", mp."HierarchyL01Code", ''), 2) = '01'
       THEN right(COALESCE(p."ProductHierachyLv1", mp."HierarchyL01Code", ''), 2)
          || right(COALESCE(p."ProductHierachyLv2", mp."HierarchyL02Code", ''), 2)
-         || right(COALESCE(p."ProductHierachyLv4", mp."HierarchyL04Code", ''), 2)
+         || right(COALESCE(p."ProductHierachyLv3", mp."HierarchyL03Code", ''), 2)
       ELSE '' END AS "CategoryLv3_AX",
     COALESCE(p."ProductHierachyLv1", mp."HierarchyL01Code", '') AS "ProductHierarchyLv1_AY",
     COALESCE(p."ProductHierachyLv2", mp."HierarchyL02Code", '') AS "ProductHierarchyLv2_AZ",
-    COALESCE(p."ProductHierachyLv4", mp."HierarchyL04Code", '') AS "ProductHierarchyLv3_BA",
+    CASE WHEN trim(COALESCE(p."ProductHierachyLv4", mp."HierarchyL04Code", '')) = '999999' THEN ''
+      ELSE COALESCE(p."ProductHierachyLv4", mp."HierarchyL04Code", '') END AS "ProductHierarchyLv3_BA",
     COALESCE(mp."HierarchyL05Code", '') AS "ProductHierarchyLv4_BB"
   FROM "SalesOrders" so
   JOIN "SalesOrderProducts" p ON p."SalesOrderId" = so."Id"

@@ -13,7 +13,7 @@ Thời điểm kiểm tra: 2026-08-06. Nguồn dữ liệu: database `avntt-tinh
 | `1_thay the` | Đạt mapping, dữ liệu nguồn chưa đủ | OrderType `0`; SecondaryCustomerGroup rỗng; InvoiceChange `SPI10000000633`. BookInformation, TypeOfInvoice và IdentificationNumber vẫn rỗng; OffRoute vẫn `FALSE`. |
 | `1_Gift` | Đạt mapping, dữ liệu nguồn chưa đủ | Dùng order WF_VS đúng loại sheet: OrderType `0`; ParentSecondaryCustomerCode `1420007329`; SecondaryCustomerGroup rỗng. CustomerSegment, BookInformation và TypeOfInvoice vẫn rỗng; OffRoute vẫn `FALSE`. |
 | `1_mua hang tang hang` | Đạt mapping, dữ liệu nguồn chưa đủ | OrderType `0`; Attribute1 fallback ra `51`; SecondaryCustomerGroup và BillToSecondaryCustomerName rỗng. BookInformation và TypeOfInvoice vẫn rỗng; OffRoute vẫn `FALSE`. |
-| `2_mua hang tang hang` | Đạt theo rule mới nhất | OrderType `0`; SalesItem có net price; FreeItem giữ net price `0`; LastUpdated có dữ liệu; UOMName rỗng; AW = AZ; BB là SKU Type. AX chỉ có giá trị khi Lv1 `01` (`010199` trong mẫu). |
+| `2_mua hang tang hang` | Đạt theo rule mới nhất | OrderType `0`; SalesItem có net price; FreeItem giữ net price `0`; LastUpdated có dữ liệu; UOMName rỗng; AW = AZ; BB là SKU Type. AX ghép từ hierarchy Lv1/Lv2/Lv3 gốc và chỉ có giá trị khi Lv1 `01` (`010102` trong mẫu); BA xuất rỗng nếu nguồn là sentinel `999999`. |
 | `3_mua hang tang hang` | Đạt | LastUpdated có ngày/giờ cho cả hai dòng promotion. |
 | `1_SRO-4C01` | Đạt mapping, BookInformation thiếu nguồn | DocumentCode `SPI10000000633`; OrderType `1`; Attribute7 rỗng; Type `ZRE2`. BookInformation vẫn rỗng trong DB. |
 | `2_SRO-4C01` | Đạt | SalesItem fallback net price (`7568/8173`, `32315/34900`); FreeItem giữ `0`; UOMName rỗng; BA/BB đúng mapping mới. |
