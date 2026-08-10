@@ -1,0 +1,276 @@
+{
+  "headers": [
+    {
+      "OrderNumber": "SO0000001343",
+      "DocStatus": 1,
+      "L_Notes": "",
+      "AE_StockOutCode": "",
+      "AI_Description": "",
+      "AQ_PaymentMethod": "",
+      "AR_BillToSecondaryCustomerCode": "1420007330"
+    },
+    {
+      "OrderNumber": "SO0000001344",
+      "DocStatus": 1,
+      "L_Notes": "",
+      "AE_StockOutCode": "",
+      "AI_Description": "",
+      "AQ_PaymentMethod": "",
+      "AR_BillToSecondaryCustomerCode": "1420316895"
+    },
+    {
+      "OrderNumber": "SO0000001513",
+      "DocStatus": 1,
+      "L_Notes": "WIN-T => 1113 - PO 4194290154 - ghi chu noi bo",
+      "AE_StockOutCode": "",
+      "AI_Description": "",
+      "AQ_PaymentMethod": "",
+      "AR_BillToSecondaryCustomerCode": "1420316751"
+    },
+    {
+      "OrderNumber": "SO0000001695",
+      "DocStatus": 1,
+      "L_Notes": "WIN-T => 1113 - PO 4194290154 - ghi chu noi bo",
+      "AE_StockOutCode": "SO0000001513",
+      "AI_Description": "",
+      "AQ_PaymentMethod": "",
+      "AR_BillToSecondaryCustomerCode": "1420316751"
+    },
+    {
+      "OrderNumber": "SO0000001699",
+      "DocStatus": 1,
+      "L_Notes": "",
+      "AE_StockOutCode": "SO0000001343",
+      "AI_Description": "",
+      "AQ_PaymentMethod": "",
+      "AR_BillToSecondaryCustomerCode": "1420007330"
+    },
+    {
+      "OrderNumber": "SO0000001700",
+      "DocStatus": 1,
+      "L_Notes": "",
+      "AE_StockOutCode": "SO0000001344",
+      "AI_Description": "",
+      "AQ_PaymentMethod": "",
+      "AR_BillToSecondaryCustomerCode": "1420316895"
+    }
+  ],
+  "details": [
+    {
+      "OrderNumber": "SO0000001343",
+      "Idx": 1.0,
+      "ProductCode": "140003309",
+      "Y_BinCode": "21119",
+      "AL_BinName": "SALES TEAM LOGISTIC",
+      "AR_ProductHierarchyLv3": "030224",
+      "AS_ProductHierarchyLv4": "086",
+      "Current_AU_QuantityBaseSales": 160.0,
+      "Current_AV_UOMQuantitySales": 80.0,
+      "Expected_AU_QuantityBaseSales": 160.0,
+      "Expected_AV_UOMQuantitySales": 80.0,
+      "Result": "PASS",
+      "BOM": "false"
+    },
+    {
+      "OrderNumber": "SO0000001344",
+      "Idx": 1.0,
+      "ProductCode": "148000479",
+      "Y_BinCode": "21119",
+      "AL_BinName": "SALES TEAM LOGISTIC",
+      "AR_ProductHierarchyLv3": "120101",
+      "AS_ProductHierarchyLv4": "122",
+      "Current_AU_QuantityBaseSales": 20.0,
+      "Current_AV_UOMQuantitySales": 10.0,
+      "Expected_AU_QuantityBaseSales": 20.0,
+      "Expected_AV_UOMQuantitySales": 10.0,
+      "Result": "PASS",
+      "BOM": "false"
+    },
+    {
+      "OrderNumber": "SO0000001513",
+      "Idx": 1.0,
+      "ProductCode": "140003106",
+      "Y_BinCode": "21119",
+      "AL_BinName": "SALES TEAM LOGISTIC",
+      "AR_ProductHierarchyLv3": "120201",
+      "AS_ProductHierarchyLv4": "017",
+      "Current_AU_QuantityBaseSales": 60.0,
+      "Current_AV_UOMQuantitySales": 10.0,
+      "Expected_AU_QuantityBaseSales": 60.0,
+      "Expected_AV_UOMQuantitySales": 10.0,
+      "Result": "PASS",
+      "BOM": "false"
+    },
+    {
+      "OrderNumber": "SO0000001695",
+      "Idx": 1.0,
+      "ProductCode": "140003106",
+      "Y_BinCode": "21119",
+      "AL_BinName": "SALES TEAM LOGISTIC",
+      "AR_ProductHierarchyLv3": "120201",
+      "AS_ProductHierarchyLv4": "017",
+      "Current_AU_QuantityBaseSales": 60.0,
+      "Current_AV_UOMQuantitySales": 10.0,
+      "Expected_AU_QuantityBaseSales": 60.0,
+      "Expected_AV_UOMQuantitySales": 10.0,
+      "Result": "PASS",
+      "BOM": "false"
+    },
+    {
+      "OrderNumber": "SO0000001699",
+      "Idx": 1.0,
+      "ProductCode": "140003309",
+      "Y_BinCode": "21119",
+      "AL_BinName": "SALES TEAM LOGISTIC",
+      "AR_ProductHierarchyLv3": "030224",
+      "AS_ProductHierarchyLv4": "086",
+      "Current_AU_QuantityBaseSales": 160.0,
+      "Current_AV_UOMQuantitySales": 80.0,
+      "Expected_AU_QuantityBaseSales": 160.0,
+      "Expected_AV_UOMQuantitySales": 80.0,
+      "Result": "PASS",
+      "BOM": "false"
+    },
+    {
+      "OrderNumber": "SO0000001700",
+      "Idx": 1.0,
+      "ProductCode": "148000479",
+      "Y_BinCode": "21119",
+      "AL_BinName": "SALES TEAM LOGISTIC",
+      "AR_ProductHierarchyLv3": "120101",
+      "AS_ProductHierarchyLv4": "122",
+      "Current_AU_QuantityBaseSales": 20.0,
+      "Current_AV_UOMQuantitySales": 10.0,
+      "Expected_AU_QuantityBaseSales": 20.0,
+      "Expected_AV_UOMQuantitySales": 10.0,
+      "Result": "PASS",
+      "BOM": "false"
+    }
+  ],
+  "deliveries": [
+    {
+      "OrderNumber": "SO0000001343",
+      "Idx": 1,
+      "ProductCode": "140003309",
+      "Current_L_UOMQuantity": 80.0,
+      "Current_M_QuantityBase": 160.0,
+      "Current_P_QuantityBaseSales": 160.0,
+      "Expected_L_UOMQuantity": 80.0,
+      "Expected_M_QuantityBase": 160.0,
+      "Expected_P_QuantityBaseSales": 160.0,
+      "T_DeliveryTime": "",
+      "Result": "PASS"
+    },
+    {
+      "OrderNumber": "SO0000001344",
+      "Idx": 1,
+      "ProductCode": "148000479",
+      "Current_L_UOMQuantity": 10.0,
+      "Current_M_QuantityBase": 20.0,
+      "Current_P_QuantityBaseSales": 20.0,
+      "Expected_L_UOMQuantity": 10.0,
+      "Expected_M_QuantityBase": 20.0,
+      "Expected_P_QuantityBaseSales": 20.0,
+      "T_DeliveryTime": "",
+      "Result": "PASS"
+    },
+    {
+      "OrderNumber": "SO0000001513",
+      "Idx": 1,
+      "ProductCode": "140003106",
+      "Current_L_UOMQuantity": 10.0,
+      "Current_M_QuantityBase": 60.0,
+      "Current_P_QuantityBaseSales": 60.0,
+      "Expected_L_UOMQuantity": 10.0,
+      "Expected_M_QuantityBase": 60.0,
+      "Expected_P_QuantityBaseSales": 60.0,
+      "T_DeliveryTime": "",
+      "Result": "PASS"
+    },
+    {
+      "OrderNumber": "SO0000001695",
+      "Idx": 1,
+      "ProductCode": "140003106",
+      "Current_L_UOMQuantity": 10.0,
+      "Current_M_QuantityBase": 60.0,
+      "Current_P_QuantityBaseSales": 60.0,
+      "Expected_L_UOMQuantity": 10.0,
+      "Expected_M_QuantityBase": 60.0,
+      "Expected_P_QuantityBaseSales": 60.0,
+      "T_DeliveryTime": "",
+      "Result": "PASS"
+    },
+    {
+      "OrderNumber": "SO0000001699",
+      "Idx": 1,
+      "ProductCode": "140003309",
+      "Current_L_UOMQuantity": 80.0,
+      "Current_M_QuantityBase": 160.0,
+      "Current_P_QuantityBaseSales": 160.0,
+      "Expected_L_UOMQuantity": 80.0,
+      "Expected_M_QuantityBase": 160.0,
+      "Expected_P_QuantityBaseSales": 160.0,
+      "T_DeliveryTime": "",
+      "Result": "PASS"
+    },
+    {
+      "OrderNumber": "SO0000001700",
+      "Idx": 1,
+      "ProductCode": "148000479",
+      "Current_L_UOMQuantity": 10.0,
+      "Current_M_QuantityBase": 20.0,
+      "Current_P_QuantityBaseSales": 20.0,
+      "Expected_L_UOMQuantity": 10.0,
+      "Expected_M_QuantityBase": 20.0,
+      "Expected_P_QuantityBaseSales": 20.0,
+      "T_DeliveryTime": "",
+      "Result": "PASS"
+    }
+  ],
+  "promotions": [
+    {
+      "OrderNumber": "SO0000001344",
+      "Idx": 1,
+      "G_AutoPromotion": "TRUE",
+      "H_PromotionType": "G",
+      "M_ProductCode": "MT00014",
+      "T_TotalPromotionAmount": 160038.0,
+      "AA_PromotionDetailLineID": 1,
+      "Source_ProductCode": "",
+      "Source_SalesProductCode": "148000479"
+    },
+    {
+      "OrderNumber": "SO0000001513",
+      "Idx": 1,
+      "G_AutoPromotion": "TRUE",
+      "H_PromotionType": "G",
+      "M_ProductCode": "MT00128",
+      "T_TotalPromotionAmount": 2343174.0,
+      "AA_PromotionDetailLineID": 1,
+      "Source_ProductCode": "",
+      "Source_SalesProductCode": "140003106"
+    },
+    {
+      "OrderNumber": "SO0000001695",
+      "Idx": 1,
+      "G_AutoPromotion": "TRUE",
+      "H_PromotionType": "G",
+      "M_ProductCode": "MT00128",
+      "T_TotalPromotionAmount": 2343174.0,
+      "AA_PromotionDetailLineID": 1,
+      "Source_ProductCode": "",
+      "Source_SalesProductCode": "140003106"
+    },
+    {
+      "OrderNumber": "SO0000001700",
+      "Idx": 1,
+      "G_AutoPromotion": "TRUE",
+      "H_PromotionType": "G",
+      "M_ProductCode": "MT00014",
+      "T_TotalPromotionAmount": 133365.0,
+      "AA_PromotionDetailLineID": 1,
+      "Source_ProductCode": "",
+      "Source_SalesProductCode": "148000479"
+    }
+  ]
+}

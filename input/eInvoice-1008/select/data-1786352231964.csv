@@ -1,0 +1,3 @@
+"Idx","ProductCode","ProductName","Quantity","UnitPriceBeforeTax","CashBeforeTaxes","TaxPercent","TaxAmount","IsFreeItem","IsSampleFree"
+1.0,"140002096","SS-240ML-LISA (JP)-(04.17)",2.0,13133,26266,8,2101,False,False
+2.0,"140002011","SS-240ML-LISA (JP)-(04.17)",2.0,0,0,0,0,True,False
