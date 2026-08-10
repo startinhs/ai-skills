@@ -231,3 +231,15 @@ Sheet tổng hợp đánh dấu `fail` cho bốn file của đơn DC Discount (`
 - [ ] Category/Hierarchy lấy master Product thay vì snapshot order detail.
 - [ ] Net price được phép fallback từ UnitPrice khi field NetUnitPrice bằng 0.
 - [ ] LastUpdated được phép fallback CreationTime.
+
+## Sheet `1_DC_ghi chu`
+
+Nguồn bổ sung: `UAT_check_promotion detail_Thanh (6).pdf`. Sheet đối chiếu đơn `SO0000001513`; ghi chú trên đơn đúng, các cột còn lại dùng chung mapping SODC Header đã sửa ở các trường hợp DC Gift/Discount.
+
+| Cột | Field | Hiện tại trong PDF | Chuẩn EMOBIZ | Nguyên nhân/nguồn | Giải pháp hiện tại | Đã fix? |
+| --- | --- | --- | --- | --- | --- | --- |
+| L | Notes | `WIN-T => 1113 - PO 4194290154 - ghi chu noi bo` | Giữ nội dung ghi chú | Ghi chú nội bộ được lưu tại `SalesOrders.Desciption`. | Exporter giữ `order.Desciption`; không làm rỗng Notes. | ☑ |
+| AE | StockOutCode | Thiếu/rỗng | `eSO0000979502` | Với đơn được tạo bằng chức năng sao chép, mã SO gốc được lưu tại `SalesOrders.CopyFrom`. | Exporter lấy `order.CopyFrom`; đơn không sao chép thì xuất rỗng. | ☑ |
+| AI | Description | Có diễn giải Ship-to | Rỗng | SODC Header không gửi diễn giải Ship-to ở cột này. | Exporter xuất rỗng. | ☑ |
+| AQ | PaymentMethod | `BankTransfer` | Rỗng | SODC Header không gửi PaymentMethod theo mẫu EMOBIZ. | Exporter xuất rỗng. | ☑ |
+| AR | BillToSecondaryCustomerCode | `1420317921` | `1420316751` | Cột này yêu cầu mã người thanh toán, nguồn snapshot là `SalesOrders.PayerCode`. | Exporter lấy `order.PayerCode`, không fallback về mã khách con. | ☑ |
