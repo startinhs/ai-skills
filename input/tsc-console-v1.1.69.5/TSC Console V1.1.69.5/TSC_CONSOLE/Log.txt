@@ -1,0 +1,6 @@
+2026-09-09 5:00:27 PM
+   at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   at TPM_PLUS.DownloadProgress.Timer_Tick(Object sender, EventArgs e)
+   at System.Windows.Forms.Timer.OnTick(EventArgs e)
+   at System.Windows.Forms.Timer.TimerNativeWindow.WndProc(Message& m)
+   at System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
