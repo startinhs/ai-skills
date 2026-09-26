@@ -1,0 +1,325 @@
+"code","CreateTime","InterfaceName","header_xml"
+"EPS2603000531","2026-09-25 16:52:29.65718","PromotionDeleteBudget","<PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2603000531</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Policy for FS distributor FY2026_Promotion AJTT, Gia Vị Nền Cho Món Nước, AV</Description>
+      <StartDate>20260401</StartDate>
+      <EndDate>20270331</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>09339-eDOC-SP-2026</InternalNo>
+      <RegistrationNo>09339-eDOC-SP-2026</RegistrationNo>
+      <ProposalNo>03415; 06547;05147;06501-ePRO-FSI-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_FS_E0000628</ApplyForCode>
+      <BudgetAmount>9700000000</BudgetAmount>
+      <ReferencePromotionCode>EP250400001</ReferencePromotionCode>
+      <CreatedBy>HQADMIN_08</CreatedBy>
+      <CreatedDate>20260905</CreatedDate>
+      <CreatedTime>155525</CreatedTime>
+      <LastUpdatedBy>HQADMIN_08</LastUpdatedBy>
+      <LastUpdatedDate>20260925</LastUpdatedDate>
+      <LastUpdatedTime>165229</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>"
+"EPS260800151","2026-09-25 16:52:42.625369","PromotionDeleteBudget","<PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS260800151</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Promotion for Pancake in TT channel in Sep.2026</Description>
+      <StartDate>20260903</StartDate>
+      <EndDate>20260930</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>25285-eDOC-SP-2026</InternalNo>
+      <RegistrationNo>25285-eDOC-SP-2026</RegistrationNo>
+      <ProposalNo>09989-ePRO-SP-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_TT_E0023123</ApplyForCode>
+      <BudgetAmount>240430000</BudgetAmount>
+      <ReferencePromotionCode>EP260700119</ReferencePromotionCode>
+      <CreatedBy>HQADMIN_08</CreatedBy>
+      <CreatedDate>20260905</CreatedDate>
+      <CreatedTime>155525</CreatedTime>
+      <LastUpdatedBy>HQADMIN_08</LastUpdatedBy>
+      <LastUpdatedDate>20260925</LastUpdatedDate>
+      <LastUpdatedTime>165242</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>"
+"EPS260900002","2026-09-09 16:02:51.232133","PromotionDeleteDetail","<PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS260900002</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Trade promotion for FSD apply new model in Sep.2026</Description>
+      <StartDate>20260907</StartDate>
+      <EndDate>20260930</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>26927-eDOC-SP-2026</InternalNo>
+      <RegistrationNo>26927-eDOC-SP-2026</RegistrationNo>
+      <ProposalNo>10735-ePRO-FSI-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_FS_E0000690</ApplyForCode>
+      <BudgetAmount>677030000</BudgetAmount>
+      <ReferencePromotionCode>EP260700207</ReferencePromotionCode>
+      <CreatedBy>HQADMIN_08</CreatedBy>
+      <CreatedDate>20260905</CreatedDate>
+      <CreatedTime>155526</CreatedTime>
+      <LastUpdatedBy>HQADMIN_08</LastUpdatedBy>
+      <LastUpdatedDate>20260909</LastUpdatedDate>
+      <LastUpdatedTime>160249</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>"
+"EPS2609003","2026-09-24 14:22:22.41508","PromotionDelete","<PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609003</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Trade promotion for 03 FSDs apply new model in Sep.2026</Description>
+      <StartDate>20260907</StartDate>
+      <EndDate>20260930</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>26945; 27460-eDOC-SP-2026</InternalNo>
+      <RegistrationNo>26945; 27460-eDOC-SP-2026</RegistrationNo>
+      <ProposalNo>10736;10869-ePRO-FSI-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_FS_E0000691</ApplyForCode>
+      <BudgetAmount>499380000</BudgetAmount>
+      <ReferencePromotionCode></ReferencePromotionCode>
+      <CreatedBy>hanh_lth</CreatedBy>
+      <CreatedDate>20260907</CreatedDate>
+      <CreatedTime>110052</CreatedTime>
+      <LastUpdatedBy>hanh_lth</LastUpdatedBy>
+      <LastUpdatedDate>20260924</LastUpdatedDate>
+      <LastUpdatedTime>142221</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>"
+"EPS2609006","2026-09-25 16:53:18.660346","PromotionDeleteBudget","<PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609006</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Promotion for consumer with code : 9999914420 - Khách vãng lai</Description>
+      <StartDate>20260909</StartDate>
+      <EndDate>20261031</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>26333-eDOC-SP-2026,27599-eDOC-SP-2026</InternalNo>
+      <RegistrationNo>26333-eDOC-SP-2026,27599-eDOC-SP-2026</RegistrationNo>
+      <ProposalNo>10473-ePRO-SP-2026,10698-ePRO-SP-2026, 11034-ePRO-SP-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_TT_E0023273</ApplyForCode>
+      <BudgetAmount>145000000</BudgetAmount>
+      <ReferencePromotionCode>EPS260800233</ReferencePromotionCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260908</CreatedDate>
+      <CreatedTime>140530</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260925</LastUpdatedDate>
+      <LastUpdatedTime>165318</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>"
+"EPS2609009","2026-09-25 16:53:21.814724","PromotionDeleteBudget","<PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609009</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Promotion for AVN Product on Zalo App in Oct26</Description>
+      <StartDate>20261001</StartDate>
+      <EndDate>20261031</EndDate>
+      <Status>I</Status>
+      <PANo></PANo>
+      <InternalNo>26289-eDOC-SP-2026</InternalNo>
+      <RegistrationNo>26289-eDOC-SP-2026</RegistrationNo>
+      <ProposalNo>10587-ePRO-SP-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_TT_E0021639</ApplyForCode>
+      <BudgetAmount>1208300000</BudgetAmount>
+      <ReferencePromotionCode>EPS260800230</ReferencePromotionCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260909</CreatedDate>
+      <CreatedTime>110515</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260925</LastUpdatedDate>
+      <LastUpdatedTime>165321</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>"
+"EPS2609012","2026-09-25 16:53:24.751831","PromotionDeleteBudget","<PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609012</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Promotion for Pancake in TP.HCM</Description>
+      <StartDate>20260907</StartDate>
+      <EndDate>20260922</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>10790-ePRO-SP-2026-ANC</InternalNo>
+      <RegistrationNo>10790-ePRO-SP-2026-ANC</RegistrationNo>
+      <ProposalNo>10790-ePRO-SP-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_TT_E0023451</ApplyForCode>
+      <BudgetAmount>29760000</BudgetAmount>
+      <ReferencePromotionCode>EPS260800151</ReferencePromotionCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260910</CreatedDate>
+      <CreatedTime>135853</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260925</LastUpdatedDate>
+      <LastUpdatedTime>165324</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>"
+"EPS2609019","2026-09-22 14:15:52.761976","PromotionDelete","<PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609019</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Trade promotion for SIM BA FY2026</Description>
+      <StartDate>20260915</StartDate>
+      <EndDate>20261231</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>27658-eDOC-SP-2026</InternalNo>
+      <RegistrationNo>27658-eDOC-SP-2026</RegistrationNo>
+      <ProposalNo>10938-ePRO-FSI-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_FS_E0000314</ApplyForCode>
+      <BudgetAmount>179330000</BudgetAmount>
+      <ReferencePromotionCode>EPS260800006</ReferencePromotionCode>
+      <CreatedBy>hanh_lth</CreatedBy>
+      <CreatedDate>20260911</CreatedDate>
+      <CreatedTime>160746</CreatedTime>
+      <LastUpdatedBy>hanh_lth</LastUpdatedBy>
+      <LastUpdatedDate>20260922</LastUpdatedDate>
+      <LastUpdatedTime>141552</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>"
+"EPS2609026","2026-09-25 16:53:27.182388","PromotionDeleteBudget","<PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609026</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Promotion for &quot;Aji-mayo&quot; HH SKUs in TT Direct sales in Sep&apos;26</Description>
+      <StartDate>20260917</StartDate>
+      <EndDate>20260930</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>11254-ePRO-SP-2026-ANC</InternalNo>
+      <RegistrationNo>11254-ePRO-SP-2026-ANC</RegistrationNo>
+      <ProposalNo>11254-ePRO-SP-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_TT_E0021166</ApplyForCode>
+      <BudgetAmount>110360000</BudgetAmount>
+      <ReferencePromotionCode>EPS2609025</ReferencePromotionCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260916</CreatedDate>
+      <CreatedTime>181647</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260925</LastUpdatedDate>
+      <LastUpdatedTime>165326</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>"
+"EPS2609040","2026-09-25 15:55:26.740228","PromotionDelete","<PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609040</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Add more trade promotions for AV&amp;AN for TT Channel in Sep&apos;26</Description>
+      <StartDate>20260923</StartDate>
+      <EndDate>20260930</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>11545-ePRO-SP-2026-ANC</InternalNo>
+      <RegistrationNo>11545-ePRO-SP-2026-ANC</RegistrationNo>
+      <ProposalNo>11545-ePRO-SP-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_TT_E0023503</ApplyForCode>
+      <BudgetAmount>0</BudgetAmount>
+      <ReferencePromotionCode>EPS2609038</ReferencePromotionCode>
+      <CreatedBy>ri_nt</CreatedBy>
+      <CreatedDate>20260923</CreatedDate>
+      <CreatedTime>103432</CreatedTime>
+      <LastUpdatedBy>ri_nt</LastUpdatedBy>
+      <LastUpdatedDate>20260925</LastUpdatedDate>
+      <LastUpdatedTime>155526</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>"
+"EPS2609045","2026-09-23 15:37:10.757152","PromotionDelete","<PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609045</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Trade promotion for AV and AN Thinh Vuong FSD in Sep.26</Description>
+      <StartDate>20260924</StartDate>
+      <EndDate>20261025</EndDate>
+      <Status>I</Status>
+      <PANo></PANo>
+      <InternalNo>11614-ePRO-SP-2026-ANC</InternalNo>
+      <RegistrationNo>11614-ePRO-SP-2026-ANC</RegistrationNo>
+      <ProposalNo>11614-ePRO-SP-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AFS_FS_E00002</ApplyForCode>
+      <BudgetAmount>4200000</BudgetAmount>
+      <ReferencePromotionCode></ReferencePromotionCode>
+      <CreatedBy>hanh_lth</CreatedBy>
+      <CreatedDate>20260923</CreatedDate>
+      <CreatedTime>145343</CreatedTime>
+      <LastUpdatedBy>hanh_lth</LastUpdatedBy>
+      <LastUpdatedDate>20260923</LastUpdatedDate>
+      <LastUpdatedTime>153710</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>"
+"EPS2609057","2026-09-25 13:50:19.903714","PromotionDelete","<PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609057</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Trade promotion for AV for Kim Ngan Tuyen</Description>
+      <StartDate>20260925</StartDate>
+      <EndDate>20260926</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>11702-ePRO-SP-2026-ANC</InternalNo>
+      <RegistrationNo>11702-ePRO-SP-2026-ANC</RegistrationNo>
+      <ProposalNo>11702-ePRO-SP-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_FS_E0000102</ApplyForCode>
+      <BudgetAmount>5688000</BudgetAmount>
+      <ReferencePromotionCode>EPS2609043</ReferencePromotionCode>
+      <CreatedBy>Le Thi Thanh Van</CreatedBy>
+      <CreatedDate>20260925</CreatedDate>
+      <CreatedTime>081816</CreatedTime>
+      <LastUpdatedBy>Le Thi Thanh Van</LastUpdatedBy>
+      <LastUpdatedDate>20260925</LastUpdatedDate>
+      <LastUpdatedTime>135019</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>"

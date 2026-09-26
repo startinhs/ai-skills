@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:esal="esales2hana">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <esal:MT_RQ_PROMO_MASTER_S>
+  <LIST_HEADER>
+    <PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609019</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Trade promotion for SIM BA FY2026</Description>
+      <StartDate>20260915</StartDate>
+      <EndDate>20261231</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>27658-eDOC-SP-2026</InternalNo>
+      <RegistrationNo>27658-eDOC-SP-2026</RegistrationNo>
+      <ProposalNo>10938-ePRO-FSI-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_FS_E0000314</ApplyForCode>
+      <BudgetAmount>179330000</BudgetAmount>
+      <ReferencePromotionCode>EPS260800006</ReferencePromotionCode>
+      <CreatedBy>hanh_lth</CreatedBy>
+      <CreatedDate>20260911</CreatedDate>
+      <CreatedTime>160746</CreatedTime>
+      <LastUpdatedBy>hanh_lth</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>
+  </LIST_HEADER>
+  <LIST_LINE>
+  </LIST_LINE>
+  <LIST_DETAIL>
+  </LIST_DETAIL>
+  <LIST_BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0029</PromotionCode>
+      <PromotionMasterCode>EPS2609019</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>400</AllocationCode>
+      <BrandCode>402116</BrandCode>
+      <BrandName>Gyoza JP Dumpling</BrandName>
+      <SectionCode>42103</SectionCode>
+      <SectionName>Food Service Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>hanh_lth</CreatedBy>
+      <CreatedDate>20260911</CreatedDate>
+      <CreatedTime>160750</CreatedTime>
+      <LastUpdatedBy>hanh_lth</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0030</PromotionCode>
+      <PromotionMasterCode>EPS2609019</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>401</AllocationCode>
+      <BrandCode>402116</BrandCode>
+      <BrandName>Gyoza JP Dumpling</BrandName>
+      <SectionCode>42103</SectionCode>
+      <SectionName>Food Service Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>hanh_lth</CreatedBy>
+      <CreatedDate>20260911</CreatedDate>
+      <CreatedTime>160750</CreatedTime>
+      <LastUpdatedBy>hanh_lth</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+  </LIST_BUDGET_ALLOC>
+        </esal:MT_RQ_PROMO_MASTER_S>
+    </soapenv:Body>
+</soapenv:Envelope>

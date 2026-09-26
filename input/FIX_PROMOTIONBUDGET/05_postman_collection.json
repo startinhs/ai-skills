@@ -1,0 +1,1112 @@
+{
+  "info": {
+    "name": "FIX_PROMOTIONBUDGET - DB resend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "EPS260700232",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);",
+              "pm.test('Co AllocationCode 370 (API dung DB da chay 02)', () => pm.expect(req).to.include('<AllocationCode>370</AllocationCode>'));",
+              "if (!req.includes('<AllocationCode>370</AllocationCode>')) { postman.setNextRequest(null); }"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-77c9-3c24-0ac3-f3358778a8a4\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260100154",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a237d27-e8f1-c595-7ee2-61207af10663\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS2603000445",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-772d-9ab2-cc6e-b2c7c07e833c\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS2603000459",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-7732-a2e7-1202-e842e4e63f07\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS2603000460",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-7736-8cc2-17e2-f35cf4ee885a\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS2603000466",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-7744-47c4-0f94-10f27c7dfe23\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS2603000522",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-7748-913c-dbc4-a5856aab6193\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS2603000531",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-774c-4f73-9942-8fb5b41251ef\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260400029",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-7755-53fe-058a-b4163f507984\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260600247",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-77b0-6fe8-a606-52db2f8bf631\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260600249",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-77b4-36c7-4965-1447294f77ad\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260800124",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-780b-6f51-b8d8-979ff7867312\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260800151",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-7815-56a6-20c1-22a8ca8a25dd\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260800153",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-781f-01eb-6d16-a3097818b04e\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260800163",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-7831-62f9-4f8e-c5b4adf928fd\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260800210",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-785b-965b-e3e0-b9cd869c91e9\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260800216",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-7871-ea55-d9ee-e93fdef7c405\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260800230",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-789c-1c5f-0888-28ce0d803e11\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260800231",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-78a0-54f6-574c-a5139ec10e7f\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260800234",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-78ae-e647-dbec-d5f5bade658d\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260800237",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-78bd-f534-2cc0-bf290bdb9435\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260800238",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-78c6-2784-569d-fb9634181839\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260800240",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-78cf-6373-c022-2101bcc97394\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260800241",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-78d4-8277-e9b0-c7bd5cd923fb\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS260900013",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-78ff-b910-0d62-430143c45e98\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS2609006",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a239202-ea0e-975c-e0d5-157e54f2575e\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS2609009",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a239684-4037-ba53-3ace-d64e097d3917\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS2609012",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a239c49-9336-0a70-5ff1-8c3f03ae7687\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS2609026",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "const req = r.requestData || '';",
+              "const n = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value, 'budgetDeleted=', n, r.message);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a23bc1b-d83c-70df-40e4-fc81f1c95dd4\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    }
+  ]
+}

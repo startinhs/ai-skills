@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:esal="esales2hana">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <esal:MT_RQ_PROMO_MASTER_S>
+  <LIST_HEADER>
+    <PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS260900002</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Trade promotion for FSD apply new model in Sep.2026</Description>
+      <StartDate>20260907</StartDate>
+      <EndDate>20260930</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>26927-eDOC-SP-2026</InternalNo>
+      <RegistrationNo>26927-eDOC-SP-2026</RegistrationNo>
+      <ProposalNo>10735-ePRO-FSI-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_FS_E0000690</ApplyForCode>
+      <BudgetAmount>677030000</BudgetAmount>
+      <ReferencePromotionCode>EP260700207</ReferencePromotionCode>
+      <CreatedBy>HQADMIN_08</CreatedBy>
+      <CreatedDate>20260905</CreatedDate>
+      <CreatedTime>155526</CreatedTime>
+      <LastUpdatedBy>HQADMIN_08</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>
+  </LIST_HEADER>
+  <LIST_LINE>
+  </LIST_LINE>
+  <LIST_DETAIL>
+  </LIST_DETAIL>
+  <LIST_BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0118</PromotionCode>
+      <PromotionMasterCode>EPS260900002</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>1338</AllocationCode>
+      <BrandCode>404040</BrandCode>
+      <BrandName>Aji-ngon Pork</BrandName>
+      <SectionCode>42103</SectionCode>
+      <SectionName>Food Service Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>HQADMIN_08</CreatedBy>
+      <CreatedDate>20260905</CreatedDate>
+      <CreatedTime>155923</CreatedTime>
+      <LastUpdatedBy>HQADMIN_08</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+  </LIST_BUDGET_ALLOC>
+        </esal:MT_RQ_PROMO_MASTER_S>
+    </soapenv:Body>
+</soapenv:Envelope>

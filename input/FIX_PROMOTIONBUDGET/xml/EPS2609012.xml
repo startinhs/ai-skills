@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:esal="esales2hana">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <esal:MT_RQ_PROMO_MASTER_S>
+  <LIST_HEADER>
+    <PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609012</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Promotion for Pancake in TP.HCM</Description>
+      <StartDate>20260907</StartDate>
+      <EndDate>20260922</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>10790-ePRO-SP-2026-ANC</InternalNo>
+      <RegistrationNo>10790-ePRO-SP-2026-ANC</RegistrationNo>
+      <ProposalNo>10790-ePRO-SP-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_TT_E0023451</ApplyForCode>
+      <BudgetAmount>29760000</BudgetAmount>
+      <ReferencePromotionCode>EPS260800151</ReferencePromotionCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260910</CreatedDate>
+      <CreatedTime>135853</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>
+  </LIST_HEADER>
+  <LIST_LINE>
+  </LIST_LINE>
+  <LIST_DETAIL>
+  </LIST_DETAIL>
+  <LIST_BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0001</PromotionCode>
+      <PromotionMasterCode>EPS2609012</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>556</AllocationCode>
+      <BrandCode>401140</BrandCode>
+      <BrandName>Pancake Original</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>90.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260910</CreatedDate>
+      <CreatedTime>135857</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0001</PromotionCode>
+      <PromotionMasterCode>EPS2609012</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>557</AllocationCode>
+      <BrandCode>401141</BrandCode>
+      <BrandName>Pancake Chocolate</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>10.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260910</CreatedDate>
+      <CreatedTime>135857</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0002</PromotionCode>
+      <PromotionMasterCode>EPS2609012</PromotionMasterCode>
+      <PromotionDetailLineID>2</PromotionDetailLineID>
+      <AllocationCode>558</AllocationCode>
+      <BrandCode>401140</BrandCode>
+      <BrandName>Pancake Original</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>90.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260910</CreatedDate>
+      <CreatedTime>135857</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0002</PromotionCode>
+      <PromotionMasterCode>EPS2609012</PromotionMasterCode>
+      <PromotionDetailLineID>2</PromotionDetailLineID>
+      <AllocationCode>559</AllocationCode>
+      <BrandCode>401141</BrandCode>
+      <BrandName>Pancake Chocolate</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>10.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260910</CreatedDate>
+      <CreatedTime>135857</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0002</PromotionCode>
+      <PromotionMasterCode>EPS2609012</PromotionMasterCode>
+      <PromotionDetailLineID>2</PromotionDetailLineID>
+      <AllocationCode>560</AllocationCode>
+      <BrandCode>401140</BrandCode>
+      <BrandName>Pancake Original</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>90.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260910</CreatedDate>
+      <CreatedTime>135857</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0002</PromotionCode>
+      <PromotionMasterCode>EPS2609012</PromotionMasterCode>
+      <PromotionDetailLineID>2</PromotionDetailLineID>
+      <AllocationCode>561</AllocationCode>
+      <BrandCode>401141</BrandCode>
+      <BrandName>Pancake Chocolate</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>10.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260910</CreatedDate>
+      <CreatedTime>135857</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+  </LIST_BUDGET_ALLOC>
+        </esal:MT_RQ_PROMO_MASTER_S>
+    </soapenv:Body>
+</soapenv:Envelope>

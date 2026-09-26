@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:esal="esales2hana">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <esal:MT_RQ_PROMO_MASTER_S>
+  <LIST_HEADER>
+    <PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609006</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Promotion for consumer with code : 9999914420 - Khách vãng lai</Description>
+      <StartDate>20260909</StartDate>
+      <EndDate>20261031</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>26333-eDOC-SP-2026,27599-eDOC-SP-2026</InternalNo>
+      <RegistrationNo>26333-eDOC-SP-2026,27599-eDOC-SP-2026</RegistrationNo>
+      <ProposalNo>10473-ePRO-SP-2026,10698-ePRO-SP-2026, 11034-ePRO-SP-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_TT_E0023273</ApplyForCode>
+      <BudgetAmount>145000000</BudgetAmount>
+      <ReferencePromotionCode>EPS260800233</ReferencePromotionCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260908</CreatedDate>
+      <CreatedTime>140530</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>
+  </LIST_HEADER>
+  <LIST_LINE>
+  </LIST_LINE>
+  <LIST_DETAIL>
+  </LIST_DETAIL>
+  <LIST_BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0006</PromotionCode>
+      <PromotionMasterCode>EPS2609006</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>1064</AllocationCode>
+      <BrandCode>402116</BrandCode>
+      <BrandName>Gyoza JP Dumpling</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260908</CreatedDate>
+      <CreatedTime>140538</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0009</PromotionCode>
+      <PromotionMasterCode>EPS2609006</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>1067</AllocationCode>
+      <BrandCode>402116</BrandCode>
+      <BrandName>Gyoza JP Dumpling</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260908</CreatedDate>
+      <CreatedTime>140538</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0012</PromotionCode>
+      <PromotionMasterCode>EPS2609006</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>1070</AllocationCode>
+      <BrandCode>402116</BrandCode>
+      <BrandName>Gyoza JP Dumpling</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260908</CreatedDate>
+      <CreatedTime>140538</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0019</PromotionCode>
+      <PromotionMasterCode>EPS2609006</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>1078</AllocationCode>
+      <BrandCode>402116</BrandCode>
+      <BrandName>Gyoza JP Dumpling</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260908</CreatedDate>
+      <CreatedTime>140538</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0022</PromotionCode>
+      <PromotionMasterCode>EPS2609006</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>1081</AllocationCode>
+      <BrandCode>402116</BrandCode>
+      <BrandName>Gyoza JP Dumpling</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260908</CreatedDate>
+      <CreatedTime>140538</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0025</PromotionCode>
+      <PromotionMasterCode>EPS2609006</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>1084</AllocationCode>
+      <BrandCode>402116</BrandCode>
+      <BrandName>Gyoza JP Dumpling</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260908</CreatedDate>
+      <CreatedTime>140538</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0028</PromotionCode>
+      <PromotionMasterCode>EPS2609006</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>1087</AllocationCode>
+      <BrandCode>402116</BrandCode>
+      <BrandName>Gyoza JP Dumpling</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260908</CreatedDate>
+      <CreatedTime>140538</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+  </LIST_BUDGET_ALLOC>
+        </esal:MT_RQ_PROMO_MASTER_S>
+    </soapenv:Body>
+</soapenv:Envelope>

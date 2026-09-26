@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:esal="esales2hana">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <esal:MT_RQ_PROMO_MASTER_S>
+  <LIST_HEADER>
+    <PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2603000531</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Policy for FS distributor FY2026_Promotion AJTT, Gia Vị Nền Cho Món Nước, AV</Description>
+      <StartDate>20260401</StartDate>
+      <EndDate>20270331</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>09339-eDOC-SP-2026</InternalNo>
+      <RegistrationNo>09339-eDOC-SP-2026</RegistrationNo>
+      <ProposalNo>03415; 06547;05147;06501-ePRO-FSI-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_FS_E0000628</ApplyForCode>
+      <BudgetAmount>9700000000</BudgetAmount>
+      <ReferencePromotionCode>EP250400001</ReferencePromotionCode>
+      <CreatedBy>HQADMIN_08</CreatedBy>
+      <CreatedDate>20260905</CreatedDate>
+      <CreatedTime>155525</CreatedTime>
+      <LastUpdatedBy>HQADMIN_08</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>
+  </LIST_HEADER>
+  <LIST_LINE>
+  </LIST_LINE>
+  <LIST_DETAIL>
+  </LIST_DETAIL>
+  <LIST_BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0009</PromotionCode>
+      <PromotionMasterCode>EPS2603000531</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>267</AllocationCode>
+      <BrandCode>402020</BrandCode>
+      <BrandName>Retail</BrandName>
+      <SectionCode>42103</SectionCode>
+      <SectionName>Food Service Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>HQADMIN_08</CreatedBy>
+      <CreatedDate>20260909</CreatedDate>
+      <CreatedTime>092952</CreatedTime>
+      <LastUpdatedBy>HQADMIN_08</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0009</PromotionCode>
+      <PromotionMasterCode>EPS2603000531</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>268</AllocationCode>
+      <BrandCode>402020</BrandCode>
+      <BrandName>Retail</BrandName>
+      <SectionCode>42103</SectionCode>
+      <SectionName>Food Service Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>HQADMIN_08</CreatedBy>
+      <CreatedDate>20260909</CreatedDate>
+      <CreatedTime>092952</CreatedTime>
+      <LastUpdatedBy>HQADMIN_08</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0009</PromotionCode>
+      <PromotionMasterCode>EPS2603000531</PromotionMasterCode>
+      <PromotionDetailLineID>2</PromotionDetailLineID>
+      <AllocationCode>267</AllocationCode>
+      <BrandCode>402020</BrandCode>
+      <BrandName>Retail</BrandName>
+      <SectionCode>42103</SectionCode>
+      <SectionName>Food Service Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>HQADMIN_08</CreatedBy>
+      <CreatedDate>20260909</CreatedDate>
+      <CreatedTime>092952</CreatedTime>
+      <LastUpdatedBy>HQADMIN_08</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0009</PromotionCode>
+      <PromotionMasterCode>EPS2603000531</PromotionMasterCode>
+      <PromotionDetailLineID>2</PromotionDetailLineID>
+      <AllocationCode>268</AllocationCode>
+      <BrandCode>402020</BrandCode>
+      <BrandName>Retail</BrandName>
+      <SectionCode>42103</SectionCode>
+      <SectionName>Food Service Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>HQADMIN_08</CreatedBy>
+      <CreatedDate>20260909</CreatedDate>
+      <CreatedTime>092952</CreatedTime>
+      <LastUpdatedBy>HQADMIN_08</LastUpdatedBy>
+      <LastUpdatedDate>20260926</LastUpdatedDate>
+      <LastUpdatedTime>160140</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+  </LIST_BUDGET_ALLOC>
+        </esal:MT_RQ_PROMO_MASTER_S>
+    </soapenv:Body>
+</soapenv:Envelope>

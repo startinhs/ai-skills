@@ -1,0 +1,1 @@
+﻿<SOAP:Envelope xmlns:SOAP='http://schemas.xmlsoap.org/soap/envelope/'><SOAP:Header/><SOAP:Body xmlns:esal='esales2hana'><MT_RP_PROMO_MASTER_S><RETURN_VALUE>OK</RETURN_VALUE><RETURN_MESSAGE/></MT_RP_PROMO_MASTER_S></SOAP:Body></SOAP:Envelope>
