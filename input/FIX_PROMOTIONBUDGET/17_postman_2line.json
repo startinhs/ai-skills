@@ -1,0 +1,123 @@
+{
+  "info": {
+    "name": "FIX_DUP_ALLOC_1001 - DB resend (2 CTKM)",
+    "description": "Xoa dong phan bo TRUNG Idx 1001 tren SAP.\n\nEPS260800230 / dong KM 0423 / alloc 1001\nEPS2609009   / dong KM 0017 / alloc 1001\n\nDIEU KIEN: phai chay 16_fix_data_2line.sql va COMMIT TRUOC (Idx 1001 -> IsDeleted=true).\nChua COMMIT thi request dau se fail assert va tu dung, khong goi CTKM thu 2.\n\nBao SAP truoc khi chay.\n\nLUU Y: C1 chua deploy -> dan khach KHONG mo/Luu 2 CTKM nay, ReorderAllocatePAIdx se danh lai 1000/1002 -> 1/2.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "EPS260800230 (dong KM 0423 / alloc 1001)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "const req = r.requestData || '';",
+              "",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "",
+              "const nDel = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "const has1001 = /<AllocationCode>1001<\\/AllocationCode>[\\s\\S]*?<Deleted>true<\\/Deleted>/.test(req);",
+              "const hasOther = /<AllocationCode>(1000|1002)<\\/AllocationCode>/.test(req);",
+              "",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value,",
+              "            'budgetDeleted=', nDel, '1001_deleted=', has1001, 'co1000_1002=', hasOther, r.message);",
+              "",
+              "// Phai co dung ma 1001 kem Deleted=true -> DB da UPDATE va COMMIT",
+              "pm.test('Co AllocationCode 1001 voi Deleted=true', () => pm.expect(has1001).to.eql(true));",
+              "",
+              "// Action DB chi gui dong IsDeleted=true -> KHONG duoc co 1000/1002",
+              "pm.test('Khong dung den 1000/1002', () => pm.expect(hasOther).to.eql(false));",
+              "",
+              "// Chot chan: sai thi dung, khong goi CTKM tiep theo",
+              "if (!has1001 || hasOther || r.isSuccess !== true) {",
+              "    console.error('DUNG:', pm.info.requestName, '-> kiem tra lai buoc UPDATE (16_fix_data_2line.sql) da COMMIT chua.');",
+              "    postman.setNextRequest(null);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a2382f4-789c-1c5f-0888-28ce0d803e11\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    },
+    {
+      "name": "EPS2609009 (dong KM 0017 / alloc 1001)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "const req = r.requestData || '';",
+              "",
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('isSuccess = true', () => pm.expect(r.isSuccess).to.eql(true));",
+              "",
+              "const nDel = (req.match(/<Deleted>true<\\/Deleted>\\s*<\\/BUDGET_ALLOC>/g) || []).length;",
+              "const has1001 = /<AllocationCode>1001<\\/AllocationCode>[\\s\\S]*?<Deleted>true<\\/Deleted>/.test(req);",
+              "const hasOther = /<AllocationCode>(1000|1002)<\\/AllocationCode>/.test(req);",
+              "",
+              "console.log(pm.info.requestName, 'isSuccess=', r.isSuccess, 'value=', r.value,",
+              "            'budgetDeleted=', nDel, '1001_deleted=', has1001, 'co1000_1002=', hasOther, r.message);",
+              "",
+              "// Phai co dung ma 1001 kem Deleted=true -> DB da UPDATE va COMMIT",
+              "pm.test('Co AllocationCode 1001 voi Deleted=true', () => pm.expect(has1001).to.eql(true));",
+              "",
+              "// Action DB chi gui dong IsDeleted=true -> KHONG duoc co 1000/1002",
+              "pm.test('Khong dung den 1000/1002', () => pm.expect(hasOther).to.eql(false));",
+              "",
+              "// Chot chan: sai thi dung, khong goi CTKM tiep theo",
+              "if (!has1001 || hasOther || r.isSuccess !== true) {",
+              "    console.error('DUNG:', pm.info.requestName, '-> kiem tra lai buoc UPDATE (16_fix_data_2line.sql) da COMMIT chua.');",
+              "    postman.setNextRequest(null);",
+              "}",
+              "",
+              "// Request cuoi cung cua collection."
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"targetObj\": \"promotion\", \"action\": \"DB\", \"data\": \"3a239684-4037-ba53-3ace-d64e097d3917\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://sfa-api.ajinomoto.com.vn/api/sappromotionmaster/promotionmasters/event-bus-data"
+      }
+    }
+  ]
+}

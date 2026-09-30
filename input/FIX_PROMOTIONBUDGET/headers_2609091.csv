@@ -1,0 +1,28 @@
+code,header_xml
+"EPS2609091","<PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609091</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Promotion for &quot;AJI-NO-MOTO&quot; in &#272;&#7855;k L&#7855;k</Description>
+      <StartDate>20260928</StartDate>
+      <EndDate>20260930</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>11861-ePRO-SP-2026-ANC</InternalNo>
+      <RegistrationNo>11861-ePRO-SP-2026-ANC</RegistrationNo>
+      <ProposalNo>11861-ePRO-SP-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AFS_TT_E000043</ApplyForCode>
+      <BudgetAmount>9100800</BudgetAmount>
+      <ReferencePromotionCode>EPS2609080</ReferencePromotionCode>
+      <CreatedBy>truc_mt</CreatedBy>
+      <CreatedDate>20260928</CreatedDate>
+      <CreatedTime>183500</CreatedTime>
+      <LastUpdatedBy>truc_mt</LastUpdatedBy>
+      <LastUpdatedDate>20260928</LastUpdatedDate>
+      <LastUpdatedTime>184617</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>"

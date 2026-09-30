@@ -10,6 +10,7 @@ Kết quả phân tích Blueprint batch 4 + 13 issue SIT/UAT, đối chiếu tr�
 |------|----------|
 | [00-blueprint-analysis.md](00-blueprint-analysis.md) | Phân tích Blueprint v0.5: 4 màn hình, 2 quy trình, sơ đồ 6 trạng thái, mapping BP → code, và 8 gap (G1–G8) chưa nằm trong tracker |
 | [01-issue-analysis.md](01-issue-analysis.md) | **Tài liệu chính** — phân tích 13 issue: nguyên nhân gốc kèm `file:line`, gom nhóm sửa, thứ tự ưu tiên, 9 câu hỏi cần chốt |
+| [HANDOFF-SONNET-BATCH2.md](HANDOFF-SONNET-BATCH2.md) | **Đợt 2 (2026-09-29)** — phân tích + prompt giao Sonnet cho #3, #11, #13–#19 (phần A cần user confirm) |
 | [issues-npp.csv](issues-npp.csv) | 13 issue theo đúng schema `avntt-issue-workflow` (`assets/issue-template.csv`) — dùng làm input cho skill |
 
 ## Kết luận chính
