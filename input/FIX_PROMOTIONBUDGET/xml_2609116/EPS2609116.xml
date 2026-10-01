@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:esal="esales2hana">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <esal:MT_RQ_PROMO_MASTER_S>
+  <LIST_HEADER>
+    <PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609116</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Promotion for AV to support RBC (order 10 tons)</Description>
+      <StartDate>20261001</StartDate>
+      <EndDate>20261231</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>27563-eDOC-SP-2026</InternalNo>
+      <RegistrationNo>27563-eDOC-SP-2026</RegistrationNo>
+      <ProposalNo>10863-ePRO-SP-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_TT_E0022840</ApplyForCode>
+      <BudgetAmount>65700000</BudgetAmount>
+      <ReferencePromotionCode>EPS260900053</ReferencePromotionCode>
+      <CreatedBy>Lam Tu Thanh</CreatedBy>
+      <CreatedDate>20260930</CreatedDate>
+      <CreatedTime>223357</CreatedTime>
+      <LastUpdatedBy>Lam Tu Thanh</LastUpdatedBy>
+      <LastUpdatedDate>20261001</LastUpdatedDate>
+      <LastUpdatedTime>091735</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>
+  </LIST_HEADER>
+  <LIST_LINE>
+  </LIST_LINE>
+  <LIST_DETAIL>
+  </LIST_DETAIL>
+  <LIST_BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0001</PromotionCode>
+      <PromotionMasterCode>EPS2609116</PromotionMasterCode>
+      <PromotionDetailLineID>1</PromotionDetailLineID>
+      <AllocationCode>1</AllocationCode>
+      <BrandCode>402020</BrandCode>
+      <BrandName>Retail</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>Lam Tu Thanh</CreatedBy>
+      <CreatedDate>20260930</CreatedDate>
+      <CreatedTime>223357</CreatedTime>
+      <LastUpdatedBy>Lam Tu Thanh</LastUpdatedBy>
+      <LastUpdatedDate>20261001</LastUpdatedDate>
+      <LastUpdatedTime>091735</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0001</PromotionCode>
+      <PromotionMasterCode>EPS2609116</PromotionMasterCode>
+      <PromotionDetailLineID>2</PromotionDetailLineID>
+      <AllocationCode>1</AllocationCode>
+      <BrandCode>402020</BrandCode>
+      <BrandName>Retail</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>Lam Tu Thanh</CreatedBy>
+      <CreatedDate>20260930</CreatedDate>
+      <CreatedTime>223357</CreatedTime>
+      <LastUpdatedBy>Lam Tu Thanh</LastUpdatedBy>
+      <LastUpdatedDate>20261001</LastUpdatedDate>
+      <LastUpdatedTime>091735</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0001</PromotionCode>
+      <PromotionMasterCode>EPS2609116</PromotionMasterCode>
+      <PromotionDetailLineID>3</PromotionDetailLineID>
+      <AllocationCode>1</AllocationCode>
+      <BrandCode>402020</BrandCode>
+      <BrandName>Retail</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>Lam Tu Thanh</CreatedBy>
+      <CreatedDate>20260930</CreatedDate>
+      <CreatedTime>223357</CreatedTime>
+      <LastUpdatedBy>Lam Tu Thanh</LastUpdatedBy>
+      <LastUpdatedDate>20261001</LastUpdatedDate>
+      <LastUpdatedTime>091735</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0001</PromotionCode>
+      <PromotionMasterCode>EPS2609116</PromotionMasterCode>
+      <PromotionDetailLineID>4</PromotionDetailLineID>
+      <AllocationCode>1</AllocationCode>
+      <BrandCode>402020</BrandCode>
+      <BrandName>Retail</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>Lam Tu Thanh</CreatedBy>
+      <CreatedDate>20260930</CreatedDate>
+      <CreatedTime>223357</CreatedTime>
+      <LastUpdatedBy>Lam Tu Thanh</LastUpdatedBy>
+      <LastUpdatedDate>20261001</LastUpdatedDate>
+      <LastUpdatedTime>091735</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0001</PromotionCode>
+      <PromotionMasterCode>EPS2609116</PromotionMasterCode>
+      <PromotionDetailLineID>5</PromotionDetailLineID>
+      <AllocationCode>1</AllocationCode>
+      <BrandCode>402020</BrandCode>
+      <BrandName>Retail</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>Lam Tu Thanh</CreatedBy>
+      <CreatedDate>20260930</CreatedDate>
+      <CreatedTime>223357</CreatedTime>
+      <LastUpdatedBy>Lam Tu Thanh</LastUpdatedBy>
+      <LastUpdatedDate>20261001</LastUpdatedDate>
+      <LastUpdatedTime>091735</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+    <BUDGET_ALLOC>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionCode>0001</PromotionCode>
+      <PromotionMasterCode>EPS2609116</PromotionMasterCode>
+      <PromotionDetailLineID>6</PromotionDetailLineID>
+      <AllocationCode>1</AllocationCode>
+      <BrandCode>402020</BrandCode>
+      <BrandName>Retail</BrandName>
+      <SectionCode>42105</SectionCode>
+      <SectionName>Tradition Trade Sales</SectionName>
+      <ExpenseCode>6321999999</ExpenseCode>
+      <ExpenseName>COGS_PROMOTION BY PRODUCT</ExpenseName>
+      <AllocationPercent>100.0000000</AllocationPercent>
+      <PANo></PANo>
+      <ProBusPostingGroup></ProBusPostingGroup>
+      <ProductCode></ProductCode>
+      <CreatedBy>Lam Tu Thanh</CreatedBy>
+      <CreatedDate>20260930</CreatedDate>
+      <CreatedTime>223357</CreatedTime>
+      <LastUpdatedBy>Lam Tu Thanh</LastUpdatedBy>
+      <LastUpdatedDate>20261001</LastUpdatedDate>
+      <LastUpdatedTime>091735</LastUpdatedTime>
+      <Deleted>true</Deleted>
+    </BUDGET_ALLOC>
+  </LIST_BUDGET_ALLOC>
+        </esal:MT_RQ_PROMO_MASTER_S>
+    </soapenv:Body>
+</soapenv:Envelope>

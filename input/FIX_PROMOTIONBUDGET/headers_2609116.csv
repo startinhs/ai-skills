@@ -1,0 +1,28 @@
+code,header_xml
+"EPS2609116","<PROMO_HEADER>
+
+      <CompanyCode>AVN</CompanyCode>
+      <PromotionMasterCode>EPS2609116</PromotionMasterCode>
+      <CustomerCode>NPPAVN</CustomerCode>
+      <AutoPromotion>true</AutoPromotion>
+      <Description>Promotion for AV to support RBC (order 10 tons)</Description>
+      <StartDate>20261001</StartDate>
+      <EndDate>20261231</EndDate>
+      <Status>A</Status>
+      <PANo></PANo>
+      <InternalNo>27563-eDOC-SP-2026</InternalNo>
+      <RegistrationNo>27563-eDOC-SP-2026</RegistrationNo>
+      <ProposalNo>10863-ePRO-SP-2026</ProposalNo>
+      <Approver></Approver>
+      <ApproverDescription></ApproverDescription>
+      <ApplyForCode>AF_TT_E0022840</ApplyForCode>
+      <BudgetAmount>65700000</BudgetAmount>
+      <ReferencePromotionCode>EPS260900053</ReferencePromotionCode>
+      <CreatedBy>Lam Tu Thanh</CreatedBy>
+      <CreatedDate>20260930</CreatedDate>
+      <CreatedTime>223357</CreatedTime>
+      <LastUpdatedBy>Lam Tu Thanh</LastUpdatedBy>
+      <LastUpdatedDate>20261001</LastUpdatedDate>
+      <LastUpdatedTime>091555</LastUpdatedTime>
+      <Deleted>false</Deleted>
+    </PROMO_HEADER>"
