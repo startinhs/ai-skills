@@ -1,0 +1,1684 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Volo.Abp.EntityFrameworkCore;
+using HQSOFT.SAP.DMSIntegration.EntityFrameworkCore;
+using HQSOFT.SAP.DMSIntegration.SalePersons;
+using HQSOFT.Xspire.MasterData.ExtendedUsers;
+using HQSOFT.Xspire.MasterData.Bins;
+using System.Linq.Expressions;
+using HQSOFT.Xspire.MasterData.Customers;
+using HQSOFT.Xspire.MasterData.DeliveryAddresses;
+using HQSOFT.Xspire.MasterData.Depots;
+using HQSOFT.Xspire.MasterData.Products;
+using HQSOFT.Xspire.MasterData.ProductUOMS;
+using HQSOFT.Xspire.MasterData.ProductComponents;
+using HQSOFT.Xspire.MasterData.SalesTeams;
+using HQSOFT.SAP.DMSIntegration.StockTransfer;
+using HQSOFT.Xspire.MasterData.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Volo.Abp.Identity;
+using Volo.Abp.Uow;
+using HQSOFT.Xspire.MasterData.ExtendedRoles;
+using HQSOFT.Xspire.MasterData.DepotUserRoles;
+using HQSOFT.Xspire.MasterData.SalesTeamMembers;
+using Volo.Abp.Domain.Repositories;
+using HQSOFT.Xspire.Inventory.InventoryDocs;
+using HQSOFT.Xspire.Inventory.WareHouseLocations;
+using Microsoft.EntityFrameworkCore;
+using HQSOFT.Xspire.MasterData.UnitOfMeasures;
+using HQSOFT.Xspire.Inventory.InventoryTransactions;
+using HQSOFT.Xspire.Inventory.ItemLocations;
+using HQSOFT.Xspire.Inventory.ItemWarehouses;
+
+namespace HQSOFT.SAP.DMSIntegration.StockTranfer
+{
+    public class EfCoreStockTranferRepository : EfCoreSalePersonRepositoryBase, IStockTranferRepository
+    {
+        /// <summary>
+        /// Số lượng lưu entity kho là <see cref="double"/>; tính trên <see cref="decimal"/> rồi làm tròn để khớp số nhập và tránh nhiễu float/binary.
+        /// </summary>
+        private const int InventoryQuantityDecimalPlaces = 10;
+
+        private static double ToInventoryDouble(decimal value) =>
+            (double)Math.Round(value, InventoryQuantityDecimalPlaces, MidpointRounding.AwayFromZero);
+
+        private IConfiguration _configuration;
+        private IdentityUserManager _userManager;
+        private readonly IPasswordHasher<Volo.Abp.Identity.IdentityUser> _passwordHasher;
+        private readonly ISalesTeamRepository _salesTeamRepository;
+        private readonly IBinRepository _binRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly IDeliveryAddressRepository _deliveryAddressRepository;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IProductComponentRepository _productComponentRepository;
+        private readonly IProductUOMRepository _productUOMRepository;
+        private readonly IDepotRepository _depotRepository;
+        private readonly IUnitOfWorkManager _uow;
+        private readonly IIdentityUserRepository _identityUserRepository;
+        private readonly IExtendedRoleRepository _extendedRoleRepository;
+        private readonly IDepotUserRoleRepository _depotUserRoleRepository;
+        private readonly ISalesTeamMemberRepository _salesTeamMemberRepository;
+        private readonly IInterfaceRepository _interfaceRepository;
+
+        // ============ THÊM CÁC REPOSITORY TỪ INVENTORY MODULE ============
+        private readonly IRepository<WareHouseLocation, Guid> _wareHouseLocationRepository;
+        private readonly IRepository<InventoryDoc, Guid> _inventoryDocRepository;
+        private readonly IRepository<InventoryTransaction, Guid> _inventoryTransactionRepository;
+        private readonly IRepository<ItemWarehouse, Guid> _itemWarehouseRepository;
+        private readonly IRepository<ItemLocation, Guid> _itemLocationRepository;
+        private readonly IRepository<UnitOfMeasure, Guid> _unitOfMeasureRepository;
+
+        public EfCoreStockTranferRepository(
+            IDbContextProvider<DMSIntegrationDbContext> dbContextProvider,
+            IExtendedUserRepository extendedUserRepository,
+            IConfiguration configuration,
+            IdentityUserManager userManager,
+            IPasswordHasher<Volo.Abp.Identity.IdentityUser> passwordHasher,
+            ISalesTeamRepository salesTeamRepository,
+            IBinRepository binRepository,
+            IProductRepository productRepository,
+            IDeliveryAddressRepository deliveryAddressRepository,
+            ICustomerRepository customerRepository,
+            IProductComponentRepository productComponentRepository,
+            IProductUOMRepository productUOMRepository,
+            IDepotRepository depotRepository,
+            IUnitOfWorkManager uow,
+            IIdentityUserRepository identityUserRepository,
+            IExtendedRoleRepository extendedRoleRepository,
+            IDepotUserRoleRepository depotUserRoleRepository,
+            ISalesTeamMemberRepository salesTeamMemberRepository,
+            IInterfaceRepository interfaceRepository,
+            // ============ INJECT CÁC REPOSITORY MỚI ============
+            IRepository<WareHouseLocation, Guid> wareHouseLocationRepository,
+            IRepository<InventoryDoc, Guid> inventoryDocRepository,
+            IRepository<InventoryTransaction, Guid> inventoryTransactionRepository,
+            IRepository<ItemWarehouse, Guid> itemWarehouseRepository,
+            IRepository<ItemLocation, Guid> itemLocationRepository,
+            IRepository<UnitOfMeasure, Guid> unitOfMeasureRepository
+        ) : base(dbContextProvider, extendedUserRepository)
+        {
+            _configuration = configuration;
+            _userManager = userManager;
+            _passwordHasher = passwordHasher;
+            _salesTeamRepository = salesTeamRepository;
+            _binRepository = binRepository;
+            _productRepository = productRepository;
+            _deliveryAddressRepository = deliveryAddressRepository;
+            _customerRepository = customerRepository;
+            _productComponentRepository = productComponentRepository;
+            _productUOMRepository = productUOMRepository;
+            _depotRepository = depotRepository;
+            _uow = uow;
+            _identityUserRepository = identityUserRepository;
+            _extendedRoleRepository = extendedRoleRepository;
+            _depotUserRoleRepository = depotUserRoleRepository;
+            _salesTeamMemberRepository = salesTeamMemberRepository;
+            _interfaceRepository = interfaceRepository;
+
+            // ============ GÁN CÁC REPOSITORY MỚI ============
+            _wareHouseLocationRepository = wareHouseLocationRepository;
+            _inventoryDocRepository = inventoryDocRepository;
+            _inventoryTransactionRepository = inventoryTransactionRepository;
+            _itemWarehouseRepository = itemWarehouseRepository;
+            _itemLocationRepository = itemLocationRepository;
+            _unitOfMeasureRepository = unitOfMeasureRepository;
+        }
+
+        #region Stock Transfer Implementation
+
+        private static string NormalizeCode(string? code) =>
+            string.IsNullOrWhiteSpace(code) ? string.Empty : code.Trim().ToUpperInvariant();
+
+        private sealed class StockTransferLookupContext
+        {
+            public Dictionary<string, Bin> BinsByCode { get; set; } = new();
+            public Dictionary<Guid, List<WareHouseLocation>> ActiveLocationsByBinId { get; set; } = new();
+            public Dictionary<string, Product> ProductsByCode { get; set; } = new();
+            public Dictionary<string, UnitOfMeasure> UomsByCode { get; set; } = new();
+            public Dictionary<string, Depot> DepotsByCode { get; set; } = new();
+            public Dictionary<(string DocumentCode, int PostingYear), Guid> ExistingInventoryDocIdByKey { get; set; } = new();
+            public HashSet<(string DocumentCode, int PostingYear, int DocumentLineCode)> ExistingTransactionKeys { get; set; } = new();
+            public Dictionary<(Guid BinId, Guid ProductId, Guid StockingUnitId), ItemWarehouse> ItemWarehousesByKey { get; set; } = new();
+            public Dictionary<(Guid BinId, Guid ProductId, Guid StockingUnitId), ItemLocation> ItemLocationsByKey { get; set; } = new();
+        }
+
+        private async Task<StockTransferLookupContext> BuildStockTransferLookupContextAsync(IEnumerable<StockEntryDTODomain> stockEntries)
+        {
+            var entries = stockEntries.ToList();
+            var context = new StockTransferLookupContext();
+
+            var binCodes = entries.Select(x => NormalizeCode(x.BinCode)).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToList();
+            var productCodes = entries.Select(x => NormalizeCode(x.ProductCode)).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToList();
+            var uomCodes = entries
+                .SelectMany(x => new[] { NormalizeCode(x.UOMCode), NormalizeCode(x.BaseUOMCode) })
+                .Where(x => !string.IsNullOrEmpty(x))
+                .Distinct()
+                .ToList();
+            var locationCodes = entries.Select(x => NormalizeCode(x.LocationCode)).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToList();
+
+            var docKeyInputs = entries
+                .Where(x => !string.IsNullOrWhiteSpace(x.DocumentCode))
+                .Select(x => (DocumentCode: x.DocumentCode!.Trim(), PostingYear: (x.PostingDate ?? DateTime.Now).Year))
+                .Distinct()
+                .ToList();
+            var documentCodes = docKeyInputs.Select(x => x.DocumentCode).Distinct().ToList();
+            var postingYears = docKeyInputs.Select(x => x.PostingYear).Distinct().ToHashSet();
+            var lineCodes = entries.Select(x => (int?)(x.DocumentLineCode ?? 0)).Distinct().ToHashSet();
+
+            var binQueryable = await _binRepository.GetQueryableAsync();
+            var bins = await AsyncExecuter.ToListAsync(binQueryable.Where(x => binCodes.Contains(x.Code.ToUpper())));
+            context.BinsByCode = bins
+                .GroupBy(x => NormalizeCode(x.Code))
+                .ToDictionary(x => x.Key, x => x.First());
+
+            var binIds = bins.Select(x => x.Id).Distinct().ToList();
+            if (binIds.Any())
+            {
+                var locationQueryable = await _wareHouseLocationRepository.GetQueryableAsync();
+                var activeLocations = await AsyncExecuter.ToListAsync(
+                    locationQueryable.Where(x => x.Active == true && binIds.Contains(x.BinId))
+                );
+                context.ActiveLocationsByBinId = activeLocations
+                    .GroupBy(x => x.BinId)
+                    .ToDictionary(x => x.Key, x => x.ToList());
+            }
+
+            var productQueryable = await _productRepository.GetQueryableAsync();
+            var products = await AsyncExecuter.ToListAsync(productQueryable.Where(x => productCodes.Contains(x.Code.ToUpper())));
+            context.ProductsByCode = products
+                .GroupBy(x => NormalizeCode(x.Code))
+                .ToDictionary(x => x.Key, x => x.First());
+
+            var uomQueryable = await _unitOfMeasureRepository.GetQueryableAsync();
+            var uoms = await AsyncExecuter.ToListAsync(uomQueryable.Where(x => uomCodes.Contains(x.Code.ToUpper())));
+            context.UomsByCode = uoms
+                .GroupBy(x => NormalizeCode(x.Code))
+                .ToDictionary(x => x.Key, x => x.First());
+
+            var depotQueryable = await _depotRepository.GetQueryableAsync();
+            var depots = await AsyncExecuter.ToListAsync(depotQueryable.Where(x => locationCodes.Contains(x.Code.ToUpper())));
+            context.DepotsByCode = depots
+                .GroupBy(x => NormalizeCode(x.Code))
+                .ToDictionary(x => x.Key, x => x.First());
+
+            if (documentCodes.Any())
+            {
+                var docQueryable = await _inventoryDocRepository.GetQueryableAsync();
+                var existingDocs = await AsyncExecuter.ToListAsync(
+                    docQueryable
+                        .Where(x => x.TransactionDate.HasValue && documentCodes.Contains(x.DocumentNumber))
+                );
+
+                var existingDocsByKey = existingDocs
+                    .Select(x => new
+                    {
+                        Doc = x,
+                        PostingYear = x.TransactionDate!.Value.Year
+                    })
+                    .Where(x => postingYears.Contains(x.PostingYear))
+                    .GroupBy(x => (x.Doc.DocumentNumber, x.PostingYear))
+                    .ToDictionary(
+                        g => g.Key,
+                        g => g.OrderByDescending(x => x.Doc.TransactionDate).Select(x => x.Doc.Id).First()
+                    );
+                context.ExistingInventoryDocIdByKey = existingDocsByKey;
+
+                if (existingDocs.Any())
+                {
+                    var docYearById = existingDocs
+                        .Where(x => x.TransactionDate.HasValue)
+                        .ToDictionary(x => x.Id, x => x.TransactionDate!.Value.Year);
+
+                    var existingDocIds = existingDocs.Select(x => x.Id).Distinct().ToList();
+                    var txQueryable = await _inventoryTransactionRepository.GetQueryableAsync();
+                    var existingTransactions = await AsyncExecuter.ToListAsync(
+                        txQueryable.Where(x =>
+                            x.InventoryDocId.HasValue
+                            && existingDocIds.Contains(x.InventoryDocId.Value)
+                            && documentCodes.Contains(x.DocumentNumber)
+                            && lineCodes.Contains(x.Idx))
+                    );
+
+                    context.ExistingTransactionKeys = existingTransactions
+                        .Where(x => x.InventoryDocId.HasValue && docYearById.ContainsKey(x.InventoryDocId.Value))
+                        .Select(x => (x.DocumentNumber, docYearById[x.InventoryDocId!.Value], x.Idx ?? 0))
+                        .ToHashSet();
+                }
+            }
+
+            if (binIds.Any() && products.Any() && uoms.Any())
+            {
+                var productIds = products.Select(x => x.Id).Distinct().ToList();
+                var uomIds = uoms.Select(x => x.Id).Distinct().ToList();
+
+                var itemWarehouseQueryable = await _itemWarehouseRepository.GetQueryableAsync();
+                var existingItemWarehouses = await AsyncExecuter.ToListAsync(
+                    itemWarehouseQueryable.Where(x =>
+                        binIds.Contains(x.BinId)
+                        && productIds.Contains(x.ProductId)
+                        && uomIds.Contains(x.StockingUnitId))
+                );
+                context.ItemWarehousesByKey = existingItemWarehouses
+                    .GroupBy(x => (x.BinId, x.ProductId, x.StockingUnitId))
+                    .ToDictionary(x => x.Key, x => x.First());
+
+                var itemLocationQueryable = await _itemLocationRepository.GetQueryableAsync();
+                var existingItemLocations = await AsyncExecuter.ToListAsync(
+                    itemLocationQueryable.Where(x =>
+                        x.WarehouseLocationCode == "LC_00"
+                        && binIds.Contains(x.BinId)
+                        && productIds.Contains(x.ProductId)
+                        && uomIds.Contains(x.StockingUnitId))
+                );
+                context.ItemLocationsByKey = existingItemLocations
+                    .GroupBy(x => (x.BinId, x.ProductId, x.StockingUnitId))
+                    .ToDictionary(x => x.Key, x => x.First());
+            }
+
+            return context;
+        }
+
+        private async Task<StockTransferLookupContext> BuildStockTransferLookupContextInNewUnitOfWorkAsync(IEnumerable<StockEntryDTODomain> stockEntries)
+        {
+            using var lookupUow = _uow.Begin(requiresNew: true, isTransactional: false);
+            var lookupContext = await BuildStockTransferLookupContextAsync(stockEntries);
+            await lookupUow.CompleteAsync();
+            return lookupContext;
+        }
+
+        private static string BuildStockEntryRecordLabel(StockEntryDTODomain stockEntry, int recordIndex)
+        {
+            if (stockEntry == null)
+            {
+                return $"RecordIndex={recordIndex + 1}";
+            }
+
+            var parts = new List<string> { $"RecordIndex={recordIndex + 1}" };
+
+            if (!string.IsNullOrWhiteSpace(stockEntry.DocumentCode))
+            {
+                parts.Add($"DocumentCode={stockEntry.DocumentCode}");
+            }
+
+            parts.Add($"DocumentLineCode={stockEntry.DocumentLineCode ?? 0}");
+
+            if (!string.IsNullOrWhiteSpace(stockEntry.ProductCode))
+            {
+                parts.Add($"ProductCode={stockEntry.ProductCode}");
+            }
+
+            return string.Join(", ", parts);
+        }
+
+        private static string BuildStockTransferSummary(int totalCount, int processedCount, int failedCount, int skippedCount)
+        {
+            return $"Đã xử lý xong Stock Transfer. Tổng: {totalCount}; Thành công: {processedCount}; Thất bại: {failedCount}; Đã tồn tại (bỏ qua): {skippedCount}.";
+        }
+
+        public virtual async Task<ImportStockEntryReponseDomain> ProcessStockTransferAsync(ImportStockEntryRquestDomain input)
+        {
+
+            var response = new ImportStockEntryReponseDomain
+            {
+                IsSuccess = false,
+                Message = "",
+                ErrorMessage = "",
+                Value = ""
+            };
+
+            try
+            {
+                if (input.StockEntries == null || !input.StockEntries.Any())
+                {
+                    response.ErrorMessage = "Không có dữ liệu Stock Entry để xử lý";
+                    return response;
+                }
+
+                var stockEntries = input.StockEntries;
+                var lookupEntries = stockEntries.Where(x => x != null).ToList();
+                var lookupContext = await BuildStockTransferLookupContextInNewUnitOfWorkAsync(lookupEntries);
+                int processedCount = 0;
+                int failedCount = 0;
+                var failedDetails = new List<string>();
+                var alreadyExistedDetails = new List<string>();
+                // Cùng DocumentCode + năm trong một request: một InventoryDoc, nhiều dòng chứng từ.
+                // Tránh trùng khi EF/DB chưa thấy bản insert chưa commit của dòng trước.
+                var inventoryDocIdsByDocumentAndYear =
+                    new Dictionary<(string DocumentCode, int PostingYear), Guid>();
+
+                for (var i = 0; i < stockEntries.Count; i++)
+                {
+                    var stockEntry = stockEntries[i];
+                    var recordLabel = BuildStockEntryRecordLabel(stockEntry, i);
+
+                    if (stockEntry == null)
+                    {
+                        failedCount++;
+                        failedDetails.Add($"[{recordLabel}] StockEntry không được null");
+                        continue;
+                    }
+
+                    var validationError = ValidateStockEntryForProcessing(stockEntry, lookupContext);
+                    if (!string.IsNullOrWhiteSpace(validationError))
+                    {
+                        failedCount++;
+                        failedDetails.Add($"[{recordLabel}] {validationError}");
+                        continue;
+                    }
+
+                    var normalizedDocumentCode = string.IsNullOrWhiteSpace(stockEntry.DocumentCode)
+                        ? null
+                        : stockEntry.DocumentCode.Trim();
+                    var postingYear = (stockEntry.PostingDate ?? DateTime.Now).Year;
+                    var documentLineCode = stockEntry.DocumentLineCode ?? 0;
+                    var exists = normalizedDocumentCode != null
+                        && lookupContext.ExistingTransactionKeys.Contains((normalizedDocumentCode, postingYear, documentLineCode));
+                    if (exists)
+                    {
+                        alreadyExistedDetails.Add($"[{recordLabel}] PostingDate(Năm)={postingYear}");
+                        continue;
+                    }
+
+                    try
+                    {
+                        using var recordUow = _uow.Begin(requiresNew: true, isTransactional: true);
+                        try
+                        {
+                            await ProcessSingleStockEntryOptimizedAsync(stockEntry, lookupContext, inventoryDocIdsByDocumentAndYear);
+                            await recordUow.CompleteAsync();
+                        }
+                        catch
+                        {
+                            await recordUow.RollbackAsync();
+                            throw;
+                        }
+
+                        if (normalizedDocumentCode != null)
+                        {
+                            lookupContext.ExistingTransactionKeys.Add((normalizedDocumentCode, postingYear, documentLineCode));
+                        }
+                        processedCount++;
+                    }
+                    catch (Exception ex)
+                    {
+                        failedCount++;
+                        failedDetails.Add($"[{recordLabel}] {ex.Message}");
+                        inventoryDocIdsByDocumentAndYear.Clear();
+                        lookupContext = await BuildStockTransferLookupContextInNewUnitOfWorkAsync(lookupEntries);
+                    }
+                }
+
+                var skippedCount = alreadyExistedDetails.Count;
+                var summary = BuildStockTransferSummary(stockEntries.Count, processedCount, failedCount, skippedCount);
+                response.IsSuccess = failedCount == 0;
+                response.Value = failedCount == 0
+                    ? "SUCCESS"
+                    : $"Success: {processedCount}, Failed: {failedCount}, Skipped: {skippedCount}";
+                response.Message = summary;
+
+                if (failedCount > 0)
+                {
+                    response.ErrorMessage = $"{summary} Chi tiết lỗi: {string.Join(" | ", failedDetails)}";
+                }
+
+                if (failedCount == 0 && skippedCount > 0)
+                {
+                    response.Message = $"{summary} Chi tiết đã tồn tại: {string.Join("; ", alreadyExistedDetails)}";
+                }
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.ErrorMessage = $"Lỗi xử lý Stock Transfer: {ex.Message}";
+                return response;
+            }
+        }
+
+        private async Task ProcessSingleStockEntryOptimizedAsync(
+            StockEntryDTODomain stockEntry,
+            StockTransferLookupContext lookupContext,
+            Dictionary<(string DocumentCode, int PostingYear), Guid> inventoryDocIdsByDocumentAndYear)
+        {
+            var binCode = NormalizeCode(stockEntry.BinCode);
+            if (!lookupContext.BinsByCode.TryGetValue(binCode, out var bin))
+            {
+                throw new Exception($"Không tìm thấy Bin với Code: {stockEntry.BinCode}");
+            }
+
+            var activeLocations = lookupContext.ActiveLocationsByBinId.TryGetValue(bin.Id, out var locations)
+                ? locations
+                : new List<WareHouseLocation>();
+
+            bool hasActiveLocation = activeLocations.Any();
+            bool hasLc00 = activeLocations.Any(w => w.Code == "LC_00");
+            bool hasLc01 = activeLocations.Any(w => w.Code == "LC_01");
+            if (!hasActiveLocation || !hasLc00 || !hasLc01)
+            {
+                throw new Exception(
+                    $"Bin {stockEntry.BinCode} chưa có đủ WareHouseLocation active LC_00/LC_01 để xử lý StockTransfer");
+            }
+
+            var selectedLocation = activeLocations.FirstOrDefault(w => w.Code == "LC_00")
+                                 ?? activeLocations.FirstOrDefault(w => w.IsDefault)
+                                 ?? activeLocations.First();
+
+            await CreateInventoryDocAndTransactionOptimizedAsync(stockEntry, selectedLocation, bin, lookupContext, inventoryDocIdsByDocumentAndYear);
+            await CreateOrUpdateItemWarehouseOptimizedAsync(stockEntry, bin, lookupContext);
+            await CreateOrUpdateItemLocationOptimizedAsync(stockEntry, bin, selectedLocation, lookupContext);
+        }
+
+        private async Task CreateInventoryDocAndTransactionOptimizedAsync(
+            StockEntryDTODomain stockEntry,
+            WareHouseLocation wareHouseLocation,
+            Bin bin,
+            StockTransferLookupContext lookupContext,
+            Dictionary<(string DocumentCode, int PostingYear), Guid> inventoryDocIdsByDocumentAndYear)
+        {
+            var inventoryDocId = Guid.Empty;
+            var transactionId = Guid.NewGuid();
+            var postingYear = (stockEntry.PostingDate ?? DateTime.Now).Year;
+            var documentCodeTrimmed = string.IsNullOrWhiteSpace(stockEntry.DocumentCode)
+                ? null
+                : stockEntry.DocumentCode.Trim();
+
+            if (documentCodeTrimmed != null
+                && inventoryDocIdsByDocumentAndYear.TryGetValue((documentCodeTrimmed, postingYear), out var cachedDocId))
+            {
+                inventoryDocId = cachedDocId;
+            }
+
+            if (inventoryDocId == Guid.Empty
+                && documentCodeTrimmed != null
+                && lookupContext.ExistingInventoryDocIdByKey.TryGetValue((documentCodeTrimmed, postingYear), out var existingDocId))
+            {
+                inventoryDocId = existingDocId;
+            }
+
+            var locationCode = NormalizeCode(stockEntry.LocationCode);
+            if (!lookupContext.DepotsByCode.TryGetValue(locationCode, out var depot))
+            {
+                throw new Exception($"Không tìm thấy Depot với Code: {stockEntry.LocationCode}");
+            }
+
+            if (inventoryDocId == Guid.Empty)
+            {
+                inventoryDocId = Guid.NewGuid();
+                var inventoryDoc = new InventoryDoc(
+                    id: inventoryDocId,
+                    documentNumber: stockEntry.DocumentCode ?? $"DOC-{DateTime.Now:yyyyMMddHHmmss}",
+                    transactionType: "Receipt",
+                    transactionDate: stockEntry.PostingDate ?? DateTime.Now,
+                    transferNumberId: Guid.Empty,
+                    period: DateTime.Now.ToString("MM/yyyy"),
+                    description: $"Stock Transfer from SAP - {stockEntry.DocumentCode}",
+                    referenceNumber: stockEntry.SourceDocumentCode,
+                    totalQuantity: ToInventoryDouble(stockEntry.Quantity ?? 0m),
+                    totalCost: 0,
+                    status: "Pending",
+                    docStatus: 0,
+                    transferType: stockEntry.DocumentType,
+                    receiptNo: null,
+                    externalReferenceNumber: stockEntry.DocumentCode,
+                    expectedDate: stockEntry.PostingDate,
+                    receiptDate: null,
+                    depotId: depot.Id,
+                    depotCode: stockEntry.LocationCode,
+                    fromWarehouseId: wareHouseLocation.BinId,
+                    toWarehouseId: wareHouseLocation.BinId,
+                    fromLocationCode: wareHouseLocation.Code,
+                    fromLocationId: wareHouseLocation.Id,
+                    fromWarehouseCode: stockEntry.BinCode,
+                    toLocationCode: wareHouseLocation.Code,
+                    toLocationId: wareHouseLocation.Id,
+                    toWarehouseCode: stockEntry.BinCode,
+                    rejectReasonId: null,
+                    rejectReasonCode: stockEntry.ReasonCode,
+                    vehicleContId: null,
+                    vehicleContNumber: null,
+                    vehicle: null,
+                    transportCompany: null,
+                    driverName: null,
+                    vehicleWeightKg: null,
+                    vehicleContract: null,
+                    licenseOrSealNumber: null,
+                    grossWeight: null,
+                    rentForm: null
+                );
+                await _inventoryDocRepository.InsertAsync(inventoryDoc, autoSave: false);
+                if (documentCodeTrimmed != null)
+                {
+                    lookupContext.ExistingInventoryDocIdByKey[(documentCodeTrimmed, postingYear)] = inventoryDocId;
+                }
+            }
+
+            if (documentCodeTrimmed != null)
+            {
+                inventoryDocIdsByDocumentAndYear[(documentCodeTrimmed, postingYear)] = inventoryDocId;
+            }
+
+            var productCode = NormalizeCode(stockEntry.ProductCode);
+            if (!lookupContext.ProductsByCode.TryGetValue(productCode, out var product))
+            {
+                throw new Exception($"Không tìm thấy Product với Code: {stockEntry.ProductCode}");
+            }
+
+            var uomCode = NormalizeCode(stockEntry.UOMCode);
+            if (!lookupContext.UomsByCode.TryGetValue(uomCode, out var uom))
+            {
+                throw new Exception($"Không tìm thấy UOM với Code: {stockEntry.UOMCode}");
+            }
+
+            var baseUomCode = NormalizeCode(stockEntry.BaseUOMCode);
+            if (!lookupContext.UomsByCode.TryGetValue(baseUomCode, out var baseUom))
+            {
+                throw new Exception($"Không tìm thấy BaseUOM với Code: {stockEntry.BaseUOMCode}");
+            }
+
+            var qtyDecimal = stockEntry.Quantity ?? 0m;
+            var perBaseDecimal = stockEntry.QuantityPerBase ?? 1m;
+            var baseQtyDecimal = qtyDecimal * perBaseDecimal;
+
+            double quantity = ToInventoryDouble(qtyDecimal);
+            double quantityPerBase = ToInventoryDouble(perBaseDecimal);
+            double baseQuantity = ToInventoryDouble(baseQtyDecimal);
+
+            var inventoryTransaction = new InventoryTransaction(
+                id: transactionId,
+                documentNumber: stockEntry.DocumentCode ?? $"DOC-{DateTime.Now:yyyyMMddHHmmss}",
+                idx: stockEntry.DocumentLineCode ?? 0,
+                quantity: quantity,
+                unitCost: 0,
+                extendedCost: 0,
+                unitPrice: 0,
+                extendedPrice: 0,
+                invtMult: 1,
+                unitMultDiv: "M",
+                cnvtFact: quantityPerBase,
+                transactionType: "Receipt",
+                transactionSource: "SAP-StockTransfer",
+                description: $"Stock Entry - {stockEntry.ProductName}",
+                expirationDate: null,
+                manualCost: false,
+                toWarehouseCode: bin.Code,
+                inventoryDocId: inventoryDocId,
+                productId: product.Id,
+                warehouseId: bin.Id,
+                toWarehouseId: bin.Id,
+                locationId: wareHouseLocation.Id,
+                toLocationId: wareHouseLocation.Id,
+                uomId: uom.Id,
+                locationCode: wareHouseLocation.Code,
+                productCode: product.Code,
+                toLocationCode: wareHouseLocation.Code,
+                uomCode: stockEntry.UOMCode,
+                warehouseCode: bin.Code,
+                baseQuantity: baseQuantity,
+                uom1Id: uom.Id,
+                uom2Id: uom.Id,
+                uom3Id: uom.Id,
+                uom1Code: stockEntry.UOMCode,
+                uom2Code: null,
+                uom3Code: null,
+                quantity1: 0,
+                quantity2: 0,
+                quantity3: 0
+            );
+            await _inventoryTransactionRepository.InsertAsync(inventoryTransaction, autoSave: false);
+        }
+
+        private async Task CreateOrUpdateItemWarehouseOptimizedAsync(
+            StockEntryDTODomain stockEntry,
+            Bin bin,
+            StockTransferLookupContext lookupContext)
+        {
+            var productCode = NormalizeCode(stockEntry.ProductCode);
+            if (!lookupContext.ProductsByCode.TryGetValue(productCode, out var product))
+            {
+                throw new Exception($"Không tìm thấy Product với Code: {stockEntry.ProductCode}");
+            }
+
+            var baseUomCode = NormalizeCode(stockEntry.BaseUOMCode);
+            if (!lookupContext.UomsByCode.TryGetValue(baseUomCode, out var stockingUnit))
+            {
+                throw new Exception($"Không tìm thấy StockingUnit (UOM) với Code: {stockEntry.UOMCode}");
+            }
+
+            var warehouseKey = (bin.Id, product.Id, stockingUnit.Id);
+            var quantityBase = ToInventoryDouble(stockEntry.QuantityBase ?? 0m);
+            if (lookupContext.ItemWarehousesByKey.TryGetValue(warehouseKey, out var existingItemWarehouse))
+            {
+                existingItemWarehouse.QuantityOnHand += quantityBase;
+                existingItemWarehouse.QuantityAvailable += quantityBase;
+                await _itemWarehouseRepository.UpdateAsync(existingItemWarehouse, autoSave: false);
+                return;
+            }
+
+            var newItemWarehouse = new ItemWarehouse(
+                id: Guid.NewGuid(),
+                quantityOnIssues: 0,
+                quantityOnReturnReceipt: 0,
+                quantityOnSalesOrders: 0,
+                quantityOnShipment: 0,
+                quantityOnHold: 0,
+                quantityOfKitAssemblyDemand: 0,
+                quantityOnBackOrders: 0,
+                quantityOnProductionDemandPrepared: 0,
+                quantityOnProductionDemand: 0,
+                quantityOnProductionAllocated: 0,
+                quantityOnReceipts: 0,
+                quantityInTransit: 0,
+                quantityOnPOReceipts: 0,
+                quantityOnPurchasePrepared: 0,
+                quantityOnPurchaseOrders: 0,
+                quantityOfKitAssemblySupply: 0,
+                quantityOnSalesReturns: 0,
+                quantityOfProductionSupplyPrepared: 0,
+                quantityOfProductionSupply: 0,
+                quantityOnHand: quantityBase,
+                quantityAvailable: quantityBase,
+                binId: bin.Id,
+                binCode: bin.Code,
+                productId: product.Id,
+                productCode: product.Code,
+                stockingUnitId: stockingUnit.Id,
+                stockingUnitCode: stockingUnit.Code
+            );
+            await _itemWarehouseRepository.InsertAsync(newItemWarehouse, autoSave: false);
+            lookupContext.ItemWarehousesByKey[warehouseKey] = newItemWarehouse;
+        }
+
+        private async Task CreateOrUpdateItemLocationOptimizedAsync(
+            StockEntryDTODomain stockEntry,
+            Bin bin,
+            WareHouseLocation wareHouseLocation,
+            StockTransferLookupContext lookupContext)
+        {
+            var productCode = NormalizeCode(stockEntry.ProductCode);
+            if (!lookupContext.ProductsByCode.TryGetValue(productCode, out var product))
+            {
+                throw new Exception($"Không tìm thấy Product với Code: {stockEntry.ProductCode}");
+            }
+
+            var baseUomCode = NormalizeCode(stockEntry.BaseUOMCode);
+            if (!lookupContext.UomsByCode.TryGetValue(baseUomCode, out var stockingUnit))
+            {
+                throw new Exception($"Không tìm thấy StockingUnit (BaseUOM) với Code: {stockEntry.BaseUOMCode}");
+            }
+
+            var lc00Location = wareHouseLocation;
+            if (lc00Location == null
+                || lc00Location.BinId != bin.Id
+                || !string.Equals(lc00Location.Code, "LC_00", StringComparison.OrdinalIgnoreCase))
+            {
+                var activeLocations = lookupContext.ActiveLocationsByBinId.TryGetValue(bin.Id, out var locations)
+                    ? locations
+                    : new List<WareHouseLocation>();
+                lc00Location = activeLocations.FirstOrDefault(x => string.Equals(x.Code, "LC_00", StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (lc00Location == null)
+            {
+                throw new Exception($"Bin {stockEntry.BinCode} không có WareHouseLocation LC_00");
+            }
+
+            var locationKey = (bin.Id, product.Id, stockingUnit.Id);
+            var quantityBase = ToInventoryDouble(stockEntry.QuantityBase ?? 0m);
+            if (!lookupContext.ItemLocationsByKey.TryGetValue(locationKey, out var existingItemLocation))
+            {
+                var newItemLocation = new ItemLocation(
+                    id: Guid.NewGuid(),
+                    quantityOnIssues: 0,
+                    quantityOnReturnReceipt: 0,
+                    quantityOnSalesOrders: 0,
+                    quantityOnShipment: 0,
+                    quantityOnHold: 0,
+                    quantityOfKitAssemblyDemand: 0,
+                    quantityOnBackOrders: 0,
+                    quantityOnProductionDemandPrepared: 0,
+                    quantityOnProductionDemand: 0,
+                    quantityOnProductionAllocated: 0,
+                    quantityOnReceipts: 0,
+                    quantityInTransit: 0,
+                    quantityOnPOReceipts: 0,
+                    quantityOnPurchasePrepared: 0,
+                    quantityOnPurchaseOrders: 0,
+                    quantityOfKitAssemblySupply: 0,
+                    quantityOnSalesReturns: 0,
+                    quantityOfProductionSupplyPrepared: 0,
+                    quantityOfProductionSupply: 0,
+                    quantityOnHand: quantityBase,
+                    quantityAvailable: quantityBase,
+                    binId: bin.Id,
+                    binCode: bin.Code,
+                    warehouseLocationId: lc00Location.Id,
+                    warehouseLocationCode: "LC_00",
+                    productId: product.Id,
+                    productCode: product.Code,
+                    stockingUnitId: stockingUnit.Id,
+                    stockingUnitCode: stockingUnit.Code
+                );
+                await _itemLocationRepository.InsertAsync(newItemLocation, autoSave: false);
+                lookupContext.ItemLocationsByKey[locationKey] = newItemLocation;
+                return;
+            }
+
+            existingItemLocation.QuantityOnHand = (existingItemLocation.QuantityOnHand ?? 0) + quantityBase;
+            existingItemLocation.QuantityAvailable = (existingItemLocation.QuantityAvailable ?? 0) + quantityBase;
+            await _itemLocationRepository.UpdateAsync(existingItemLocation, autoSave: false);
+        }
+
+        /// <summary>
+        /// Validate các trường required của StockEntry
+        /// </summary>
+        public string ValidateStockEntry(StockEntryDTODomain stockEntry)
+        {
+            var errors = new List<string>();
+
+            if (string.IsNullOrWhiteSpace(stockEntry.LocationCode))
+            {
+                errors.Add("LocationCode là trường bắt buộc");
+            }
+
+            if (string.IsNullOrWhiteSpace(stockEntry.BinCode))
+            {
+                errors.Add("BinCode là trường bắt buộc");
+            }
+
+            if (string.IsNullOrWhiteSpace(stockEntry.ProductCode))
+            {
+                errors.Add("ProductCode là trường bắt buộc");
+            }
+
+            if (string.IsNullOrWhiteSpace(stockEntry.BaseUOMCode))
+            {
+                errors.Add("BaseUOMCode là trường bắt buộc");
+            }
+
+            if (string.IsNullOrWhiteSpace(stockEntry.UOMCode))
+            {
+                errors.Add("UOMCode là trường bắt buộc");
+            }
+
+            return errors.Any() ? string.Join("; ", errors) : null;
+        }
+
+        private string ValidateStockEntryForProcessing(StockEntryDTODomain stockEntry, StockTransferLookupContext lookupContext)
+        {
+            var requiredError = ValidateStockEntry(stockEntry);
+            if (!string.IsNullOrWhiteSpace(requiredError))
+            {
+                return $"Validation Error: {requiredError}";
+            }
+
+            var errors = new List<string>();
+
+            var binCode = NormalizeCode(stockEntry.BinCode);
+            if (!lookupContext.BinsByCode.TryGetValue(binCode, out var bin))
+            {
+                errors.Add($"Không tìm thấy Bin với Code: {stockEntry.BinCode}");
+            }
+            else
+            {
+                var activeLocations = lookupContext.ActiveLocationsByBinId.TryGetValue(bin.Id, out var locations)
+                    ? locations
+                    : new List<WareHouseLocation>();
+
+                var hasActiveLocation = activeLocations.Any();
+                var hasLc00 = activeLocations.Any(w => w.Code == "LC_00");
+                var hasLc01 = activeLocations.Any(w => w.Code == "LC_01");
+                if (!hasActiveLocation || !hasLc00 || !hasLc01)
+                {
+                    errors.Add($"Bin {stockEntry.BinCode} chưa có đủ WareHouseLocation active LC_00/LC_01 để xử lý StockTransfer");
+                }
+            }
+
+            var locationCode = NormalizeCode(stockEntry.LocationCode);
+            if (!lookupContext.DepotsByCode.ContainsKey(locationCode))
+            {
+                errors.Add($"Không tìm thấy Depot với Code: {stockEntry.LocationCode}");
+            }
+
+            var productCode = NormalizeCode(stockEntry.ProductCode);
+            if (!lookupContext.ProductsByCode.ContainsKey(productCode))
+            {
+                errors.Add($"Không tìm thấy Product với Code: {stockEntry.ProductCode}");
+            }
+
+            var uomCode = NormalizeCode(stockEntry.UOMCode);
+            if (!lookupContext.UomsByCode.ContainsKey(uomCode))
+            {
+                errors.Add($"Không tìm thấy UOM với Code: {stockEntry.UOMCode}");
+            }
+
+            var baseUomCode = NormalizeCode(stockEntry.BaseUOMCode);
+            if (!lookupContext.UomsByCode.ContainsKey(baseUomCode))
+            {
+                errors.Add($"Không tìm thấy BaseUOM với Code: {stockEntry.BaseUOMCode}");
+            }
+
+            return errors.Any() ? string.Join("; ", errors) : null;
+        }
+
+        /// <summary>
+        /// Kiểm tra tồn tại (DocumentCode + PostingDate.Year + DocumentLineCode) trong InventoryDoc và InventoryTransaction.
+        /// </summary>
+        public virtual async Task<bool> ExistsInventoryDocAndTransactionAsync(StockEntryDTODomain stockEntry)
+        {
+            var documentCode = stockEntry.DocumentCode;
+            if (string.IsNullOrWhiteSpace(documentCode))
+                return false;
+
+            var postingYear = (stockEntry.PostingDate ?? DateTime.Now).Year;
+            var documentLineCode = stockEntry.DocumentLineCode ?? 0;
+
+            var docQueryable = await _inventoryDocRepository.GetQueryableAsync();
+            var docIds = await AsyncExecuter.ToListAsync(
+                docQueryable
+                    .Where(d => d.DocumentNumber == documentCode
+                        && d.TransactionDate.HasValue
+                        && d.TransactionDate.Value.Year == postingYear)
+                    .Select(d => d.Id));
+
+            if (docIds == null || !docIds.Any())
+                return false;
+
+            var txQueryable = await _inventoryTransactionRepository.GetQueryableAsync();
+            var exists = await AsyncExecuter.AnyAsync(
+                txQueryable.Where(t => t.DocumentNumber == documentCode
+                    && t.Idx == documentLineCode
+                    && docIds.Contains(t.InventoryDocId.Value)));
+
+            return exists;
+        }
+
+        public async Task ProcessSingleStockEntryAsync(
+            StockEntryDTODomain stockEntry,
+            Dictionary<(string DocumentCode, int PostingYear), Guid>? inventoryDocIdsByDocumentAndYear = null)
+        {
+
+            // ============ BƯỚC 1: KIỂM TRA WAREHOUSELOCATION ============
+            var (hasActiveLocation, hasLc00, hasLc01, activeLocations, binId) = await CheckWareHouseLocationAsync(
+                stockEntry.BinCode);
+
+            // ============ BƯỚC 2: XỬ LÝ 2 TRƯỜNG HỢP ============
+            WareHouseLocation selectedLocation;
+
+            if (!hasActiveLocation || !hasLc00 || !hasLc01)
+            {
+                throw new Exception(
+                    $"Bin {stockEntry.BinCode} chưa có đủ WareHouseLocation active LC_00/LC_01 để xử lý StockTransfer");
+            }
+
+            // Chỉ query và sử dụng dữ liệu WareHouseLocation sẵn có.
+            selectedLocation = activeLocations.FirstOrDefault(w => w.Code == "LC_00")
+                             ?? activeLocations.FirstOrDefault(w => w.IsDefault)
+                             ?? activeLocations.First();
+
+            // ============ BƯỚC 3: TẠO INVENTORYDOC VÀ INVENTORYTRANSACTION ============
+            await CreateInventoryDocAndTransactionAsync(stockEntry, selectedLocation, inventoryDocIdsByDocumentAndYear);
+
+            // ============ BƯỚC 4: TẠO/UPDATE ITEMWAREHOUSE ============
+            await CreateOrUpdateItemWarehouseAsync(stockEntry, binId);
+
+            // ============ BƯỚC 5: TẠO/UPDATE ITEMLOCATION ============
+            await CreateOrUpdateItemLocationAsync(stockEntry, binId, selectedLocation);
+        }
+
+        /// <summary>
+        /// BƯỚC 1: Kiểm tra WareHouseLocation theo BinCode - SỬ DỤNG REPOSITORY
+        /// </summary>
+        public async Task<(bool hasActiveLocation, bool hasLc00, bool hasLc01, List<WareHouseLocation> activeLocations, Guid binId)>
+            CheckWareHouseLocationAsync(string binCode)
+        {
+            try
+            {
+                // Kiểm tra BinCode có hợp lệ không
+                if (string.IsNullOrWhiteSpace(binCode))
+                {
+                    throw new Exception("BinCode không được để trống");
+                }
+
+                // UpperCase BinCode để so sánh
+                var binCodeUpper = binCode.Trim().ToUpper();
+
+                // Query Bin theo BinCode (UpperCase) - SỬ DỤNG REPOSITORY
+                var bin = await _binRepository.FirstOrDefaultAsync(b => b.Code.ToUpper() == binCodeUpper);
+
+                if (bin == null)
+                {
+                    throw new Exception($"Không tìm thấy Bin với Code: {binCode}");
+                }
+
+                // ✅ Query WareHouseLocation - SỬ DỤNG REPOSITORY thay vì DbContext.Set<>()
+                var queryable = await _wareHouseLocationRepository.GetQueryableAsync();
+                var activeLocations = await AsyncExecuter.ToListAsync(
+                    queryable.Where(w => w.BinId == bin.Id && w.Active == true)
+                );
+
+                bool hasActiveLocation = activeLocations.Any();
+                bool hasLc00 = activeLocations.Any(w => w.Code == "LC_00");
+                bool hasLc01 = activeLocations.Any(w => w.Code == "LC_01");
+
+                return (hasActiveLocation, hasLc00, hasLc01, activeLocations, bin.Id);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// BƯỚC 3: Tạo InventoryDoc và InventoryTransaction - SỬ DỤNG REPOSITORY
+        /// </summary>
+        public async Task CreateInventoryDocAndTransactionAsync(
+            StockEntryDTODomain stockEntry,
+            WareHouseLocation wareHouseLocation,
+            Dictionary<(string DocumentCode, int PostingYear), Guid>? inventoryDocIdsByDocumentAndYear = null)
+        {
+            try
+            {
+                var inventoryDocId = Guid.Empty;
+                var transactionId = Guid.NewGuid();
+                var postingYear = (stockEntry.PostingDate ?? DateTime.Now).Year;
+                var documentCodeTrimmed = string.IsNullOrWhiteSpace(stockEntry.DocumentCode)
+                    ? null
+                    : stockEntry.DocumentCode.Trim();
+
+                // Ưu tiên cache trong cùng request (nhiều dòng cùng DocumentCode + năm).
+                if (inventoryDocIdsByDocumentAndYear != null
+                    && documentCodeTrimmed != null
+                    && inventoryDocIdsByDocumentAndYear.TryGetValue((documentCodeTrimmed, postingYear), out var cachedDocId))
+                {
+                    inventoryDocId = cachedDocId;
+                }
+
+                // Nếu InventoryDoc đã tồn tại theo DocumentCode (và cùng năm) thì re-use Id
+                // để tránh tạo trùng InventoryDoc, còn InventoryTransaction thì vẫn tạo như bình thường.
+                if (inventoryDocId == Guid.Empty && documentCodeTrimmed != null)
+                {
+                    var docQueryable = await _inventoryDocRepository.GetQueryableAsync();
+                    var existingDocIds = await AsyncExecuter.ToListAsync(
+                        docQueryable
+                            .Where(d => d.DocumentNumber == documentCodeTrimmed
+                                        && d.TransactionDate.HasValue
+                                        && d.TransactionDate.Value.Year == postingYear)
+                            .OrderByDescending(d => d.TransactionDate.Value)
+                            .Select(d => d.Id)
+                    );
+
+                    if (existingDocIds != null && existingDocIds.Any())
+                    {
+                        inventoryDocId = existingDocIds.First();
+                    }
+                }
+
+                if (inventoryDocId != Guid.Empty
+                    && inventoryDocIdsByDocumentAndYear != null
+                    && documentCodeTrimmed != null)
+                {
+                    inventoryDocIdsByDocumentAndYear[(documentCodeTrimmed, postingYear)] = inventoryDocId;
+                }
+
+                #region check existData
+
+                var depot = await _depotRepository.FirstOrDefaultAsync(d => d.Code == stockEntry.LocationCode);
+
+                if (!string.IsNullOrEmpty(stockEntry.LocationCode) && depot == null)
+                {
+                    throw new Exception($"Không tìm thấy Depot với Code: {stockEntry.LocationCode}");
+                }
+
+                #endregion
+
+                // ============ TẠO INVENTORYDOC ============
+                if (inventoryDocId == Guid.Empty)
+                {
+                    inventoryDocId = Guid.NewGuid();
+
+                    var inventoryDoc = new InventoryDoc(
+                        id: inventoryDocId,
+                        documentNumber: stockEntry.DocumentCode ?? $"DOC-{DateTime.Now:yyyyMMddHHmmss}",
+                        transactionType: "Receipt",
+                        transactionDate: stockEntry.PostingDate ?? DateTime.Now,
+                        transferNumberId: Guid.Empty,
+                        period: DateTime.Now.ToString("MM/yyyy"),
+                        description: $"Stock Transfer from SAP - {stockEntry.DocumentCode}",
+                        referenceNumber: stockEntry.SourceDocumentCode,
+                        totalQuantity: ToInventoryDouble(stockEntry.Quantity ?? 0m),
+                        totalCost: 0,
+                        status: "Pending",
+                        docStatus: 0,
+                        transferType: stockEntry.DocumentType,
+                        receiptNo: null,
+                        externalReferenceNumber: stockEntry.DocumentCode,
+                        expectedDate: stockEntry.PostingDate,
+                        receiptDate: null,
+                        depotId: depot!.Id,
+                        depotCode: stockEntry.LocationCode,
+                        fromWarehouseId: wareHouseLocation.BinId,
+                        toWarehouseId: wareHouseLocation.BinId,
+                        fromLocationCode: wareHouseLocation.Code,
+                        fromLocationId: wareHouseLocation.Id,
+                        fromWarehouseCode: stockEntry.BinCode,
+                        toLocationCode: wareHouseLocation.Code,
+                        toLocationId: wareHouseLocation.Id,
+                        toWarehouseCode: stockEntry.BinCode,
+                        rejectReasonId: null,
+                        rejectReasonCode: stockEntry.ReasonCode,
+                        vehicleContId: null,
+                        vehicleContNumber: null,
+                        vehicle: null,
+                        transportCompany: null,
+                        driverName: null,
+                        vehicleWeightKg: null,
+                        vehicleContract: null,
+                        licenseOrSealNumber: null,
+                        grossWeight: null,
+                        rentForm: null
+                    );
+
+                    // Cùng UOW với InventoryTransaction / ItemWarehouse / ItemLocation (autoSave: false).
+                    await _inventoryDocRepository.InsertAsync(inventoryDoc, autoSave: false);
+
+                    if (inventoryDocIdsByDocumentAndYear != null && documentCodeTrimmed != null)
+                    {
+                        inventoryDocIdsByDocumentAndYear[(documentCodeTrimmed, postingYear)] = inventoryDocId;
+                    }
+                }
+
+                // ============ TẠO INVENTORYTRANSACTION ============
+
+                // Query Product - SỬ DỤNG REPOSITORY
+                Product product = null;
+                if (!string.IsNullOrWhiteSpace(stockEntry.ProductCode))
+                {
+                    var productCodeUpper = stockEntry.ProductCode.Trim().ToUpper();
+                    product = await _productRepository.FirstOrDefaultAsync(p => p.Code.ToUpper() == productCodeUpper);
+                }
+
+                if (product == null)
+                {
+                    throw new Exception($"Không tìm thấy Product với Code: {stockEntry.ProductCode}");
+                }
+
+                // Query UOM - SỬ DỤNG REPOSITORY
+                UnitOfMeasure uom = null;
+                if (!string.IsNullOrWhiteSpace(stockEntry.UOMCode))
+                {
+                    var uomCodeUpper = stockEntry.UOMCode.Trim().ToUpper();
+                    uom = await _unitOfMeasureRepository.FirstOrDefaultAsync(u => u.Code.ToUpper() == uomCodeUpper);
+                }
+
+                if (uom == null)
+                {
+                    throw new Exception($"Không tìm thấy UOM với Code: {stockEntry.UOMCode}");
+                }
+
+                // Query BaseUOM - SỬ DỤNG REPOSITORY
+                UnitOfMeasure baseUom = null;
+                if (!string.IsNullOrWhiteSpace(stockEntry.BaseUOMCode))
+                {
+                    var baseUomCodeUpper = stockEntry.BaseUOMCode.Trim().ToUpper();
+                    baseUom = await _unitOfMeasureRepository.FirstOrDefaultAsync(u => u.Code.ToUpper() == baseUomCodeUpper);
+                }
+
+                if (baseUom == null)
+                {
+                    throw new Exception($"Không tìm thấy BaseUOM với Code: {stockEntry.BaseUOMCode}");
+                }
+
+                // Query Bin - SỬ DỤNG REPOSITORY
+                Bin bin = null;
+                if (!string.IsNullOrWhiteSpace(stockEntry.BinCode))
+                {
+                    var binCodeUpper = stockEntry.BinCode.Trim().ToUpper();
+                    bin = await _binRepository.FirstOrDefaultAsync(u => u.Code.ToUpper() == binCodeUpper);
+                }
+
+                if (bin == null)
+                {
+                    throw new Exception($"Không tìm thấy BinCode với Code: {stockEntry.BinCode}");
+                }
+
+                var qtyDecimal = stockEntry.Quantity ?? 0m;
+                var perBaseDecimal = stockEntry.QuantityPerBase ?? 1m;
+                var baseQtyDecimal = qtyDecimal * perBaseDecimal;
+
+                double quantity = ToInventoryDouble(qtyDecimal);
+                double quantityPerBase = ToInventoryDouble(perBaseDecimal);
+                double baseQuantity = ToInventoryDouble(baseQtyDecimal);
+
+                var inventoryTransaction = new InventoryTransaction(
+                    id: transactionId,
+                    documentNumber: stockEntry.DocumentCode ?? $"DOC-{DateTime.Now:yyyyMMddHHmmss}",
+                    idx: stockEntry.DocumentLineCode ?? 0,
+                    quantity: quantity,
+                    unitCost: 0,
+                    extendedCost: 0,
+                    unitPrice: 0,
+                    extendedPrice: 0,
+                    invtMult: 1,
+                    unitMultDiv: "M",
+                    cnvtFact: quantityPerBase,
+                    transactionType: "Receipt",
+                    transactionSource: "SAP-StockTransfer",
+                    description: $"Stock Entry - {stockEntry.ProductName}",
+                    expirationDate: null,
+                    manualCost: false,
+                    toWarehouseCode: bin.Code,
+                    inventoryDocId: inventoryDocId,
+                    productId: product.Id,
+                    warehouseId: bin.Id,
+                    toWarehouseId: bin.Id,
+                    locationId: wareHouseLocation.Id,
+                    toLocationId: wareHouseLocation.Id,
+                    uomId: uom.Id,
+                    locationCode: wareHouseLocation.Code,
+                    productCode: product.Code,
+                    toLocationCode: wareHouseLocation.Code,
+                    uomCode: stockEntry.UOMCode,
+                    warehouseCode: bin.Code,
+                    baseQuantity: baseQuantity,
+                    uom1Id: uom.Id,
+                    uom2Id: uom.Id, // -> Dùng đở để trao đổi lại chỗ này
+                    uom3Id: uom.Id, // -> Dùng đở để trao đổi lại chỗ này
+                    uom1Code: stockEntry.UOMCode,
+                    uom2Code: null,
+                    uom3Code: null,
+                    quantity1: 0,
+                    quantity2: 0,
+                    quantity3: 0
+                );
+
+                // ✅ Lưu InventoryTransaction - SỬ DỤNG REPOSITORY
+                // ✅ FIX: Dùng autoSave: false để UOW tự động commit khi CompleteAsync()
+                try { await _inventoryTransactionRepository.InsertAsync(inventoryTransaction, autoSave: false); } catch (Exception ex) { throw ex; }
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        /// <summary>
+        /// BƯỚC 4: Tạo hoặc Update ItemWarehouse - SỬ DỤNG REPOSITORY
+        /// </summary>
+        public async Task CreateOrUpdateItemWarehouseAsync(StockEntryDTODomain stockEntry, Guid binId)
+        {
+            try
+            {
+
+                // Query Bin - SỬ DỤNG REPOSITORY
+                Bin bin = null;
+                if (!string.IsNullOrWhiteSpace(stockEntry.BinCode))
+                {
+                    var binCodeUpper = stockEntry.BinCode.Trim().ToUpper();
+                    bin = await _binRepository.FirstOrDefaultAsync(b => b.Code.ToUpper() == binCodeUpper);
+                }
+
+                if (bin == null)
+                {
+                    throw new Exception($"Không tìm thấy Bin với Code: {stockEntry.BinCode}");
+                }
+
+                // Query Product - SỬ DỤNG REPOSITORY
+                Product product = null;
+                if (!string.IsNullOrWhiteSpace(stockEntry.ProductCode))
+                {
+                    var productCodeUpper = stockEntry.ProductCode.Trim().ToUpper();
+                    product = await _productRepository.FirstOrDefaultAsync(p => p.Code.ToUpper() == productCodeUpper);
+                }
+
+                if (product == null)
+                {
+                    throw new Exception($"Không tìm thấy Product với Code: {stockEntry.ProductCode}");
+                }
+
+                // Query UOM - SỬ DỤNG REPOSITORY
+                UnitOfMeasure stockingUnit = null;
+                if (!string.IsNullOrWhiteSpace(stockEntry.BaseUOMCode))
+                {
+                    var uomCodeUpper = stockEntry.BaseUOMCode.Trim().ToUpper();
+                    stockingUnit = await _unitOfMeasureRepository.FirstOrDefaultAsync(u => u.Code.ToUpper() == uomCodeUpper);
+                }
+
+                if (stockingUnit == null)
+                {
+                    throw new Exception($"Không tìm thấy StockingUnit (UOM) với Code: {stockEntry.UOMCode}");
+                }
+
+                // ✅ Kiểm tra tồn tại ItemWarehouse - SỬ DỤNG REPOSITORY
+                var existingItemWarehouse = await _itemWarehouseRepository.FirstOrDefaultAsync(
+                    iw => iw.BinId == bin.Id
+                       && iw.ProductId == product.Id
+                       && iw.StockingUnitId == stockingUnit.Id
+                );
+
+                double quantityBase = ToInventoryDouble(stockEntry.QuantityBase ?? 0m);
+
+                if (existingItemWarehouse == null)
+                {
+                    // Tạo mới ItemWarehouse
+                    var newItemWarehouse = new ItemWarehouse(
+                        id: Guid.NewGuid(),
+                        quantityOnIssues: 0,
+                        quantityOnReturnReceipt: 0,
+                        quantityOnSalesOrders: 0,
+                        quantityOnShipment: 0,
+                        quantityOnHold: 0,
+                        quantityOfKitAssemblyDemand: 0,
+                        quantityOnBackOrders: 0,
+                        quantityOnProductionDemandPrepared: 0,
+                        quantityOnProductionDemand: 0,
+                        quantityOnProductionAllocated: 0,
+                        quantityOnReceipts: 0,
+                        quantityInTransit: 0,
+                        quantityOnPOReceipts: 0,
+                        quantityOnPurchasePrepared: 0,
+                        quantityOnPurchaseOrders: 0,
+                        quantityOfKitAssemblySupply: 0,
+                        quantityOnSalesReturns: 0,
+                        quantityOfProductionSupplyPrepared: 0,
+                        quantityOfProductionSupply: 0,
+                        quantityOnHand: quantityBase,
+                        quantityAvailable: quantityBase,
+                        binId: bin.Id,
+                        binCode: bin.Code,
+                        productId: product.Id,
+                        productCode: product.Code,
+                        stockingUnitId: stockingUnit.Id,
+                        stockingUnitCode: stockingUnit.Code
+                    );
+
+                    // ✅ Lưu ItemWarehouse - SỬ DỤNG REPOSITORY
+                    // ✅ FIX: Dùng autoSave: false để UOW tự động commit khi CompleteAsync()
+                    try { await _itemWarehouseRepository.InsertAsync(newItemWarehouse, autoSave: false); } catch (Exception ex) { throw ex; }
+
+                }
+                else
+                {
+                    // Nếu cần cộng dồn, uncomment 2 dòng dưới:
+                    // existingItemWarehouse.QuantityOnHand += quantityBase;
+                    // existingItemWarehouse.QuantityAvailable += quantityBase;
+                    // await _itemWarehouseRepository.UpdateAsync(existingItemWarehouse);
+                }
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        /// <summary>
+        /// BƯỚC 5: Tạo hoặc Update ItemLocation với LC_00 - SỬ DỤNG REPOSITORY
+        /// </summary>
+        public async Task CreateOrUpdateItemLocationAsync(
+            StockEntryDTODomain stockEntry,
+            Guid binId,
+            WareHouseLocation wareHouseLocation)
+        {
+            try
+            {
+                // Query Bin - SỬ DỤNG REPOSITORY
+                Bin bin = null;
+                if (!string.IsNullOrWhiteSpace(stockEntry.BinCode))
+                {
+                    var binCodeUpper = stockEntry.BinCode.Trim().ToUpper();
+                    bin = await _binRepository.FirstOrDefaultAsync(b => b.Code.ToUpper() == binCodeUpper);
+                }
+
+                if (bin == null)
+                {
+                    throw new Exception($"Không tìm thấy Bin với Code: {stockEntry.BinCode}");
+                }
+
+                // Query Product - SỬ DỤNG REPOSITORY
+                Product product = null;
+                if (!string.IsNullOrWhiteSpace(stockEntry.ProductCode))
+                {
+                    var productCodeUpper = stockEntry.ProductCode.Trim().ToUpper();
+                    product = await _productRepository.FirstOrDefaultAsync(p => p.Code.ToUpper() == productCodeUpper);
+                }
+
+                if (product == null)
+                {
+                    throw new Exception($"Không tìm thấy Product với Code: {stockEntry.ProductCode}");
+                }
+
+                // Query UOM - SỬ DỤNG REPOSITORY
+                UnitOfMeasure stockingUnit = null;
+                if (!string.IsNullOrWhiteSpace(stockEntry.BaseUOMCode))
+                {
+                    var uomCodeUpper = stockEntry.BaseUOMCode.Trim().ToUpper();
+                    stockingUnit = await _unitOfMeasureRepository.FirstOrDefaultAsync(u => u.Code.ToUpper() == uomCodeUpper);
+                }
+
+                if (stockingUnit == null)
+                {
+                    throw new Exception($"Không tìm thấy StockingUnit (BaseUOM) với Code: {stockEntry.BaseUOMCode}");
+                }
+
+                // Ưu tiên dùng location đã chọn ở bước trước (có thể vừa tạo nhưng chưa commit DB)
+                var lc00Location = wareHouseLocation;
+
+                // Nếu location truyền vào không phải LC_00 đúng Bin thì fallback query DB
+                if (lc00Location == null
+                    || lc00Location.BinId != bin.Id
+                    || !string.Equals(lc00Location.Code, "LC_00", StringComparison.OrdinalIgnoreCase))
+                {
+                    lc00Location = await _wareHouseLocationRepository.FirstOrDefaultAsync(
+                        w => w.BinId == bin.Id && w.Code.ToUpper() == "LC_00"
+                    );
+                }
+
+                // Chỉ dùng dữ liệu có sẵn, không tự tạo WareHouseLocation trong StockTransfer.
+                if (lc00Location == null)
+                {
+                    throw new Exception($"Bin {stockEntry.BinCode} không có WareHouseLocation LC_00");
+                }
+
+                // ✅ Kiểm tra tồn tại ItemLocation - SỬ DỤNG REPOSITORY
+                var existingItemLocation = await _itemLocationRepository.FirstOrDefaultAsync(
+                    il => il.WarehouseLocationCode == "LC_00"
+                       && il.BinId == bin.Id
+                       && il.ProductId == product.Id
+                       && il.StockingUnitId == stockingUnit.Id
+                );
+
+                double quantityBase = ToInventoryDouble(stockEntry.QuantityBase ?? 0m);
+
+                if (existingItemLocation == null)
+                {
+                    // Tạo mới ItemLocation
+                    var newItemLocation = new ItemLocation(
+                        id: Guid.NewGuid(),
+                        quantityOnIssues: 0,
+                        quantityOnReturnReceipt: 0,
+                        quantityOnSalesOrders: 0,
+                        quantityOnShipment: 0,
+                        quantityOnHold: 0,
+                        quantityOfKitAssemblyDemand: 0,
+                        quantityOnBackOrders: 0,
+                        quantityOnProductionDemandPrepared: 0,
+                        quantityOnProductionDemand: 0,
+                        quantityOnProductionAllocated: 0,
+                        quantityOnReceipts: 0,
+                        quantityInTransit: 0,
+                        quantityOnPOReceipts: 0,
+                        quantityOnPurchasePrepared: 0,
+                        quantityOnPurchaseOrders: 0,
+                        quantityOfKitAssemblySupply: 0,
+                        quantityOnSalesReturns: 0,
+                        quantityOfProductionSupplyPrepared: 0,
+                        quantityOfProductionSupply: 0,
+                        quantityOnHand: quantityBase,
+                        quantityAvailable: quantityBase,
+                        binId: bin.Id,
+                        binCode: bin.Code,
+                        warehouseLocationId: lc00Location.Id,
+                        warehouseLocationCode: "LC_00",
+                        productId: product.Id,
+                        productCode: product.Code,
+                        stockingUnitId: stockingUnit.Id,
+                        stockingUnitCode: stockingUnit.Code
+                    );
+
+                    // ✅ Lưu ItemLocation - SỬ DỤNG REPOSITORY
+                    // ✅ FIX: Dùng autoSave: false để UOW tự động commit khi CompleteAsync()
+                    try { await _itemLocationRepository.InsertAsync(newItemLocation, autoSave: false); } catch (Exception ex) { throw ex; }
+                }
+                else
+                {
+                    // Cộng dồn
+                    existingItemLocation.QuantityOnHand = (existingItemLocation.QuantityOnHand ?? 0) + quantityBase;
+                    existingItemLocation.QuantityAvailable = (existingItemLocation.QuantityAvailable ?? 0) + quantityBase;
+
+                    // ✅ Update ItemLocation - SỬ DỤNG REPOSITORY
+                    // ✅ FIX: Dùng autoSave: false để UOW tự động commit khi CompleteAsync()
+                    try { await _itemLocationRepository.UpdateAsync(existingItemLocation, autoSave: false); } catch (Exception ex) { throw ex; }
+                }
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        #endregion
+
+        #region Stock Transfer Query
+
+        public virtual async Task<StockTransferQueryResponseDomain> QueryStockTransferDataAsync(StockTransferQueryRequestDomain request)
+        {
+            var response = new StockTransferQueryResponseDomain
+            {
+                Bin = null,
+                WareHouseLocations = new List<WareHouseLocationDomain>(),
+                InventoryDocs = new List<InventoryDocDomain>(),
+                InventoryTransactions = new List<InventoryTransactionDomain>(),
+                ItemWarehouses = new List<ItemWarehouseDomain>(),
+                ItemLocations = new List<ItemLocationDomain>()
+            };
+
+            try
+            {
+                // Query 1: Get Bin by Code
+                var binCodeUpper = request.BinCode?.ToUpper();
+                var bin = await _binRepository.FirstOrDefaultAsync(b => b.Code.ToUpper() == binCodeUpper);
+
+                if (bin != null)
+                {
+                    response.Bin = new BinInfoDomain
+                    {
+                        Code = bin.Code,
+                        Description = bin.Description
+                    };
+
+                    // Query 2: Get WareHouseLocations by BinId where Active = true
+                    var wareHouseLocations = await _wareHouseLocationRepository.GetListAsync(
+                        w => w.BinId == bin.Id && w.Active == true
+                    );
+
+                    response.WareHouseLocations = wareHouseLocations.Select(w => new WareHouseLocationDomain
+                    {
+                        Code = w.Code,
+                        Active = w.Active,
+                        IsDefault = w.IsDefault
+                    }).ToList();
+                }
+
+                // Query 3: Get InventoryDocs by DocumentNumber and TransactionType
+                var transactionType = request.TransactionType ?? "Receipt";
+                var inventoryDocs = await _inventoryDocRepository.GetListAsync(
+                    d => d.DocumentNumber == request.DocumentNumber && d.TransactionType == transactionType
+                );
+
+                response.InventoryDocs = inventoryDocs.Select(d => new InventoryDocDomain
+                {
+                    DocumentNumber = d.DocumentNumber,
+                    TransactionDate = d.TransactionDate,
+                    Description = d.Description,
+                    ReferenceNumber = d.ReferenceNumber,
+                    TotalQuantity = d.TotalQuantity,
+                    TransferType = d.TransferType,
+                    ExternalReferenceNumber = d.ExternalReferenceNumber,
+                    ExpectedDate = d.ExpectedDate,
+                    DepotCode = d.DepotCode,
+                    FromWarehouseCode = d.FromWarehouseCode,
+                    ToWarehouseCode = d.ToWarehouseCode,
+                    FromLocationCode = d.FromLocationCode,
+                    ToLocationCode = d.ToLocationCode,
+                    RejectReasonCode = d.RejectReasonCode
+                }).ToList();
+
+                // Query 4: Get InventoryTransactions by DocumentNumber and TransactionType
+                var inventoryTransactions = await _inventoryTransactionRepository.GetListAsync(
+                    t => t.DocumentNumber == request.DocumentNumber && t.TransactionType == transactionType
+                );
+
+                response.InventoryTransactions = inventoryTransactions.Select(t => new InventoryTransactionDomain
+                {
+                    DocumentNumber = t.DocumentNumber,
+                    Quantity = t.Quantity,
+                    CnvtFact = t.CnvtFact,
+                    Description = t.Description,
+                    ToWarehouseCode = t.ToWarehouseCode,
+                    UOMCode = t.UOMCode,
+                    ProductCode = t.ProductCode,
+                    LocationCode = t.LocationCode,
+                    ToLocationCode = t.ToLocationCode,
+                    WarehouseCode = t.WarehouseCode
+                }).ToList();
+
+                // Query 5: Get ItemWarehouses by BinCode and ProductCode
+                var itemWarehouses = await _itemWarehouseRepository.GetListAsync(
+                    iw => iw.BinCode == request.BinCode && iw.ProductCode == request.ProductCode
+                );
+
+                response.ItemWarehouses = itemWarehouses.Select(iw => new ItemWarehouseDomain
+                {
+                    BinCode = iw.BinCode,
+                    ProductCode = iw.ProductCode,
+                    StockingUnitCode = iw.StockingUnitCode,
+                    QuantityOnHand = iw.QuantityOnHand,
+                    QuantityAvailable = iw.QuantityAvailable
+                }).ToList();
+
+                // Query 6: Get ItemLocations by BinCode, ProductCode, and StockingUnitCode (if provided)
+                var itemLocationsQueryable = await _itemLocationRepository.GetQueryableAsync();
+                var itemLocationsQuery = itemLocationsQueryable.Where(
+                    il => il.BinCode == request.BinCode && il.ProductCode == request.ProductCode
+                );
+
+                if (!string.IsNullOrEmpty(request.StockingUnitCode))
+                {
+                    itemLocationsQuery = itemLocationsQuery.Where(il => il.StockingUnitCode == request.StockingUnitCode);
+                }
+
+                var itemLocations = await AsyncExecuter.ToListAsync(itemLocationsQuery);
+
+                response.ItemLocations = itemLocations.Select(il => new ItemLocationDomain
+                {
+                    BinCode = il.BinCode,
+                    WarehouseLocationCode = il.WarehouseLocationCode,
+                    ProductCode = il.ProductCode,
+                    StockingUnitCode = il.StockingUnitCode,
+                    QuantityOnHand = il.QuantityOnHand,
+                    QuantityAvailable = il.QuantityAvailable
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                // Log error if needed
+                throw;
+            }
+
+            return response;
+        }
+
+        #endregion
+
+
+        #region Function ExtendedUser
+        public Task DeleteAsync(Expression<Func<CustomExtendedUser, bool>> predicate, bool autoSave = false, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(CustomExtendedUser entity, bool autoSave = false, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteDirectAsync(Expression<Func<CustomExtendedUser, bool>> predicate, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteManyAsync(IEnumerable<CustomExtendedUser> entities, bool autoSave = false, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CustomExtendedUser?> FindAsync(Expression<Func<CustomExtendedUser, bool>> predicate, bool includeDetails = true, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CustomExtendedUser> GetAsync(Expression<Func<CustomExtendedUser, bool>> predicate, bool includeDetails = true, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<CustomExtendedUser>> GetListAsync(Expression<Func<CustomExtendedUser, bool>> predicate, bool includeDetails = false, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CustomExtendedUser> InsertAsync(CustomExtendedUser entity, bool autoSave = false, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task InsertManyAsync(IEnumerable<CustomExtendedUser> entities, bool autoSave = false, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CustomExtendedUser> UpdateAsync(CustomExtendedUser entity, bool autoSave = false, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateManyAsync(IEnumerable<CustomExtendedUser> entities, bool autoSave = false, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<CustomExtendedUser> WithDetails(params Expression<Func<CustomExtendedUser, object>>[] propertySelectors)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IQueryable<CustomExtendedUser>> WithDetailsAsync(params Expression<Func<CustomExtendedUser, object>>[] propertySelectors)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<CustomExtendedUser?> IReadOnlyBasicRepository<CustomExtendedUser, Guid>.FindAsync(Guid id, bool includeDetails, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<CustomExtendedUser> IReadOnlyBasicRepository<CustomExtendedUser, Guid>.GetAsync(Guid id, bool includeDetails, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<CustomExtendedUser>> IReadOnlyBasicRepository<CustomExtendedUser>.GetListAsync(bool includeDetails, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<CustomExtendedUser>> IReadOnlyBasicRepository<CustomExtendedUser>.GetPagedListAsync(int skipCount, int maxResultCount, string sorting, bool includeDetails, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IQueryable<CustomExtendedUser>> IReadOnlyRepository<CustomExtendedUser>.GetQueryableAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        IQueryable<CustomExtendedUser> IReadOnlyRepository<CustomExtendedUser>.WithDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IQueryable<CustomExtendedUser>> IReadOnlyRepository<CustomExtendedUser>.WithDetailsAsync()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+
+    }
+}
