@@ -35,7 +35,7 @@ Cách dùng file này:
 | Q2 | Mã danh mục lý do từ chối | `KIEMTON_REASON` theo BP; bỏ `KTTK_REJECT`. | T0, T5 | [ ] |
 | Q2b | Loại phiếu lấy từ master `KTTK_CREATE` hay cố định? | **Cố định 3 mã** `NO_ACTUAL` / `ACTUAL` / `ACTUAL_WITH_MANAGER` (logic phụ thuộc). Nhãn lấy từ localization. | T1 | [ ] |
 | Q3 | Có job tự tạo phiếu cuối ngày ("Hệ thống tự động" trong mockup)? | **Không.** Chỉ tạo thủ công. | — | [ ] |
-| Q4 | Số phiếu mỗi đội / ngày | Chặn tạo nếu đội đang có phiếu **Chờ duyệt**. Hủy xong được tạo lại. | T3 | [ ] |
+| Q4 | Số phiếu mỗi đội / ngày | **Chốt 20/10: không chặn**, theo mockup BP trang 67 (có 2 phiếu cùng Chờ duyệt). BCTKĐ lấy phiếu Xác nhận mới nhất trong ngày. | T3 | [x] |
 | Q5 | Thứ tự duyệt và ai tick nghỉ phép | **Người tạo = cấp 1**, NV còn lại = cấp 2, DC/SL = cấp cuối (loại 1.3). Chỉ cấp 1, khi đội có đúng 2 NV, được tick nghỉ phép. | T3 | [ ] |
 | Q6 | Tick từng dòng có lưu server? Có nhập SL thực tế? | **Không lưu**, mỗi người tự tick trên App. **Không** nhập SL thực tế. Server chỉ nhận cờ `allChecked` để kiểm rule. | T5, T6 | [ ] |
 | Q7 | Phiếu Chờ duyệt qua ngày | Giữ nguyên, không tự hủy. `InventoryEndOfDayJob` đã chỉ lọc `TransferOrder`, nên **không đụng** KTTK. | — | [ ] |
