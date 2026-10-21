@@ -440,10 +440,12 @@ Làm theo skill **`report-builder` mode 4** (sửa cả `.psql` và `.repx`).
 
 - **Q1 role DC/SL:**
   - **DC (Depot Chief) = `DEPOTCHIEF`, `DEPOTCHIEF_L1/L2/L3`.** Setting mặc định `DEPOTCHIEF,DEPOTCHIEF_L1,DEPOTCHIEF_L2,DEPOTCHIEF_L3`.
-  - **SL (Sales Leader): hệ thống chưa có role.**
-    - `SS` có mô tả rác ("SSsS"), không có căn cứ là SL.
-    - `TT_L1` = "TT_SALESMAN_L1", tức nhân viên.
-    - **Cần BA chốt tên role**, rồi chỉ thêm vào setting.
+  - **SL (Sales Leader) = `TT_L1`** (user xác nhận 21/10). **Chưa thêm vào setting.** Phần lớn user `TT_L1` có cả role `S` và là thành viên đội, nên còn 2 câu chờ chốt (để sau):
+    1. Phạm vi SL: theo **đội mình là thành viên** (đề xuất) hay theo cả depot như DC? Nếu theo depot, mọi `TT_L1` trong depot sẽ quản lý mọi đội của depot.
+    2. SL vừa là NV:
+       - **A.** Bỏ SL khỏi các bước NV.
+       - **B.** SL vẫn là NV; ở loại ③, bước Quản lý không cho chính SL đó duyệt lại. Đây là phương án nghiêng về.
+    - Khi chốt: sửa `StockCheckManagerChecker` (IsManager / GetManagersDisplay) và `GetTeamSalespersonsAsync`, rồi thêm `TT_L1` vào `Inventory.StockCheck.ManagerRoleNames`.
   - Nguồn:
     - Glossary BP: DC = Trưởng kho bán hàng, SL = Trưởng nhóm bán hàng.
     - Hằng `DepotChiefRoleNames` trong code.
